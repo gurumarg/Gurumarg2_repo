@@ -1,0 +1,27 @@
+{% extends 'basehtml.html' %}
+{% load static %}
+{% block content %}
+
+
+  <div >
+
+    <nav>
+    <ul>
+    <a href="{% url 'home' %}"><b>मुख्य पान </b> </a>
+    <a href="{% url 'annadan' %}"><b> अन्नदान  </b></a>
+    <a href="{% url 'registerpage' %}"><b> नोंदणी करा  </b></a>
+    <a href="{% url 'loginpage' %}"><b> लॉगिन  करा  </b></a>
+
+    </ul>
+    </nav>
+  </div>
+  <div>
+
+    <blockquote>
+      <br><br>
+      <h3>🙏  साहित्य संदर्भात  माहिती लवकरच  सूचित करण्यात येईल    🙏 </h3>
+
+    </blockquote>
+  </div>
+
+{% endblock %}

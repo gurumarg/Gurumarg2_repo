@@ -1,0 +1,26 @@
+{% extends 'basehtml.html' %}
+{% load static %}
+{% block content %}
+
+
+  <div >
+
+    <nav>
+    <ul>
+    <a href="{% url 'home' %}"><b>मुख्य पान  </b> </a>
+    <a href="{% url 'sahitya' %}"><b> साहित्य  </b></a>
+    <a href="{% url 'registerpage' %}"><b> नोंदणी करा  </b></a>
+    <a href="{% url 'loginpage' %}"><b> लॉगिन  करा   </b></a>
+
+    </ul>
+    </nav>
+  </div>
+  <div>
+    <img src="{% static 'images\annadan.png' %}" style="max-width:100%;height:auto;">
+    <blockquote>
+      <h3>Will update</h3>
+
+    </blockquote>
+  </div>
+
+{% endblock %}

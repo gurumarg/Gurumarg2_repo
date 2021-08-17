@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+ <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <title> Gurumarg</title>
+      <style>
+       h1 {
+            color:#f77f05;
+            background:white;
+            text-align:center;
+            padding:15px;
+          }
+       h2  {
+             color:#f70f07;
+             font-size:4vw;
+           }
+       p  {
+             color:#f70f07;
+             font-size:1.5vw;
+          }
+       body  {
+               background:#fed8b1
+             }
+       nav {
+             margin: 0;
+	         padding: 200;
+	         border: 0;
+	         font-size: 100%;
+	         font: inherit;
+             vertical-align: baseline;}
+            }
+       ul {list-style: none;}
+
+       a:link, a:visited {
+                           color:white;
+                           text-decoration: none;
+                           padding: 5px 10px;
+                          }
+       a:link:hover { background-color:#f77f05 }
+       a:active {
+                    color: red;
+                }
+       * {
+            box-sizing: border-box;
+         }
+
+       .column {
+                 float: left;
+                 padding: 10px;
+                 height: 500px;
+                }
+
+       .left {
+               width: 10%;
+              }
+       .right {
+                width: 75%;
+               }
+       /* Clear floats after the columns */
+       .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                  }
+       table
+                 {
+	               border:2px solid black;
+                   border-collapse: collapse;
+                 }
+       td
+               {
+	             border:1px solid black;
+               }
+
+	   th,td
+               {
+                   padding:15px;
+                   text-align:center;
+               }
+       th
+	           {
+
+	              background:grey;
+	              color:white;
+                  border:1px solid white;
+               }
+
+	   tr:hover {background-color: #ddd;}
+       #table-responsive
+	                     {
+   	                        max-height:20em;
+              	          }
+	   thead th
+	            {
+		           position: sticky;
+		           top: 0;
+		           bg : whitesmoke;
+            	   z-index : 5;
+                }
+	   thead th:nth-child(2)
+	             {
+		           position: sticky;
+		           left: 0;
+		           bg : whitesmoke;
+		           z-index : 7;
+		         }
+	   tbody td:nth-child(2)
+	            {
+		           position: sticky;
+		           left: 0;
+		           bg : white;
+		           z-index : 3;
+	           }
+
+
+
+       .divScroll {
+	                overflow:scroll;
+	                height:300px;
+	                width:800px;
+	              }
+
+</style>
+</head>
+<body>
+    <div class="Topheader" >
+       <h1>गुरु मार्ग दर्शन</h1>
+    </div>
+   {% block content %}
+
+   {% endblock %}
+</body>
+</html>

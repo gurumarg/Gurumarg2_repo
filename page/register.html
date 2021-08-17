@@ -1,0 +1,107 @@
+{% extends 'basehtml.html' %}
+{% load static %}
+{% block content %}
+
+  <div >
+    <nav>
+    <ul>
+        <a href="{% url 'home' %}"><b>मुख्य पान  </b> </a>
+        <a href="{% url 'annadan' %}"><b> अन्नदान   </b></a>
+        <a href="{% url 'sahitya' %}"><b> साहित्य  </b></a>
+        <a href="{% url 'loginpage' %}"><b> लॉगिन  करा  </b></a>
+    </ul>
+    </nav>
+  </div>
+   <div>
+        {% for i in messages%}
+        <h3 style="padding-left: 80px">  {{i}}  </h3>
+        {% endfor %}
+   </div>
+  <p style="margin-left:100px"> 🌸   नोंदणी फॉर्म   🌸 </p>
+
+  {% if function == 'verify_email' %}
+
+      <div style="width: 35% ;padding-left: 80px;padding-top: 20px;padding-bottom: 20px;border-style: double; margin-left:20px;margin-top:30px; ">
+
+          <form action="{% url 'verify_ecode' %}" method="POST">
+              {% csrf_token %}
+              <label for="ecode">&nbsp ई-मेल कोड  :</label><br>
+              <input type=text id="ecode" name=ecode size="20" placeholder="enter code"  required/><br><br>
+              <input type="submit" value="verify code" />
+              <a href="{% url 'register' %}" style ="background-color:rgb(150,150,150);margin:15px;color:white;padding:15px 25px;text-align:center; text-decoration:none;
+   display:inline-block;"><b> मागे जा   </b> </a>
+          </form>
+     </div>
+  {% elif function == 'register_form' %}
+
+         <div style="width: 35% ; padding-left: 80px; padding-top: 20px; padding-bottom: 20px; border-style: double; margin-left:20px; margin-top:30px; ">
+             <form action="{% url 'registration_check' %}" method="POST">
+              {% csrf_token %}
+                 <label for="upsarg" style="margin-right: 70px">उपसर्ग:</label><br>
+                 <input placeholder="intials" list="upsarg" size="10" name="listname" value="{{datavalue.upsarg}}"/><br><br>
+                 <datalist id="upsarg">
+                    <option value="श्री ">
+                    <option value="कुमार ">
+                    <option value="कुमारी ">
+                    <option value=" सौं ">
+                    <option value="श्रीमती ">
+                 </datalist>
+                  <label for="first_name" > नाव  :</label><br>
+                  <input type=text id="first_name" name=first_name size="30" placeholder="first name" value="{{datavalue.first_name}}" required/><br><br>
+                  <label for="last_name" > आडनाव   :</label><br>
+                  <input type=text id="last_name" name=last_name size="30" placeholder="last name" value="{{datavalue.last_name}}" required/><br><br>
+                  <input type="hidden" name="email" value={{email}}>
+                  <label for="city">गाव / शहर  :</label><br>
+                  <input type=text id="city" name=city size="20" placeholder="village/city" value="{{datavalue.city}}" required/><br><br>
+                  <label for="ccode" style="margin-right: 60px"> कोड </label>
+
+                  <label for="mobile">मोबाईल क्रमांक  :</label><br>
+                  <input placeholder="+91" list="ccode" size="5" name="mcode" value="{{datavalue.mcode}}"/>
+                  <datalist id="ccode">
+                     <option value="+91">
+                     <option value="+1">
+                  </datalist>
+                  <input type=tel id="mobile" name=mobile size="20" placeholder="mobile" value="{{datavalue.mobile}}" required/><br><br>
+
+                  <label for="ccode1" style="margin-right: 60px">कोड </label>
+                  <label for="wmobile"> व्हाट्सअँप मोबाईल क्रमांक :</label><br>
+                  <input placeholder="+91" list="ccode1" size="5" name="wmcode" value="{{datavalue.wmcode}}" />
+                  <datalist id="ccode1">
+                     <option value="+91">
+                     <option value="+1">
+                  </datalist>
+                  <input type=tel id="wmobile" name=w_mobile size="20" placeholder="watsapp mobile" value="{{datavalue.w_mobile}}" /><br><br>
+
+                  <label for="reffered_by" > ज्यांच्याकडून माहिती मिळाली त्यांचे नाव :</label><br>
+                  <input type=text id="reffered_by" name=reffered_by size="20" placeholder=" पूर्ण नाव " value="{{datavalue.reffered_by}}" required/><br><br>
+                  <label for="sscode">संपर्क सेवेकरी कोड :</label><br>
+                  <input placeholder="sampark sevekari code" list="sscode" size="25" name="sscode1" value="{{datavalue.sscode}}"  required/><br><br>
+                   <datalist id="sscode">
+                       {% for i in data %}
+                       <option value={{i.sscode}}>
+                       {% endfor %}
+                   </datalist>
+
+                  <label for="password1"> पासवर्ड सेट करा  :</label><br>
+                  <input type="password" id="password1"name="password1" size="20" placeholder="password" required> <br><br>
+                  <label for="password2"> कन्फर्म पासवर्ड   :</label><br>
+                  <input type="password" id="password2" name="password2" size="20" placeholder="confirm password" required> <br><br>
+                  <input type="submit" value="submit">
+                  <input type="reset">
+             </form>
+         </div>
+
+
+
+  {% else %}
+      <div style="width: 35% ;padding-left: 80px;padding-top: 20px;padding-bottom: 20px;border-style: double; margin-left:20px;margin-top:30px; ">
+
+           <form action="{% url 'send_email' %}" method="POST">
+               {% csrf_token %}
+               <label for="email">&nbsp ई-मेल  :</label><br>
+               <input type=email id="email" name=email size="30" placeholder="email"  required/><br><br>
+               <input type="submit" value="ई-मेल कोड मिळवा">  </input>
+           </form>
+      </div>
+  {% endif %}
+{% endblock %}

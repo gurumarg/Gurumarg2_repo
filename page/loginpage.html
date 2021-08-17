@@ -1,0 +1,29 @@
+{% extends 'basehtml.html' %}
+{% load static %}
+{% block content %}
+
+  <div >
+    <nav>
+    <ul>
+        <a href="{% url 'home' %}"><b>मुख्य पान  </b> </a>
+        <a href="{% url 'annadan' %}"><b> अन्नदान   </b></a>
+        <a href="{% url 'sahitya' %}"><b> साहित्य  </b></a>
+        <a href="{% url 'registerpage' %}"><b> नोंदणी करा  </b></a>
+    </ul>
+    </nav>
+  </div>
+
+
+<div>
+     <form action="" method="post">
+         {% csrf_token %}
+      <label for="pmobile" > लॉगिन विथ मोबाईल नंबर  :</label><br>
+      <input type=text id="pmobile" name=mobile1 size="20" placeholder="mobile number"  required/><br><br>
+      <label for="ppassword"> पासवर्ड :</label><br>
+      <input type="password" id="ppassword"name="password" size="20" placeholder="password" required> <br><br>
+      <input type="submit">
+     </form>
+
+</div>
+
+{% endblock %}
