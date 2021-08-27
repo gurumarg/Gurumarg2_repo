@@ -11,7 +11,8 @@ urlpatterns = [
       path('register',views.register,name='register'),
       path('send_email',views.send_email,name='send_email'),
       path('verify_ecode',views.verify_ecode,name='verify_ecode'),
-
-
+      path('registration_check',views.registration_check,name='registration_check'),
+      path('applogin',views.applogin,name='applogin'),
+      path('logout',views.userlogout,name='logout'),
 
 ]

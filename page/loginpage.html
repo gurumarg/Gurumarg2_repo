@@ -12,18 +12,22 @@
     </ul>
     </nav>
   </div>
+  <div>
+        {% for i in messages%}
+        <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>
+        {% endfor %}
+   </div>
 
+  <div>
+         <form action="{% url 'applogin' %}" method="post">
+              {% csrf_token %}
+              <label for="pmobile" > लॉगिन विथ मोबाईल नंबर  :</label><br>
+              <input type=text id="pmobile" name=mobile1 size="20" placeholder="mobile number"  required/><br><br>
+              <label for="ppassword"> पासवर्ड :</label><br>
+              <input type="password" id="ppassword"name="password" size="20" placeholder="password" required> <br><br>
+              <input type="submit">
+         </form>
 
-<div>
-     <form action="" method="post">
-         {% csrf_token %}
-      <label for="pmobile" > लॉगिन विथ मोबाईल नंबर  :</label><br>
-      <input type=text id="pmobile" name=mobile1 size="20" placeholder="mobile number"  required/><br><br>
-      <label for="ppassword"> पासवर्ड :</label><br>
-      <input type="password" id="ppassword"name="password" size="20" placeholder="password" required> <br><br>
-      <input type="submit">
-     </form>
-
-</div>
+  </div>
 
 {% endblock %}

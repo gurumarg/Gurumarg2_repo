@@ -1,0 +1,39 @@
+{% extends 'basehtml.html' %}
+{% load static %}
+{% block content %}
+  <h3>{{user_details.first_name}} आपले स्वागत आहे admin page </h3>
+  <a href=" {% url 'logout' %} "><b> &nbsp &nbsp लॉगऑऊट </b> </a><br><br>
+  <div>
+        {% for i in messages%}
+        <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>
+        {% endfor %}
+  </div>
+
+   <div class="row">
+      <div class="column left" style="background-color:#f83f33;">
+         <form action = "" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <button type="submit" name=b1> संपर्क सेवेकरी </button>
+         </form>
+         <form action = "" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1>मेन ऍडमिन </button>
+         </form>
+         <form action = "" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="user" value={{user_details.id}}><br>
+          <button type="submit" name=b1>प्रश्नकर्ता </button>
+         </form>
+
+
+         <br>
+      </div>
+      <div class="column right" >
+
+      </div>
+   </div>
+
+
+{% endblock %}
