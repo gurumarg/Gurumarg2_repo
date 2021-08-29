@@ -20,6 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
     path('question_form',include('common.urls')),
-
+    path('users_page',include('admin.urls')),
 
 ]

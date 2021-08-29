@@ -11,12 +11,18 @@
 
    <div class="row">
       <div class="column left" style="background-color:#f83f33;">
-         <form action = "" method="post">
+         <form action = "{% url 'ss_data' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <button type="submit" name=b1> संपर्क सेवेकरी </button>
          </form>
-         <form action = "" method="post">
+         <form action = "{% url 'add_ss' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1>अॅड  :संपर्क सेवेकरी   </button>
+         </form>
+
+         <form action = "{% url 'listof_main_admin' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
               <button type="submit" name=b1>मेन ऍडमिन </button>
@@ -26,11 +32,157 @@
           <input type="hidden" name="user" value={{user_details.id}}><br>
           <button type="submit" name=b1>प्रश्नकर्ता </button>
          </form>
-
+         <form action="{% url 'return_to_home' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="user" value={{user_details.id}}><br>
+                <button type="submit" name=b2 > मागे जा    </button>
+         </form>
 
          <br>
       </div>
       <div class="column right" >
+      {% if function1 == 'sst' %}
+            <form action="{% url 'edit_ss_data' %}" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive1">
+
+                 <table >
+                    <Caption><b>संपर्क सेवेकरी लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in ss_table %}
+                        <tr>
+	                       <td><input type="radio" id="id10" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+             <br><br>
+                <p>** <b>संपर्क सेवेकरी मॉडिफाय करायचे असेल तर खाली टाईप सिलेक्ट करून  सेव्ह  करावे </b> **</p>
+                <div>
+                     <label for="type1"><b>कृपया टाईप सिलेक्ट करा </b> :</label>
+                     <input placeholder="Please select type" list="type1" size="25" name="type"   required/><br><br>
+                     <datalist id="type1">
+                     <option value="verified">
+                     <option value="main_admin">
+                     </datalist>
+                </div>
+                 <input type="hidden" name="user" value={{user_details.id}}><br>
+                 <button type="submit" name=b2 > सेव्ह  करा    </button>
+            </form>
+         {% endif %}
+         {% if function2 == 'ass' %}
+               <form action="{% url 'edit_ss_data' %}" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive3">
+
+                 <table >
+                    <Caption><b>लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in ss_table %}
+                        <tr>
+	                       <td><input type="radio" id="id12" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+             <br><br>
+                <p>** <b>संपर्क सेवेकरी किंवा मेन ऍडमिन  अ‍ॅड करायचे असेल तर खाली टाईप सिलेक्ट करून  सेव्ह  करावे </b> **</p>
+                <div>
+                     <label for="type3"><b>कृपया टाईप सिलेक्ट करा </b> :</label>
+                     <input placeholder="Please select type" list="type3" size="25" name="type"   required/><br><br>
+                     <datalist id="type3">
+                     <option value="sampark_sevekari">
+                     </datalist>
+                </div>
+                 <input type="hidden" name="user" value={{user_details.id}}><br>
+                 <button type="submit" name=b2 > सेव्ह  करा    </button>
+            </form>
+         {% endif %}
+
+         {% if function3 == 'listof_main_admins' %}
+            <form action="" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive2">
+
+                 <table >
+                    <Caption><b> मेन ऍडमिन लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in data %}
+                        <tr>
+	                       <td><input type="radio" id="id11" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+            </form>
+        {% endif %}
+
 
       </div>
    </div>

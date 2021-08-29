@@ -26,6 +26,11 @@
           <input type="hidden" name="user" value={{user_details.id}}><br>
           <button type="submit" name=b1>अप्रूव्ह  करा   </button>
          </form>
+          <form action = "{% url 'users_page' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="user" value={{user_details.id}}><br>
+          <button type="submit" name=b1> यूजर्स    </button>
+         </form>
 
          <br>
       </div>
