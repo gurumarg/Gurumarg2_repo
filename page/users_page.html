@@ -27,10 +27,20 @@
               <input type="hidden" name="user" value={{user_details.id}}><br>
               <button type="submit" name=b1>मेन ऍडमिन </button>
          </form>
-         <form action = "" method="post">
+         <form action = "{% url 'listof_prashankarta' %}" method="post">
           {% csrf_token %}
           <input type="hidden" name="user" value={{user_details.id}}><br>
           <button type="submit" name=b1>प्रश्नकर्ता </button>
+         </form>
+         <form action="{% url 'listof_rejected' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="user" value={{user_details.id}}><br>
+                <button type="submit" name=b2 > रिजेक्टटेड </button>
+         </form>
+         <form action="{% url 'listof_unverified' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="user" value={{user_details.id}}><br>
+                <button type="submit" name=b2 > अनवेरिफाइड  </button>
          </form>
          <form action="{% url 'return_to_home' %}" method="post">
                 {% csrf_token %}
@@ -167,6 +177,123 @@
                         {% for i in data %}
                         <tr>
 	                       <td><input type="radio" id="id11" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+            </form>
+        {% endif %}
+         {% if function4 == 'listof_prashankarta' %}
+            <form action="" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive4">
+
+                 <table >
+                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in data %}
+                        <tr>
+	                       <td><input type="radio" id="id13" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+            </form>
+        {% endif %}
+        {% if function5 == 'listof_rejected' %}
+            <form action="" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive5">
+
+                 <table >
+                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in data %}
+                        <tr>
+	                       <td><input type="radio" id="id14" name="select_name" value={{i.id}} required></td>
+			               <td>{{i.id}}</td>
+	                       <td>{{i.first_name}}</td>
+                           <td>{{i.last_name}}</td>
+                           <td>{{i.email}}</td>
+                           <td>{{i.mobile1}}</td>
+	                       <td>{{i.city}}</td>
+	                       <td>{{i.sscode}}</td>
+	                     </tr>
+                        {% endfor %}
+                   </tbody>
+                   </table>
+                 </div>
+               </div>
+            </form>
+        {% endif %}
+        {% if function6 == 'listof_unverified' %}
+            <form action="" method="post">
+	            {% csrf_token %}
+               <div  class="divScroll" style="border-style: double">
+               <div id="table-responsive6">
+
+                 <table >
+                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                   <thead>
+	                 <tr>
+			        	<th scope="col">Select</th>
+	                    <th scope="col">ID</th>
+	                    <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+	                    <th scope="col">email</th>
+	                    <th scope="col">Mobile</th>
+	                    <th scope="col">City</th>
+                        <th scope="col">SS code</th>
+	                 </tr>
+                   </thead>
+                   <tbody>
+                        {% for i in data %}
+                        <tr>
+	                       <td><input type="radio" id="id15" name="select_name" value={{i.id}} required></td>
 			               <td>{{i.id}}</td>
 	                       <td>{{i.first_name}}</td>
                            <td>{{i.last_name}}</td>

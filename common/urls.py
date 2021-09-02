@@ -10,5 +10,12 @@ urlpatterns = [
      path('verify_recode',views.verify_recode,name='verify_recode'),
      path('approve_kara',views.approve_kara, name='approve_kara'),
      path('modify_user_type',views.modify_user_type,name='modify_user_type'),
+     path('new_question',views.new_question,name='new_question'),
+     path('repeat_question',views.repeat_question,name='repeat_question'),
+     path('submit_repeat_question',views.submit_repeat_question,name='submit_repeat_question'),
+     path('select_question_seva',views.select_question_seva,name='select_question_seva'),
+     path('view_seva',views.view_seva,name='view_seva'),
+     path('view_selectedsevaid',views.view_selectedsevaid,name = 'view_selectedsevaid'),
+     path('update_seva',views.update_seva,name='update_seva'),
 
 ]

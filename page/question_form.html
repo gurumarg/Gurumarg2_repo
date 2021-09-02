@@ -8,213 +8,324 @@
         <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>
         {% endfor %}
   </div>
+  <div class="row">
+      <div class="column left" style="background-color:white;">
+         <form action = "{% url 'new_question' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <button type="submit" name=b1>नवीन प्रश्न </button>
+         </form>
+         <form action = "{% url 'repeat_question' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1 value="b1">जुना प्रश्न पुन्हा करा</button>
+         </form>
+         <form action = "{% url 'repeat_question' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1 value="b2">आधीचे प्रश्न बघा </button>
+         </form>
+         <form action="{% url 'return_to_home' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b2 > मागे जा    </button>
+         </form>
 
-  <div style=" padding-left: 20px;  ">
-            <form action="{% url 'save_prashan' %}" method="post">
-                {% csrf_token %}
-                      <script type="text/javascript">
-                            function populate(s1,s2,lnum,textnum,listlabel) {
-                                var s1 = document.getElementById(s1);
-                                var s2 = document.getElementById(s2);
-                                var lnum = document.getElementById(lnum);
-                                var textnum = document.getElementById(textnum);
-                                var listlabel = document.getElementById(listlabel);
+         <br>
+      </div>
+      <div class="column right" >
+      {%if function1 == 'new question' %}
 
-
-                                s2.innerHTML = "" ;
-                                var newOption = document.createElement("option");
-                                newOption.value = "none";
-                                newOption.innerHTML = "none";
-                                s2.options.add(newOption);
-                                s2.style.display = "block";
-                                listlabel.style.visibility = "visible";
-                                lnum.style.visibility = "hidden";
-                                textnum.type = "hidden";
-                                textnum.size = "25"
-                                textnum.required = "false"
-                                if (s1.value == "g1"){
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|", " नौकरी आहे | नौकरी आहे " , " व्यवसाय आहे | व्यवसाय आहे "]
-
-                                }   else if (s1.value == "g2"){
-                                       adjust()
-                                       lnum.innerHTML ="कोणत्या क्षेत्रात व्यवसाय करता  "
-
-                               }  else if (s1.value == "g3"){
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","पदवीधर|पदवीधर ","पदव्युत्तर|पदव्युत्तर","आयटीआय|आयटीआय ","बारावी|बारावी"]
-
-                               }   else if (s1.value == "g4"){
-                                       semiadjust()
-
-                               }   else if (s1.value == "g5"){
-                                       adjust()
-                                       lnum.innerHTML = "व्याधी बद्दल माहिती द्या  "
-
-                              } else if (s1.value == "g6") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","शालेय शिक्षण(1ते12)|शालेय शिक्षण(1ते12) ","पदवी|पदवी","पदव्युत्तर|पदव्युत्तर"]
-
-                               } else if (s1.value == "g7") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","मालकीचा प्लॉट आहे | मालकीचा प्लॉट आहे","मालकीचा प्लॉट नाही|मालकीचा प्लॉट नाही"]
-
-                                } else if (s1.value == "g8") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","वय 18 ते 25|वय 18 ते 25", "वय 25 ते 40|वय 25 ते 40","वय 40 ते 50|वय 40 ते 50","पुनर्विवाहयोग|पुनर्विवाहयोग" ]
-
-                                } else if (s1.value == "g9") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","लग्नाला 4 ते10 वर्षे|लग्नाला 4 ते10 वर्षे","लग्नाला 10 ते 15 वर्षे|लग्नाला 10 ते 15 वर्षे"]
-
-                               }   else if (s1.value == "g10"){
-                                       semiadjust()
-
-                                } else if (s1.value == "g11") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","प्रॉपर्टीविषयी|प्रॉपर्टीविषयी ","घटस्फोटाविषयी|घटस्फोटाविषयी","इतरविषयी|इतरविषयी"]
-
-                                } else if (s1.value == "g12") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","गुरुदिक्षा घेतलेली|गुरुदिक्षा घेतलेली ","गुरुदिक्षा नाही घेतली|गुरुदिक्षा नाही घेतली"]
-
-                                 } else if (s1.value == "g13") {
-                                      s2.innerHTML = "" ;
-                                      var optionArray = ["|","गंभीर आजार| गंभीर आजार ","सौम्य आजार|सौम्य आजार","सारखा दवाखाना चालु|सारखा दवाखाना चालु"]
-
-                                 }   else if (s1.value == "g14"){
-                                       semiadjust()
-
-                                }   else if (s1.value == "g15"){
-                                       semiadjust()
-
-                               }   else if (s1.value == "g16"){
-                                       semiadjust()
-
-                                }   else if (s1.value == "g17"){
-                                       adjust()
-                                       lnum.innerHTML = "तुमचा प्रश्न लिहा"
-                                       textnum.size = "100"
-
-                              }
+             <div style=" padding-left: 20px;  ">
+                    <form action="{% url 'save_prashan' %}" method="post">
+                        {% csrf_token %}
+                              <script type="text/javascript">
+                                    function populate(s1,s2,lnum,textnum,listlabel) {
+                                        var s1 = document.getElementById(s1);
+                                        var s2 = document.getElementById(s2);
+                                        var lnum = document.getElementById(lnum);
+                                        var textnum = document.getElementById(textnum);
+                                        var listlabel = document.getElementById(listlabel);
 
 
-                                 for (var option in optionArray){
-                                  var pair = optionArray[option].split("|");
-                                  var newOption = document.createElement("option");
-                                   newOption.value = pair[0];
-                                   newOption.innerHTML = pair[1];
-                                   s2.options.add(newOption);
-                                   s2.setAttribute.required="true";
+                                        s2.innerHTML = "" ;
+                                        var newOption = document.createElement("option");
+                                        newOption.value = "none";
+                                        newOption.innerHTML = "none";
+                                        s2.options.add(newOption);
+                                        s2.style.display = "block";
+                                        listlabel.style.visibility = "visible";
+                                        lnum.style.visibility = "hidden";
+                                        textnum.type = "hidden";
+                                        textnum.size = "25"
+                                        textnum.required = "false"
+                                        if (s1.value == "g1"){
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|", " नौकरी आहे | नौकरी आहे " , " व्यवसाय आहे | व्यवसाय आहे "]
 
-                            }
+                                        }   else if (s1.value == "g2"){
+                                               adjust()
+                                               lnum.innerHTML ="कोणत्या क्षेत्रात व्यवसाय करता  "
 
-                            function adjust()
-                            {
-                                       var optionArray = ["|"];
-                                       s2.style.display = "none";
-                                       listlabel.style.visibility = "hidden";
-                                       lnum.style.visibility = "visible";
-                                       textnum.type = "text";
-                                       textnum.required = "true"
-                                       return
-                            }
+                                       }  else if (s1.value == "g3"){
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","पदवीधर|पदवीधर ","पदव्युत्तर|पदव्युत्तर","आयटीआय|आयटीआय ","बारावी|बारावी"]
 
-                            function semiadjust()
-                            {
+                                       }   else if (s1.value == "g4"){
+                                               semiadjust()
 
-                                       var optionArray = ["|"];
-                                       s2.style.display = "none";
-                                       listlabel.style.visibility = "hidden";
+                                       }   else if (s1.value == "g5"){
+                                               adjust()
+                                               lnum.innerHTML = "व्याधी बद्दल माहिती द्या  "
 
-                            }
+                                      } else if (s1.value == "g6") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","शालेय शिक्षण(1ते12)|शालेय शिक्षण(1ते12) ","पदवी|पदवी","पदव्युत्तर|पदव्युत्तर"]
 
-                            }
-                      </script>
-                            <h4> प्रश्न १ ( किमान प्रश्न १ भरणे बंधनकारक आहे )</h4>
-                            <hr/>
-                            आपल्या प्रश्नाचे स्वरुप पुढीलपैकी असल्यास निवडावे *:<br>
-                            <select id = "slct1" name="slct1" required onchange="populate(this.id,'slct2','l3','text1','l1')    ">
-                               <option value=""></option>
-                               <option value="g1">आर्थिक प्रगती</option>
-                               <option value="g2">व्यवसायात यश मिळेल का?</option>
-                               <option value="g3">नौकरीयोग</option>
-                               <option value="g4">शेतात उत्पन्न कमी</option>
-                               <option value="g5">जनावरांच्या व्याधीबाबत</option>
-                               <option value="g6">शिक्षणात प्रगती</option>
-                               <option value="g7">स्वतःच्या घराचे योग</option>
-                               <option value="g8"> विवाहयोग </option>
-                               <option value="g9">संतानप्राप्ती योग</option>
-                               <option value="g10">विवाहीता असुन माहेरी राहते सासरी परत नेतील का?</option>
-                               <option value="g11">कोर्टकचेरी अनुकुलता</option>
-                               <option value="g12">आध्यात्मिक प्रगती होणेबाबत</option>
-                               <option value="g13">आरोग्य विषयक</option>
-                               <option value="g14">घरात अशांतता</option>
-                               <option value="g15">कुलदेवीबाबत माहीती नाही</option>
-                               <option value="g16">बाहेरबाधेचा त्रास</option>
-                               <option value="g17">इतर </option>
+                                       } else if (s1.value == "g7") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","मालकीचा प्लॉट आहे | मालकीचा प्लॉट आहे","मालकीचा प्लॉट नाही|मालकीचा प्लॉट नाही"]
 
-                            </select>
-                            <hr/>
+                                        } else if (s1.value == "g8") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","वय 18 ते 25|वय 18 ते 25", "वय 25 ते 40|वय 25 ते 40","वय 40 ते 50|वय 40 ते 50","पुनर्विवाहयोग|पुनर्विवाहयोग" ]
 
-                            <label for="slct2" id="l1">प्रश्नाच्या स्वरूपावरून पुढील निवड करावी * :</label><br>
-                            <select id = "slct2" name="slct2" required >
-                              <option value="select">select</option>
-                            </select><br>
-                             <label id="l3" style="visibility:hidden">अधिक माहिती द्या</label>
-                             <input type="hidden" id="text1" name="text1" /><br>
-                             <hr/>
-                            <h4> प्रश्न २ </h4>
-                            <hr/>
-                            आपल्या प्रश्नाचे स्वरुप पुढीलपैकी असल्यास निवडावे :<br>
-                            <select id = "slct3" name="slct3" onchange="populate(this.id,'slct4','l4','text2','l5')">
-                               <option value=""></option>
-                               <option value="g1">आर्थिक प्रगती</option>
-                               <option value="g2">व्यवसायात यश मिळेल का?</option>
-                               <option value="g3">नौकरीयोग</option>
-                               <option value="g4">शेतात उत्पन्न कमी</option>
-                               <option value="g5">जनावरांच्या व्याधीबाबत</option>
-                               <option value="g6">शिक्षणात प्रगती</option>
-                               <option value="g7">स्वतःच्या घराचे योग</option>
-                               <option value="g8"> विवाहयोग </option>
-                               <option value="g9">संतानप्राप्ती योग</option>
-                               <option value="g10">विवाहीता असुन माहेरी राहते सासरी परत नेतील का?</option>
-                               <option value="g11">कोर्टकचेरी अनुकुलता</option>
-                               <option value="g12">आध्यात्मिक प्रगती होणेबाबत</option>
-                               <option value="g13">आरोग्य विषयक</option>
-                               <option value="g14">घरात अशांतता</option>
-                               <option value="g15">कुलदेवीबाबत माहीती नाही</option>
-                               <option value="g16">बाहेरबाधेचा त्रास</option>
-                               <option value="g17">इतर </option>
+                                        } else if (s1.value == "g9") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","लग्नाला 4 ते10 वर्षे|लग्नाला 4 ते10 वर्षे","लग्नाला 10 ते 15 वर्षे|लग्नाला 10 ते 15 वर्षे"]
+
+                                       }   else if (s1.value == "g10"){
+                                               semiadjust()
+
+                                        } else if (s1.value == "g11") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","प्रॉपर्टीविषयी|प्रॉपर्टीविषयी ","घटस्फोटाविषयी|घटस्फोटाविषयी","इतरविषयी|इतरविषयी"]
+
+                                        } else if (s1.value == "g12") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","गुरुदिक्षा घेतलेली|गुरुदिक्षा घेतलेली ","गुरुदिक्षा नाही घेतली|गुरुदिक्षा नाही घेतली"]
+
+                                         } else if (s1.value == "g13") {
+                                              s2.innerHTML = "" ;
+                                              var optionArray = ["|","गंभीर आजार| गंभीर आजार ","सौम्य आजार|सौम्य आजार","सारखा दवाखाना चालु|सारखा दवाखाना चालु"]
+
+                                         }   else if (s1.value == "g14"){
+                                               semiadjust()
+
+                                        }   else if (s1.value == "g15"){
+                                               semiadjust()
+
+                                       }   else if (s1.value == "g16"){
+                                               semiadjust()
+
+                                        }   else if (s1.value == "g17"){
+                                               adjust()
+                                               lnum.innerHTML = "तुमचा प्रश्न लिहा"
+                                               textnum.size = "100"
+
+                                      }
 
 
+                                         for (var option in optionArray){
+                                          var pair = optionArray[option].split("|");
+                                          var newOption = document.createElement("option");
+                                           newOption.value = pair[0];
+                                           newOption.innerHTML = pair[1];
+                                           s2.options.add(newOption);
+                                           s2.setAttribute.required="true";
 
-                            </select>
-                            <hr/>
-                          <label for="slct4" id="l5">प्रश्नाच्या स्वरूपावरून पुढील निवड करावी * :</label><br>
-                            <select id = "slct4" name="slct4" >
-                              <option value="select"> select </option>
-                            </select><br>
+                                    }
 
-                            <label id="l4" style="visibility:hidden">अधिक माहिती द्या</label><br>
-                            <input type="hidden" id="text2" name="text2" /><br>
+                                    function adjust()
+                                    {
+                                               var optionArray = ["|"];
+                                               s2.style.display = "none";
+                                               listlabel.style.visibility = "hidden";
+                                               lnum.style.visibility = "visible";
+                                               textnum.type = "text";
+                                               textnum.required = "true"
+                                               return
+                                    }
+
+                                    function semiadjust()
+                                    {
+
+                                               var optionArray = ["|"];
+                                               s2.style.display = "none";
+                                               listlabel.style.visibility = "hidden";
+
+                                    }
+
+                                    }
+                              </script>
+                                    <h4> प्रश्न १ ( किमान प्रश्न १ भरणे बंधनकारक आहे )</h4>
+                                    <hr/>
+                                    आपल्या प्रश्नाचे स्वरुप पुढीलपैकी असल्यास निवडावे *:<br>
+                                    <select id = "slct1" name="slct1" required onchange="populate(this.id,'slct2','l3','text1','l1')    ">
+                                       <option value=""></option>
+                                       <option value="g1">आर्थिक प्रगती</option>
+                                       <option value="g2">व्यवसायात यश मिळेल का?</option>
+                                       <option value="g3">नौकरीयोग</option>
+                                       <option value="g4">शेतात उत्पन्न कमी</option>
+                                       <option value="g5">जनावरांच्या व्याधीबाबत</option>
+                                       <option value="g6">शिक्षणात प्रगती</option>
+                                       <option value="g7">स्वतःच्या घराचे योग</option>
+                                       <option value="g8"> विवाहयोग </option>
+                                       <option value="g9">संतानप्राप्ती योग</option>
+                                       <option value="g10">विवाहीता असुन माहेरी राहते सासरी परत नेतील का?</option>
+                                       <option value="g11">कोर्टकचेरी अनुकुलता</option>
+                                       <option value="g12">आध्यात्मिक प्रगती होणेबाबत</option>
+                                       <option value="g13">आरोग्य विषयक</option>
+                                       <option value="g14">घरात अशांतता</option>
+                                       <option value="g15">कुलदेवीबाबत माहीती नाही</option>
+                                       <option value="g16">बाहेरबाधेचा त्रास</option>
+                                       <option value="g17">इतर </option>
+
+                                    </select>
+                                    <hr/>
+
+                                    <label for="slct2" id="l1">प्रश्नाच्या स्वरूपावरून पुढील निवड करावी * :</label><br>
+                                    <select id = "slct2" name="slct2" required >
+                                      <option value="select">select</option>
+                                    </select><br>
+                                     <label id="l3" style="visibility:hidden">अधिक माहिती द्या</label>
+                                     <input type="hidden" id="text1" name="text1" /><br>
+                                     <hr/>
+                                    <h4> प्रश्न २ </h4>
+                                    <hr/>
+                                    आपल्या प्रश्नाचे स्वरुप पुढीलपैकी असल्यास निवडावे :<br>
+                                    <select id = "slct3" name="slct3" onchange="populate(this.id,'slct4','l4','text2','l5')">
+                                       <option value=""></option>
+                                       <option value="g1">आर्थिक प्रगती</option>
+                                       <option value="g2">व्यवसायात यश मिळेल का?</option>
+                                       <option value="g3">नौकरीयोग</option>
+                                       <option value="g4">शेतात उत्पन्न कमी</option>
+                                       <option value="g5">जनावरांच्या व्याधीबाबत</option>
+                                       <option value="g6">शिक्षणात प्रगती</option>
+                                       <option value="g7">स्वतःच्या घराचे योग</option>
+                                       <option value="g8"> विवाहयोग </option>
+                                       <option value="g9">संतानप्राप्ती योग</option>
+                                       <option value="g10">विवाहीता असुन माहेरी राहते सासरी परत नेतील का?</option>
+                                       <option value="g11">कोर्टकचेरी अनुकुलता</option>
+                                       <option value="g12">आध्यात्मिक प्रगती होणेबाबत</option>
+                                       <option value="g13">आरोग्य विषयक</option>
+                                       <option value="g14">घरात अशांतता</option>
+                                       <option value="g15">कुलदेवीबाबत माहीती नाही</option>
+                                       <option value="g16">बाहेरबाधेचा त्रास</option>
+                                       <option value="g17">इतर </option>
 
 
-                            <hr/>
-                     <input type="hidden" name="user" value={{user_details.id}}>
-                     <button type="submit" name=b2>सेव्ह करा   </button>
-            </form>
 
-              <form action="{% url 'return_to_home' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button type="submit" name=b2 > मागे जा    </button>
-              </form>
+                                    </select>
+                                    <hr/>
+                                  <label for="slct4" id="l5">प्रश्नाच्या स्वरूपावरून पुढील निवड करावी * :</label><br>
+                                    <select id = "slct4" name="slct4" >
+                                      <option value="select"> select </option>
+                                    </select><br>
+
+                                    <label id="l4" style="visibility:hidden">अधिक माहिती द्या</label><br>
+                                    <input type="hidden" id="text2" name="text2" /><br>
+
+
+                                    <hr/>
+                             <input type="hidden" name="user" value={{user_details.id}}>
+                             <button type="submit" name=b2>सेव्ह करा   </button>
+                    </form>
+
+
+
+             </div>
+      {% endif %}
+      {% if function2 == 'repeat question' %}
+
+                   <form action="{% url 'submit_repeat_question' %}" method="post">
+                       {% csrf_token %}
+                        <div  class="divScroll" style="border-style: double">
+                        <div id="table-responsive5">
+
+                           <table >
+                               <Caption><b> प्रश्न यादी  </b> </caption>
+                               <thead>
+                                 <tr>
+                                    <th scope="col">Select</th>
+                                    <th scope="col">Session ID</th>
+                                    <th scope="col">Date Filled</th>
+                                    <th scope="col">Prashan1</th>
+                                    <th scope="col">Prashan2</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+                                 {% for i in data %}
+                                   <tr>
+                                     <td><input type="radio" id="id14" name="select_questions" value={{i.session_id}} required></td>
+                                     <td>{{i.session_id}}</td>
+                                     <td>{{i.Date_filled}}</td>
+                                     <td>{{i.prashan1}}</td>
+                                     <td>{{i.prashan2}}</td>
+                                   </tr>
+
+                                 {% endfor %}
+                               </tbody>
+                           </table>
+                        </div>
+                        </div>
+                         <br><br>
+                             {% if data %}
+                                <p>** <b>वरील प्रश्न यादी मधून प्रश्न सिलेक्ट करून सबमिट बटण वर क्लिक करा   </b> **</p>
+                                <div>
+
+                                    <input type="hidden" name="user" value={{user_details.id}}><br>
+
+                                    <button type="submit" name=b2 >सबमिट </button>
+                                </div>
+                             {% endif %}
+                   </form>
+      {% endif %}
+
+      {% if function2 == 'repeat question data' %}
+
+                   <form action="{% url 'submit_repeat_question' %}" method="post">
+                       {% csrf_token %}
+                        <div  class="divScroll" style="border-style: double">
+                        <div id="table-responsive6">
+
+                           <table >
+                               <Caption><b> प्रश्न यादी  </b> </caption>
+                               <thead>
+                                 <tr>
+                                    <th scope="col">Session ID</th>
+                                    <th scope="col">Date Filled</th>
+                                    <th scope="col">Prashan1</th>
+                                    <th scope="col">Prashan2</th>
+                                     <th scope="col">status</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+                                 {% for i in data %}
+                                   <tr>
+                                     <td>{{i.session_id}}</td>
+                                     <td>{{i.Date_filled}}</td>
+                                     <td>{{i.prashan1}}</td>
+                                     <td>{{i.prashan2}}</td>
+                                     <td>{{i.status}}</td>
+                                   </tr>
+
+                                 {% endfor %}
+                               </tbody>
+                           </table>
+                        </div>
+                        </div>
+                         <br><br>
+
+                   </form>
+      {% endif %}
+
+
+
+
+
+
+      </div>
   </div>
-
-
-
-
-
 
 {% endblock %}

@@ -22,10 +22,16 @@
               <button type="submit" name=b1>प्रोफाइल</button>
          </form>
          <form action = "{% url 'approve_kara' %}" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button type="submit" name=b1>अप्रूव्ह  करा   </button>
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1>अप्रूव्ह  करा   </button>
+          </form>
+          <form action = "{% url 'select_question_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1> सेवा पहा /अपडेट करा   </button>
          </form>
+
          <br>
       </div>
       <div class="column right" >

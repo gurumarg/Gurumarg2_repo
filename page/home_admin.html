@@ -22,19 +22,152 @@
               <button type="submit" name=b1>प्रोफाइल</button>
          </form>
          <form action = "{% url 'approve_kara' %}" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button type="submit" name=b1>अप्रूव्ह  करा   </button>
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1>अप्रूव्ह  करा   </button>
          </form>
           <form action = "{% url 'users_page' %}" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button type="submit" name=b1> यूजर्स    </button>
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b1> यूजर्स    </button>
          </form>
+         <form action = "{% url 'select_pk_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+               <input type="hidden" name="x" value="schedule"/>
+              <button type="submit" name=b1>  शेड्युल करा   </button>
+         </form>
+         <form action = "{% url 'select_pk_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="seva"/><br>
+              <button type="submit" name=b1> सेवा </button>
+         </form>
+         <form action = "{% url 'select_question_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="viewseva"/><br>
+              <button type="submit" name=b1> सेवा पहा / अपडेट करा   </button>
+         </form>
+
 
          <br>
       </div>
       <div class="column right" >
+          {% if function2 == 'ud1' %}
+
+                <form action="{% url 'prashan_schedule' %}" method="post">
+                        {% csrf_token %}
+                      <div  class="divScroll" style="border-style: double">
+                      <div id="table-responsive5">
+
+                       <table >
+                         <Caption><b> प्रश्नकर्ता यादी  </b> </caption>
+                         <thead>
+                            <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Session ID</th>
+                            <th scope="col">Date Filled</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Prashan1</th>
+                            <th scope="col">Prashan2</th>
+                            <th scope="col">Mobile1</th>
+                            <th scope="col">Mobile2</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for i in userlist %}
+                             <tr>
+                                 <td><input type="radio" id="id14" name="select_questions" value={{i.session_id}} required></td>
+                                <td>{{i.user_id}}</td>
+                                <td>{{i.session_id}}</td>
+                                <td>{{i.Date_filled}}</td>
+                                <td>{{i.full_name}}</td>
+                                <td>{{i.city}}</td>
+                                <td>{{i.prashan1}}</td>
+                                <td>{{i.prashan2}}</td>
+                                <td>{{i.mobile1}}</td>
+                                <td>{{i.mobile2}}</td>
+
+                               </tr>
+
+                            {% endfor %}
+
+                         </tbody>
+                       </table>
+                      </div>
+                      </div>
+                     <br><br>
+                            <p>** <b>वरील प्रश्नकर्ते सिलेक्ट करून  सेव्ह करा  </b> **</p>
+                            <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+
+                             <button type="submit" name=b2 > सेव्ह  करा    </button>
+
+                            </div>
+
+                </form>
+          {% endif %}
+          {% if function2 == 'schedule_data' %}
+
+          <form action="{% url 'load_sevaform' %}" method="post">
+          	{% csrf_token %}
+          <div  class="divScroll" style="border-style: double">
+          <div id="table-responsive4">
+
+           <table >
+             <Caption><b> शेड्युल प्रश्नकर्ता यादी  </b> </caption>
+             <thead>
+	            <tr>
+				<th scope="col">Select</th>
+	            <th scope="col">ID</th>
+                <th scope="col">Session ID</th>
+	            <th scope="col">Date Filled</th>
+                <th scope="col">Full Name</th>
+	            <th scope="col">City</th>
+	            <th scope="col">Prashan1</th>
+	            <th scope="col">Prashan2</th>
+                <th scope="col">Mobile1</th>
+                <th scope="col">Mobile2</th>
+	            </tr>
+             </thead>
+             <tbody>
+               {% for i in userlist %}
+                 <tr>
+                    <td><input type="radio" id="id4" name="select_name" value={{i.session_id}} required></td>
+			        <td>{{i.user_id}}</td>
+                    <td>{{i.session_id}}</td>
+                    <td>{{i.Date_filled}}</td>
+	                <td>{{i.full_name}}</td>
+                    <td>{{i.city}}</td>
+                    <td>{{i.prashan1}}</td>
+                    <td>{{i.prashan2}}</td>
+                    <td>{{i.mobile1}}</td>
+	                <td>{{i.mobile2}}</td>
+
+                   </tr>
+
+                {% endfor %}
+             </tbody>
+           </table>
+         </div>
+         </div>
+         <br><br>
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button type="submit" name=b2 > सिलेक्ट प्रश्नकर्ता    </button>
+         </form>
+         {% endif %}
+         {% if function2 == 'ds' %}
+             {% for i in display_seva %}
+                {{i}}<br>
+             {% endfor %}
+             {% for i in pending_list %}
+                {{i}}<br>
+             {% endfor %}
+         {% endif %}
+
 
       </div>
    </div>
