@@ -47,6 +47,17 @@
                 <input type="hidden" name="user" value={{user_details.id}}><br>
                 <button type="submit" name=b2 > मागे जा    </button>
          </form>
+          <form action = "{% url 'listof_SS_prashankarta' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="user" value={{user_details.id}}><br>
+          <button type="submit" name=b1 value="tumche_pk"> तुमचे प्रश्नकर्ता  </button>
+         </form>
+         <form action = "{% url 'listof_SS_prashankarta' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="viewseva"/><br>
+              <button type="submit" name=b1 value="prashnakarta_seva"> प्रश्नकर्त्यांची सेवा  </button>
+         </form>
 
          <br>
       </div>
@@ -309,7 +320,189 @@
                </div>
             </form>
         {% endif %}
+        {% if function1 == 'listof_SS_prashankarta' %}
+                <form action="{% url 'select_pp_question_seva' %}" method="post">
+                    {% csrf_token %}
+                   <div  class="divScroll" style="border-style: double">
+                   <div id="table-responsive8">
 
+                     <table >
+                        <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                       <thead>
+                         <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">email</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Mobile 2</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Type</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                            {% for i in data %}
+                            <tr>
+                               <td><input type="radio" id="id1" name="select_name" value={{i.id}} required></td>
+                               <td>{{i.id}}</td>
+                               <td>{{i.first_name}}</td>
+                               <td>{{i.last_name}}</td>
+                               <td>{{i.email}}</td>
+                               <td>{{i.mobile1}}</td>
+                               <td>{{i.mobile2}}</td>
+                               <td>{{i.city}}</td>
+                               <td>{{i.type}}</td>
+                             </tr>
+                            {% endfor %}
+                       </tbody>
+                       </table>
+                     </div>
+                   </div>
+                    {% if x == 'prashnakarta_seva' %}
+
+                         <p>** <b>वरील प्रश्नकर्ते सिलेक्ट करून सिलेक्ट बटणवर क्लिक करा  </b> **</p>
+                            <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+
+                             <button type="submit" name=b1 value="prashnkarta_select" > सिलेक्ट   </button>
+
+                            </div>
+
+                   {% endif %}
+                </form>
+        {% endif %}
+        {% if function2 == 'display questions' %}
+               <form action="{% url 'view_seva_ss' %}" method="post">
+          	      {% csrf_token %}
+                  <div  class="divScroll" style="border-style: double">
+                  <div id="table-responsive9">
+
+                   <table >
+                     <Caption><b> तुम्ही विचारलेले प्रश्न यादी   </b> </caption>
+                     <thead>
+	                   <tr>
+			         	  <th scope="col">Select</th>
+                          <th scope="col">Date Filled</th>
+	                      <th scope="col">Session ID</th>
+                          <th scope="col">Prashan1</th>
+	                      <th scope="col">Prashan2</th>
+                          <th scope="col">Status</th>
+                      </tr>
+                     </thead>
+                     <tbody>
+                        {% for i in pk_table %}
+                           <tr>
+                               <td><input type="radio" id="id17" name="select_session_id" value={{i.session_id}} required></td>
+			                   <td>{{i.Date_filled}}</td>
+                               <td>{{i.session_id}}</td>
+                               <td>{{i.prashan1}}</td>
+                               <td>{{i.prashan2}}</td>
+                               <td>{{i.status}}</td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                   </table>
+                  </div>
+                  </div>
+                  <br><br>
+                  <p>** <b>वरील पैकी प्रश्न सिलेक्ट करून , सिलेक्ट प्रश्न बटन वर क्लिक करा </b> **</p>
+                  <div>
+                       <input type="hidden" name="user" value={{user_details.id}}><br>
+                       <button type="submit" name=b2 > सिलेक्ट प्रश्न </button>
+                  </div>
+               </form>
+           {% endif %}
+           {% if function2 == 'user_seva_display' %}
+             <form action="{% url 'update_seva_ss' %}" method="post">
+                 {% csrf_token %}
+                 <label>प्रश्नकर्त्याचे नाव :</label>{{dic1.pname}}<br><br>
+                 <label > प्रश्न १ :</label>{{dic1.prashan1}}<br><br>
+                 <label > प्रश्न २ </label>{{dic1.prashan2}}<br><br><br>
+
+
+                   <div>
+                      <input type="hidden" name="user" value={{user_details.id}}>
+                      <input type="hidden" name="seva_id" value={{sd.seva_id}}>
+                      <button type="submit" name=b2 > सेव्ह  करा    </button><br>
+                   </div>
+
+                 <br> प्रश्नकर्त्यास सेवा समजून सांगितली असल्यास खालील स्टेटस बदलून सेव्ह बटण वर क्लिक करा <br>
+                 <br> सेवा समजून सांगितली आहे :
+                 <select id="seva_expalined" name="seva_expalined">
+                 {% if sd.seva_explained == True %}
+                     <option value="True" selected> हो </option>
+                     <option value="False"> नाही </option>
+                 {% else %}
+                     <option value="True" > हो </option>
+                     <option value="False" selected> नाही </option>
+                     {% endif %}</select> <br>
+
+                 <br><label ><b> सेवा स्टेटस </b> :</label>&nbsp{{sd.seva_status}}<br><br>
+
+                 <label > <b>अनुभव :</b> </label>&nbsp
+                   {% if sd.anubhav == True %} अनुभव आला आहे {% else %} अनुभव आला नाही {% endif %}<br><br>
+                   {% if sd.seva1 %} {{sd.seva1}} &nbsp {% if sd.status1 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva2 %}{{sd.seva2}} &nbsp {% if sd.status2 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva3 %}{{sd.seva3}} &nbsp {% if sd.status3 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva4 %}{{sd.seva4}} &nbsp {% if sd.status4 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva5 %}{{sd.seva5}} &nbsp {% if sd.status5 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva6 %}{{sd.seva6}} &nbsp {% if sd.status6 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva7 %}{{sd.seva7}} &nbsp {% if sd.status7 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva8 %}{{sd.seva8}} &nbsp {% if sd.status8 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva9 %}{{sd.seva9}} &nbsp {% if sd.status9 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva10 %}{{sd.seva10}} &nbsp {% if sd.status10 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva11 %}{{sd.seva11}} &nbsp {% if sd.status11 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %} {% endif %}<br>
+                   {% if sd.seva12 %}{{sd.seva12}} &nbsp {% if sd.status12 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva13 %}{{sd.seva13}} &nbsp {% if sd.status13 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva14 %}{{sd.seva14}} &nbsp {% if sd.status14 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+                   {% if sd.seva15 %}{{sd.seva15}} &nbsp {% if sd.status15 == True %} सेवा पूर्ण {% else %}  अपूर्ण सेवा {% endif %}{% endif %} <br>
+
+
+             </form>
+    {% endif %}
+    {% if function2 == 'multiple_seva_id' %}
+
+           <form action = "{% url 'view_SS_selectedsevaid' %}" method="post">
+          	      {% csrf_token %}
+                  <div  class="divScroll" style="border-style: double">
+                  <div id="table-responsive7">
+
+                   <table >
+                     <Caption><b> तुमच्या रिपीट प्रश्नाकरिता दिलेल्या सेवा  </b> </caption>
+                     <thead>
+	                   <tr>
+			         	  <th scope="col">Select</th>
+                          <th scope="col">Date Filled</th>
+	                      <th scope="col">Seva ID</th>
+                          <th scope="col">Prashan1</th>
+	                      <th scope="col">Prashan2</th>
+
+                      </tr>
+                     </thead>
+                     <tbody>
+                        {% for i in sd %}
+                           <tr>
+                               <td><input type="radio" id="id16" name="seva_id" value={{i.seva_id}} required></td>
+			                   <td>{{i.date_qa}}</td>
+                               <td>{{i.seva_id}}</td>
+                               <td>{{dic1.prashan1}}</td>
+                               <td>{{dic1.prashan2}}</td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                   </table>
+                  </div>
+                  </div>
+                  <br><br>
+                  <p>** <b> वरील यादीपैकी जी सेवा हवी आहे ती सिलेक्ट करा  </b> **</p>
+                  <div>
+                       <input type="hidden" name="session_id" value={{session_id}}><br>
+                       <input type="hidden" name="user" value={{user_details.id}}><br>
+                       <button type="submit" name=b2 > सिलेक्ट सेवा </button>
+                  </div>
+           </form>
+    {% endif %}
 
       </div>
    </div>
