@@ -9,236 +9,263 @@
         {% endfor %}
   </div>
 
-  </div>
+
 
 
     <form action="{% url 'save_seva' %}" method="post">
-      {% csrf_token %}
-    <fieldset>
-        <input type="hidden" name="user" value={{user_details.id}}>
-        <input type="hidden" name="pid" value={{dic1.pid}}>
-        <input type="hidden" name="session_id" value={{dic1.session_id}}>
-        <input type="hidden" name="email" value={{dic1.email}}>
-        <legend ><b> प्रश्नकर्त्याची माहिती </b></legend>
-        <label for="pname" style="font-size:15px"  >प्रश्न कर्त्याचे  नाव : </label>
-        <input type="text" id="pname" name="pname" style="font-size:15px" size="40" value="{{dic1.full_name}}"/><br><br>
-        <label for="prashan1" style="font-size:15px">प्रश्न १:</label>
-        <input type="text" id="prashan1" name="prashan1" size="150" value="{{dic1.prashan1}}"/><br><br>
-        <label for="prashan2" style="font-size:15px">प्रश्न २:</label>
-        <input type="text" id="prashan2" name="prashan2" size="150" value="{{dic1.prashan2}}" /><br>
-    </fieldset>
-        {% if previous_seva %}
+              {% csrf_token %}
             <fieldset>
-                <legend><b> गुरुवर्यांचे आधीचे उत्तर </b></legend>
-                 {% for i in previous_seva %}
-                   date: {{i.date_qa}} &nbsp prashan1 :&nbsp {{i.guru_ans_p1}} &nbsp prashan2 :&nbsp {{i.guru_ans_p2}}<br>
-                 {% endfor %}
+                <input type="hidden" name="user" value={{user_details.id}}>
+                <input type="hidden" name="pid" value={{dic1.pid}}>
+                <input type="hidden" name="session_id" value={{dic1.session_id}}>
+                <input type="hidden" name="email" value={{dic1.email}}>
+                <legend ><b> प्रश्नकर्त्याची माहिती </b></legend>
+                <label for="pname" style="font-size:15px"  >प्रश्न कर्त्याचे  नाव : </label>
+                <input type="text" id="pname" name="pname" style="font-size:15px" size="40" value="{{dic1.full_name}}"/><br><br>
+                <label for="prashan1" style="font-size:15px">प्रश्न १:</label>
+                <input type="text" id="prashan1" name="prashan1" size="150" value="{{dic1.prashan1}}"/><br><br>
+                <label for="prashan2" style="font-size:15px">प्रश्न २:</label>
+                <input type="text" id="prashan2" name="prashan2" size="150" value="{{dic1.prashan2}}" /><br>
             </fieldset>
-        {% endif %}
-    <fieldset>
-         <legend><b> गुरुवर्यांचे उत्तर </b></legend>
-         <label for="guru_ans_p1" style="margin-right: 70px">प्रश्न १ </label><br>
-                 <input list="guru_ans_p1" size="10" name="guru_ans_p1"  required /><br><br>
-                 <datalist id="guru_ans_p1">
-                    <option value="हो">
-                    <option value="नाही">
-                    <option value="वेळ लागेल ">
-                 </datalist>
-          {% if dic1.prashan2 %}
-           <label for="guru_ans_p2" style="margin-right: 70px">प्रश्न २ </label><br>
-                 <input list="guru_ans_p2" size="10" name="guru_ans_p2"  required /><br><br>
-                 <datalist id="guru_ans_p2">
-                    <option value="हो">
-                    <option value="नाही">
-                    <option value="वेळ लागेल ">
-                 </datalist>
-           {% else %}
-            <input list="guru_ans_p2" size="10" name="guru_ans_p2"  value="None" hidden /><br><br>
-           {% endif %}
-     </fieldset>
+                {% if previous_seva %}
+                    <fieldset>
+                        <legend><b> गुरुवर्यांचे आधीचे उत्तर </b></legend>
+                         {% for i in previous_seva %}
+                           date: {{i.date_qa}} &nbsp prashan1 :&nbsp {{i.guru_ans_p1}} &nbsp prashan2 :&nbsp {{i.guru_ans_p2}}<br>
+                         {% endfor %}
+                    </fieldset>
+                {% endif %}
+            <fieldset>
+                 <legend><b> गुरुवर्यांचे उत्तर </b></legend>
+                 <label for="guru_ans_p1" style="margin-right: 70px">प्रश्न १ </label><br>
+                         <input list="guru_ans_p1" size="10" name="guru_ans_p1"  required /><br><br>
+                         <datalist id="guru_ans_p1">
+                            <option value="हो">
+                            <option value="नाही">
+                            <option value="वेळ लागेल ">
+                         </datalist>
+                  {% if dic1.prashan2 %}
+                   <label for="guru_ans_p2" style="margin-right: 70px">प्रश्न २ </label><br>
+                         <input list="guru_ans_p2" size="10" name="guru_ans_p2"  required /><br><br>
+                         <datalist id="guru_ans_p2">
+                            <option value="हो">
+                            <option value="नाही">
+                            <option value="वेळ लागेल ">
+                         </datalist>
+                   {% else %}
+                    <input list="guru_ans_p2" size="10" name="guru_ans_p2"  value="None" hidden /><br><br>
+                   {% endif %}
+            </fieldset>
 
 
-    <fieldset>
-        <legend><b>दिलेली सेवा /उपाय</b></legend>
-        <h4>१  . श्री स्वामी समर्थ महाराजांच्या फोटोची स्थापना करावी.</h4><br>
+
+      <fieldset>
+                <legend><b>दिलेली सेवा /उपाय</b></legend>
+
         <fieldset>
-        <legend><b>रोजची नित्य उपासना</b></legend>
-        <h5 style="line-height:0.0;">मंत्र जप:</h5>
-        <p >1. || श्री गुरु स्वामी समर्थ जय जय स्वामी समर्थ || * ११ वेळा *</p>
-        <p>2.|| श्री स्वामी समर्थ || * 3 माळ *</p>
-        <p>3. ||  शिव चिदंबर || * १ माळ *</p>
-        <h5 style="line-height:0.0;">पोथी वाचन:</h5>
-        <p>1. स्वामी चरित्र सारामृत ( रोज १ किंवा ३ अध्याय )</p>
-        <p>पोथी वाचन  क्रम : ( दिवस १ : अध्याय १ , दिवस २ : अध्याय २,.....)   किंवा ( दिवस १: अध्याय १,२,३ ,   दिवस २ : अध्याय ४,५,६,   ....)</p>
-        <p>2. दुर्गासप्तशती ( रोज २ अध्याय वाचन )</p>
-        <p>पोथी वाचन  क्रम : ( दिवस १: अध्याय १,२  ,  दिवस २ : अध्याय ,३,४   ,  ....)</p>
-        <h5 style="line-height:0.0;">नैवैद्य:</h5>
-        <p>रोज सकाळ संध्याकाळ महाराजांना नैवैद्य दाखविणे</p>
-    </fieldset>
-    <fieldset>
-        <legend><b>पितरांची सेवा </b></legend>
-        <input type=checkbox id="ps1" name=pitraseva value="नारायण नागबळी"/>
-        <label for="ps1" >नारायण नागबळी</label><br>
-        <input type=checkbox id="ps2" name=pitraseva value="मातृगया विधी "/>
-        <label for="ps2" >मातृगया विधी </label><br>
-        <input type=checkbox id="ps3" name=pitraseva value="पंचमहायज्ञ  (अग्नीला तूप , गाईला नैवद्य ,मुंगीला साखर , कावळ्याला घास दुपारी १२ नंतर , अतिथीला चहा पाणी करणे ) रोज करावयाची सेवा "/>
-        <label for="ps3" >पंचमहायज्ञ  (अग्नीला तूप , गाईला नैवद्य ,मुंगीला साखर , कावळ्याला घास दुपारी १२ नंतर , अतिथीला चहा पाणी करणे ) रोज करावयाची सेवा  </label><br>
-        </fieldset>
-        <fieldset>
-        <legend><b>मान सन्मान </b></legend>
-        <input type=checkbox id="ms1" name=maansanam value="कुलदेवी /कुलदेवता विनंती "/>
-        <label for="ms1" >कुलदेवी /कुलदेवता विनंती</label> <br>
-        <input type=checkbox id="ms2" name=maansanam value="ग्रामदेवता विनंती  "/>
-        <label for="ms2" >ग्रामदेवता विनंती  </label><br>
-        <input type=checkbox id="ms3" name=maansanam value="कुलदेवीची भागबांधणी विनंती  "/>
-        <label for="ms3" >कुलदेवीची भागबांधणी विनंती   </label><br>
-        <input type=checkbox id="ms4" name=maansanam value="शेतातील सेंद्रिय दैवतांचा सन्मान (शनिवार किंवा अमावस्या ) विनंती "/>
-        <label for="ms4" >शेतातील सेंद्रिय दैवतांचा सन्मान (शनिवार किंवा अमावस्या ) विनंती </label><br>
-    </fieldset>
-    <fieldset>
-        <legend><b>मंत्र जप </b> </legend>
-        <input type=checkbox id="mj1" name=mantrajaap value="शिव चिदंबर  १०८ माळी "/>
-          <label for="mj1" >शिव चिदंबर <b>१०८ माळी</b> </label><br>
-        <input type=checkbox id="mj1.1" name=mantrajaap value="शिव चिदंबर  सव्वा लक्ष "/>
-          <label for="mj1.1" >शिव चिदंबर <b>  सव्वा  लक्षी </b> </label><br>
-        <input type=checkbox id="mj2" name=mantrajaap value="श्री स्वामी समर्थ - सव्वा लक्ष   "/>
-        <label for="mj2" >श्री स्वामी समर्थ - सव्वा लक्ष   </label><br>
-        <input type=checkbox id="mj3" name=mantrajaap value="मधुमती मंत्र जप ११वेळा - ११ दिवस  "/>
-        <label for="mj3" >मधुमती मंत्र जप ११वेळा - ११ दिवस   </label><br>
-        <input type=checkbox id="mj4" name=mantrajaap value="गायत्री मंत्र जप. "/>
-        <label for="mj4" >गायत्री मंत्र जप. </label><br>
-    </fieldset>
-    <fieldset>
-        <legend><b>पारायण </b></legend>
-        <input type=checkbox id="p1" name=parayaan value="श्री स्वामी सारामृत पोथी पारायण "/>
-        <label for="p1" >श्री स्वामी सारामृत पोथी पारायण </label><br>
-        <input type=checkbox id="p2" name=parayaan value="श्री दुर्गासप्तशती पारायण   "/>
-        <label for="p2" >श्री दुर्गासप्तशती पारायण</label><br>
-        <input type=checkbox id="p3" name=parayaan value="श्री दुर्गा त्रिशती पारायण "/>
-        <label for="p3" >श्री दुर्गा त्रिशती पारायण</label><br>
-        <input type=checkbox id="p5" name=parayaan value="श्री गुरु चरीत्र  (प.पु. टेंबे स्वामींचे )(नियम पालन करुन स्वामी मठात किंवा दत्त मंदिरात येवुन सात दिवसाचे     पारायण करणे किंवा शक्य नसल्यास रोज‌ घरी १ किंवा २ अध्याय वाचन करुन पारायण करता येईल. (नियमाशिवाय)"/>
-        <label for="p5" >श्री गुरु चरीत्र (प.पु. टेंबे स्वामींचे )(नियम पालन करुन स्वामी मठात किंवा दत्त मंदिरात येवुन सात दिवसाचे पारायण करणे किंवा <br>शक्य नसल्यास रोज‌ घरी १ किंवा २ अध्याय वाचन करुन पारायण करता येईल. (नियमाशिवाय) </label><br>
-        <input type=checkbox id="p6" name=parayaan value=" श्री दत्त महात्म्य पारायण  "/>
-        <label for="p6" >श्री दत्त महात्म्य पारायण </label><br>
-        <input type=checkbox id="p7" name=parayaan value="श्री शिवलीलामृत पोथी पारायण (३ किंवा ५ दिवसाचे )  "/>
-        <label for="p7" >श्री शिवलीलामृत पोथी पारायण (३ किंवा ५ दिवसाचे ) </label><br>
-        <input type=checkbox id="p8" name=parayaan value="श्री नवनाथ पारायण  "/>
-        <label for="p8" >श्री नवनाथ पारायण</label>
-        <input type=checkbox id="p9" name=parayaan value="श्री नवनाथ १५ वा अध्याय वाचणे - ३‌  दिवस  (रोज एक वेळ)     "/>
-        <label for="p9" >श्री नवनाथ १५ वा अध्याय वाचणे - ३‌  दिवस  (रोज एक वेळ)   </label>
-        <input type=checkbox id="p10" name=parayaan value="श्री नवनाथ ५ वा अध्याय वाचने. ३‌  दिवस  (रोज एक वेळ)    "/>
-        <label for="p10" >श्री नवनाथ ५ वा अध्याय वाचने. ३‌  दिवस  (रोज एक वेळ)   </label><br>
-        <input type=checkbox id="p11" name=parayaan value="भागवत पारायण "/>
-        <label for="p11" >भागवत पारायण   </label>
-    </fieldset>
-    <fieldset>
-        <legend><b>स्तोत्रवाचन</b></legend>
-        <input type=checkbox id="stortat1" name=strotatvachan value=" महालक्षम्याष्टकम स्तोत्रवाचन"/>
-        <label for="stortat1" >महालक्षम्याष्टकम स्तोत्रवाचन  </label><br>
-        <input type=checkbox id="stortat2" name=strotatvachan value=" पंचमुखी हनुमान स्तोत्र वाचन "/>
-        <label for="stortat2" >पंचमुखी हनुमान स्तोत्र वाचन </label><br>
-        <input type=checkbox id="stortat3" name=strotatvachan value=" हनुमान वडवानल स्तोत्र वाचन "/>
-        <label for="stortat3" >हनुमान वडवानल स्तोत्र वाचन </label><br>
-        <input type=checkbox id="stortat4" name=strotatvachan value=" कालभैरवाष्टक स्तोत्र वाचन "/>
-        <label for="stortat4" >कालभैरवाष्टक स्तोत्र वाचन</label><br>
-        <input type=checkbox id="stortat5" name=strotatvachan value=" व्यंकटेश स्तोत्र वाचन "/>
-        <label for="stortat5" >व्यंकटेश स्तोत्र वाचन</label><br>
-        <input type=checkbox id="stortat6" name=strotatvachan value=" विष्णु सहस्त्रनाम वाचन"/>
-        <label for="stortat6" >विष्णु सहस्त्रनाम वाचन</label><br>
-        <input type=checkbox id="stortat7" name=strotatvachan value=" ललीता सहस्त्रनाम स्तोत्र वाचन"/>
-        <label for="stortat7" >ललीता सहस्त्रनाम स्तोत्र वाचन</label><br>
-        <input type=checkbox id="stortat8" name=strotatvachan value=" लांगुलास्त्र स्तोत्र वाचन(मारोतीच्या मंदिरात किंवा फोटोसमोर शनिवारी)."/>
-        <label for="stortat8" >लांगुलास्त्र स्तोत्र वाचन(मारोतीच्या मंदिरात किंवा फोटोसमोर शनिवारी).</label><br>
-        <input type=checkbox id="stortat9" name=strotatvachan value=" गणपती अथर्वशिर्ष वाचन."/>
-        <label for="stortat9" >गणपती अथर्वशिर्ष वाचन.</label><br>
-        <input type=checkbox id="stortat10" name=strotatvachan value=" पशु स्तोत्र वाचन."/>
-        <label for="stortat10" >पशु स्तोत्र वाचन.</label><br>
-        <input type=checkbox id="stortat11" name=strotatvachan value=" रामरक्षा स्तोत्र १ वेळा वाचने."/>
-        <label for="stortat11" >रामरक्षा स्तोत्र १ वेळा वाचने.</label><br>
-    </fieldset>
-    <fieldset>
-        <legend><b>यंत्र स्थापणा </b></legend>
-        <input type=checkbox id="yantra1" name=yantrastapana value=" श्रीयंत्र स्थापणा (पोर्णिमेला)"/>
-        <label for="yantra1" >श्रीयंत्र स्थापणा (पोर्णिमेला)   </label><br>
-        <input type=checkbox id="yantra2" name=yantrastapana value=" मारुती यंत्र  "/>
-        <label for="yantra2" >मारुती यंत्र     </label><br>
-        <input type=checkbox id="yantra3" name=yantrastapana value=" ६४ योगीनी यंत्र (प्रवेश द्वारावर दु्र्गा अष्टमीला लावणे).  "/>
-        <label for="yantra3" >६४ योगीनी यंत्र (प्रवेश द्वारावर दु्र्गा अष्टमीला लावणे). </label><br>
-        <input type=checkbox id="yantra4" name=yantrastapana value=" वास्तु यंत्र   "/>
-        <label for="yantra4" >वास्तु यंत्र   </label><br>
-        <input type=checkbox id="yantra5" name=yantrastapana value=" वाहन यंत्र    "/>
-        <label for="yantra5" >वाहन यंत्र   </label><br>
-        <input type=checkbox id="yantra6" name=yantrastapana value=" सुर्य यंत्र     "/>
-        <label for="yantra6" >सुर्य यंत्र    </label><br>
-        <input type=checkbox id="yantra7" name=yantrastapana value=" मंगळ यंत्र  (देवघरात) व मारुती यंत्र (घराच्या ईशान्येला) मंगळवारी    "/>
-        <label for="yantra7" >मंगळ यंत्र  (देवघरात) व मारुती यंत्र (घराच्या ईशान्येला) मंगळवारी  </label><br>
-    </fieldset>
-    <fieldset>
-        <legend><b>सुक्त वाचन</b></legend>
-        <input type=checkbox id="sukt1" name=sukt value=" रात्री सुक्त वाचन "/>
-        <label for="sukt1" >रात्री सुक्त वाचन    </label><br>
-        <input type=checkbox id="sukt2" name=sukt value=" श्रीसुक्त वाचन "/>
-        <label for="sukt2" >श्रीसुक्त वाचन    </label><br>
-    </fieldset>
-    <fieldset>
-        <legend><b>इतर सेवा</b></legend>
-        <input type=checkbox id="otherseva1" name=otherseva value=" मारोतीच्या मंदिरात दिव्यात तेल टाकणे (१ शनिवारी) "/>
-        <label for="otherseva1" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (१ शनिवारी) </label><br>
-         <input type=checkbox id="otherseva22" name=otherseva value=" मारोतीच्या मंदिरात दिव्यात तेल टाकणे (३ शनिवारी) "/>
-        <label for="otherseva22" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (३ शनिवारी) </label><br>
-        <input type=checkbox id="otherseva2" name=otherseva value="दही भात उतारा (शुक्रवारी दुपारी १२ नंतर). "/>
-        <label for="otherseva2" >दही भात उतारा (शुक्रवारी दुपारी १२ नंतर). </label><br>
-        <input type=checkbox id="otherseva3" name=otherseva value="कुलदेवीची टाक/ मुर्तीवरील हळद दुधातुन घेणे    "/>
-        <label for="otherseva3" >कुलदेवीची टाक/ मुर्तीवरील हळद दुधातुन घेणे </label><br>
-        <input type=checkbox id="otherseva4" name=otherseva value="आसरांची सेवा (शुक्रवारी) फक्त महिलांनी  "/>
-        <label for="otherseva4" >आसरांची सेवा (शुक्रवारी) फक्त महिलांनी </label><br>
-        <input type=checkbox id="otherseva5" name=otherseva value="दर रविवारी सुर्याला जल देणे  "/>
-        <label for="otherseva5" >दर रविवारी सुर्याला जल देणे </label><br>
-        <input type=checkbox id="otherseva6" name=otherseva value="महामृत्युंजय कवच वाचुन तिर्थ घेणे  "/>
-        <label for="otherseva6" >महामृत्युंजय कवच वाचुन तिर्थ घेणे </label><br>
-        <input type=checkbox id="otherseva7" name=otherseva value="वलगा सुक्त नाडीवर वाचने  "/>
-        <label for="otherseva7" >वलगा सुक्त नाडीवर वाचने </label><br>
-        <input type=checkbox id="otherseva8" name=otherseva value="पांढर्या मोहरीची‌ सेवा (शनिवार/अमावस्या)"/>
-        <label for="otherseva8" >पांढर्या मोहरीची‌ सेवा (शनिवार/अमावस्या) </label><br>
-        <input type=checkbox id="otherseva9" name=otherseva value="नारळ  उतारा (शनिवार/अमावस्या)"/>
-        <label for="otherseva9" >नारळ  उतारा (शनिवार/अमावस्या) </label><br>
-        <input type=checkbox id="otherseva10" name=otherseva value="दर अमावस्येला गाईच्या तुपाचा किंवा तिळाच्या तेलाचा दिवा लावणे."/>
-        <label for="otherseva10" >दर अमावस्येला गाईच्या तुपाचा किंवा तिळाच्या तेलाचा दिवा लावणे. </label><br>
-        <input type=checkbox id="otherseva11" name=otherseva value="रुख्मिणी स्वयंवर वाचणे"/>
-        <label for="otherseva11" >रुख्मिणी स्वयंवर वाचणे </label><br>
-        <input type=checkbox id="otherseva12" name=otherseva value="रोज सकाळी एक चमचा गोमुत्र अर्क घेणे"/>
-        <label for="otherseva12" >रोज सकाळी एक चमचा गोमुत्र अर्क घेणे</label><br>
-        <input type=checkbox id="otherseva13" name=otherseva value="दर पोर्णिमेला घरी सत्यनारायण पुजा करणे"/>
-        <label for="otherseva13" >दर पोर्णिमेला घरी सत्यनारायण पुजा करणे</label><br>
-        <input type=checkbox id="otherseva14" name=otherseva value="देवघर देव्हारा मठाकडुन तपासुन घेणे "/>
-        <label for="otherseva14" >देवघर देव्हारा मठाकडुन तपासुन घेणे </label><br>
-        <input type=checkbox id="otherseva15" name=otherseva value="वास्तुदोष निवारण उपाय मठात विचारणे "/>
-        <label for="otherseva15" >वास्तुदोष निवारण उपाय मठात विचारणे </label><br>
-        <input type=checkbox id="otherseva16" name=otherseva value="अन्नदान : वर्षातुन एकदा किमान पाच लहान मुलांना जेवन घालणे/ यथाशक्ती "/>
-        <label for="otherseva16" >अन्नदान : वर्षातुन एकदा किमान पाच लहान मुलांना जेवन घालणे/ यथाशक्ती </label><br>
-        <input type=checkbox id="otherseva17" name=otherseva value="पक्षांना तांदुळ टाकणे/ पाणी टाकणे "/>
-        <label for="otherseva17" >पक्षांना तांदुळ टाकणे/ पाणी टाकणे  </label><br>
-        <input type=checkbox id="otherseva18" name=otherseva value="मोरपीस उतारा (शनिवार / अमावस्या)"/>
-        <label for="otherseva18" >मोरपीस उतारा (शनिवार / अमावस्या)  </label><br>
-        <input type=checkbox id="otherseva19" name=otherseva value="देवघरात मुर्तीस्थापणा"/>
-        <label for="otherseva19" >देवघरात मुर्तीस्थापणा  </label><br>
-        <input type=checkbox id="otherseva20" name=otherseva value="नारळ ठेवुन विनंती करणे"/>
-        <label for="otherseva20" >नारळ ठेवुन विनंती करणे </label><br>
-        <input type=checkbox id="otherseva21" name=otherseva value="देवघरात जप युनीट लावणे"/>
-        <label for="otherseva21" >देवघरात जप युनीट लावणे</label><br>
-    </fieldset>
-     <fieldset>
-         <legend><b>विशेष सूचना व अधिकची  सेवा </b></legend>
-           <textarea rows="4" cols="50" name="vishesh_suchana_seva"></textarea>  <br>
-     </fieldset>
-    </fieldset>
+                <legend><b>रोजची नित्य उपासना</b></legend>
+                <p>१) नैवद्य -सकाळी व सायंकाळी स्वामींना ताज्या अन्नाचा नैवद्य दाखवावा .सायंकाळी ताज्या अन्नाचा नैवद्य शक्य नसेल तर फळ /दुधाचा  नैवद्य दाखवावा </p>
+                <p >२) दररोज अकरा वेळा ।।  || श्री गुरु स्वामी समर्थ जय जय स्वामी समर्थ || हा मंत्र म्हणावा .</p>
+                <p >३) दररोज तीन माळी  ।। श्री स्वामी समर्थ ।। मंत्रजप व एक माळ ।। शिव चिदंबर ।। मंत्रजप करावा </p>
+                <p>४ ) स्वामी चरित्र सारामृत ( रोज १ किंवा ३ अध्याय वाचावे  )</p>
+                <p>पोथी वाचन  क्रम : ( दिवस १ : अध्याय १ , दिवस २ : अध्याय २,.....)   किंवा ( दिवस १: अध्याय १,२,३ ,   दिवस २ : अध्याय ४,५,६,   ....)</p>
+                <p>५ ) दुर्गासप्तशती ( रोज २ अध्याय वाचावे  )</p>
+                <p>पोथी वाचन  क्रम : ( दिवस १: अध्याय १,२  ,  दिवस २ : अध्याय ,३,४   ,  ....)</p>
+                <p>६)रोज  पंचमहायज्ञ करावा (अग्नीला तूप , गाईला नैवद्य ,मुंगीला साखर , कावळ्याला घास दुपारी १२ नंतर , अतिथीला चहा पाणी करणे )  </p>
+         </fieldset>
 
-      <input type="submit" value=submit   />
-      <input type="reset" />
+          <fieldset>
+                <legend><b>देवघरात देवतांची स्थापना / पुनर्स्थापना सेवा </b></legend>
+                <input type=checkbox id="dd1" name=sthapna value="sk6"/>
+                <label for="dd1" >श्री स्वामी समर्थ महाराजांच्या फोटोची स्थापना देवघरात मध्यभागी करावी </label> <br>
+                <input type=checkbox id="dd2" name=sthapna value="sk7"/>
+                <label for="dd2" >महादेवाच्या पितळेची पिंड (नंदी नाग जोडून नसलेली ) स्थापना / पुनर्स्थापना करावी . </label><br>
+                <input type=checkbox id="dd3" name=sthapna value="sk8"/>
+                <label for="dd3" >गणपतीची पितळेची मुर्ती स्थापना / पुनर्स्थापना करावी . </label><br>
+                <input type=checkbox id="dd4" name=sthapna value="sk9"/>
+                <label for="dd4" >बालकृष्णाची  पितळेची मुर्ती स्थापना / पुनर्स्थापना करावी .</label><br>
+                 <input type=checkbox id="dd5" name=sthapna value="sk10"/>
+                <label for="dd5" >अन्नपूर्णा देवीची पितळेची  मुर्ती स्थापना / पुनर्स्थापना करावी .</label><br>
+          </fieldset>
+
+         <fieldset>
+                <legend><b>मान सन्मान / विनंती /अभिषेक </b></legend>
+                <input type=checkbox id="ms1" name=maansanam value="sk11"/>
+                <label for="ms1" >कुलदेवी /कुलदेवता मानसन्मान करून  विनंती करावी</label> <br>
+                <input type=checkbox id="ms2" name=maansanam value="sk12"/>
+                <label for="ms2" >ग्रामदेवता मानसन्मान करून  विनंती करावी </label><br>
+                <input type=checkbox id="ms3" name=maansanam value="sk13"/>
+                <label for="ms3" >शेतातील सेंद्रिय देवतांचा मानसन्मान करून  विनंती करावी . (शनिवार किंवा अमावस्या ) </label><br>
+                <input type=checkbox id="ms4" name=maansanam value="sk14"/>
+                <label for="ms4" >दत्त मंदिर चोहट्टा बाजार / गुरुमंदिर कारंजा (लाड )/ दत्त मंदिर , हिंगणघाट / श्री  नृसिंह स्वामी महाराज मठ , पाटी  या ठिकाणी  नारळ ठेऊन विनंती करावी . आणि एक  /तीन आरत्यांना हजर राहावें व तीर्थप्रसाद घ्यावा  </label><br>
+                <input type=checkbox id="ms5" name=maansanam value="sk15"/>
+                <label for="ms5" >सोमवारी महादेवाच्या मंदिरात जलाभिषेक ब्राह्मणाकडून करावा व विनंती करून तीर्थप्रसाद घ्यावा </label> <br>
+         </fieldset>
+
+            <fieldset>
+                <legend><b>मंत्र जप सेवा </b> </legend>
+                <input type=checkbox id="mj1" name=mantrajaap value="sk16"/>
+                  <label for="mj1" >शिव चिदंबर <b>१०८ माळी</b> (एकदाच करावा) </label><br>
+                <input type=checkbox id="mj1.1" name=mantrajaap value="sk16_1"/>
+                  <label for="mj1.1" >शिव चिदंबर <b>  सव्वा  लक्ष  </b> (एकदाच करावा) </label><br>
+                <input type=checkbox id="mj2" name=mantrajaap value="sk17"/>
+                <label for="mj2" >श्री स्वामी समर्थ <b>सव्वा लक्ष </b>  (एकदाच करावा) </label><br>
+                 <input type=checkbox id="mj3" name=mantrajaap value="sk18"/>
+                <label for="mj3" > गायत्री मंत्र जप. २४ वेळा -  १ दिवस </label><br>
+                 <input type=checkbox id="mj4" name=mantrajaap value="sk19"/>
+                <label for="mj4" >ॐ ह्रीं नमः जप ११वेळा - ११ दिवस </label><br>
+                <input type=checkbox id="mj5" name=mantrajaap value="sk20"/>
+                <label for="mj5" >मधुमती मंत्र जप ११वेळा - ११ दिवस   </label><br>
+
+            </fieldset>
+            <fieldset>
+                <legend><b>पारायण </b></legend>
+                <input type=checkbox id="p1" name=parayaan value="sk21"/>
+                <label for="p1" >श्री स्वामी सारामृत पोथी पारायण ( एक वेळा  करावे ) </label><br>
+                 <input type=checkbox id="p1_1" name=parayaan value="sk21_1"/>
+                <label for="p1_1" >श्री स्वामी सारामृत पोथी पारायण ( तीन वेळा करावे ) </label><br>
+                <input type=checkbox id="p2" name=parayaan value="sk22"/>
+                <label for="p2" >श्री दुर्गासप्तशती पारायण ( एक वेळा  करावे ) </label><br>
+                <input type=checkbox id="p2_1" name=parayaan value="sk22_1"/>
+                <label for="p2_1" >श्री दुर्गासप्तशती पारायण ( तीन वेळा करावे ) </label><br>
+                <input type=checkbox id="p3" name=parayaan value="sk23"/>
+                <label for="p3" >श्री दुर्गा त्रिशती पारायण ( एक वेळा  करावे ) </label><br>
+                <input type=checkbox id="p3_1" name=parayaan value="sk23_1"/>
+                <label for="p3_1" >श्री दुर्गा त्रिशती पारायण ( तीन वेळा करावे ) </label><br>
+                <input type=checkbox id="p5" name=parayaan value="sk24"/>
+                <label for="p5" >श्री गुरु चरीत्र (प.पु. टेंबे स्वामींचे )</label><br>
+                 <input type=checkbox id="p6" name=parayaan value="sk25"/>
+                <label for="p6" >श्री शिवलीलामृत पोथी पारायण (३ किंवा ५ दिवसाचे ) </label><br>
+                <input type=checkbox id="p7" name=parayaan value="sk26"/>
+                <label for="p7" >श्री दत्त महात्म्य पारायण </label><br>
+                <input type=checkbox id="p8" name=parayaan value="sk27_2"/>
+                <label for="p8" >श्री नवनाथ पारायण</label><br>
+                <input type=checkbox id="p9" name=parayaan value="sk27"/>
+                <label for="p9" >श्री नवनाथ १५ वा अध्याय वाचणे - ३‌  दिवस  (रोज एक वेळ)   </label><br>
+                <input type=checkbox id="p10" name=parayaan value="sk27_1"/>
+                <label for="p10" >श्री नवनाथ ५ वा अध्याय वाचने. ३‌  दिवस  (रोज एक वेळ)   </label><br>
+                <input type=checkbox id="p11" name=parayaan value="sk28"/>
+                <label for="p11" > एका पौर्णिमेला सत्यनारायण  पूजा करून पोथी वाचावी  </label>
+            </fieldset>
+            <fieldset>
+                <legend><b>यंत्र स्थापणा सेवा </b></legend>
+                <input type=checkbox id="yantra1" name=yantrastapana value="sk29"/>
+                <label for="yantra1" >श्रीयंत्र स्थापणा (पोर्णिमेला)   </label><br>
+                <input type=checkbox id="yantra2" name=yantrastapana value="sk30"/>
+                <label for="yantra2" >मारुती यंत्र     </label><br>
+                <input type=checkbox id="yantra3" name=yantrastapana value="sk31"/>
+                <label for="yantra3" >६४ योगीनी यंत्र (प्रवेश द्वारावर दु्र्गा अष्टमीला लावणे). </label><br>
+                <input type=checkbox id="yantra4" name=yantrastapana value="sk32"/>
+                <label for="yantra4" >सुर्य यंत्र    </label><br>
+                <input type=checkbox id="yantra5" name=yantrastapana value="sk33"/>
+                <label for="yantra5" >वाहन यंत्र   </label><br>
+                <input type=checkbox id="yantra6" name=yantrastapana value="sk34"/>
+                <label for="yantra6" >वास्तु यंत्र   </label><br>
+            </fieldset>
+            <fieldset>
+                <legend><b>स्तोत्रवाचन</b></legend>
+                <input type=checkbox id="stortat1" name=strotatvachan value="sk35"/>
+                <label for="stortat1" >पंचमुखी हनुमान स्तोत्र वाचन </label><br>
+                 <input type=checkbox id="stortat2" name=strotatvachan value="sk36"/>
+                <label for="stortat2" >हनुमान वडवानल स्तोत्र वाचन </label><br>
+                 <input type=checkbox id="stortat3" name=strotatvachan value="sk37"/>
+                <label for="stortat3" >लांगुलास्त्र स्तोत्र वाचन(मारोतीच्या मंदिरात किंवा फोटोसमोर शनिवारी).</label><br>
+                 <input type=checkbox id="stortat4" name=strotatvachan value="sk38"/>
+                <label for="stortat4" >कालभैरवाष्टक स्तोत्र वाचन</label><br>
+                <input type=checkbox id="stortat5" name=strotatvachan value="sk39"/>
+                <label for="stortat5" >महालक्षम्याष्टकम स्तोत्रवाचन  </label><br>
+                <input type=checkbox id="stortat6" name=strotatvachan value="sk40"/>
+                <label for="stortat6" >व्यंकटेश स्तोत्र वाचन</label><br>
+                <input type=checkbox id="stortat7" name=strotatvachan value="sk41"/>
+                <label for="stortat7" >श्रीसुक्त वाचन    </label><br>
+                <input type=checkbox id="stortat8" name=strotatvachan value="sk43"/>
+                <label for="stortat8" >महामृत्युंजय कवच वाचुन तिर्थ घेणे </label><br>
+                <input type=checkbox id="stortat17" name=strotatvachan value="sk44"/>
+                <label for="otherseva17" >वलगा सुक्त नाडीवर वाचने </label><br>
+                <input type=checkbox id="stortat9" name=strotatvachan value="sk45"/>
+                <label for="stortat9" >ललीता सहस्त्रनाम स्तोत्र वाचन</label><br>
+                <input type=checkbox id="sukt10" name=strotatvachan value="sk46"/>
+                <label for="sukt10" >रात्री सुक्त वाचन    </label><br>
+                <input type=checkbox id="stortat11" name=strotatvachan value="sk47"/>
+                <label for="stortat11" >चक्षु स्तोत्र एकदा वाचणे </label><br>
+                <input type=checkbox id="stortat12" name=strotatvachan value="sk48"/>
+                <label for="stortat12" >विष्णु सहस्त्रनाम वाचन</label><br>
+                 <input type=checkbox id="stortat13" name=strotatvachan value="sk49"/>
+                <label for="stortat13" >गायत्री सहस्त्रनाम एकदा वाचणे </label><br>
+                <input type=checkbox id="stortat14" name=strotatvachan value="sk50"/>
+                <label for="stortat14" >गणपती अथर्वशिर्ष वाचन.</label><br>
+                <input type=checkbox id="stortat15" name=strotatvachan value="sk51"/>
+                <label for="stortat15" >रामरक्षा स्तोत्र १ वेळा वाचने.</label><br>
+                <input type=checkbox id="stortat16" name=strotatvachan value="sk52"/>
+                <label for="stortat16" >रुख्मिणी स्वयंवर वाचणे </label><br>
+            </fieldset>
+             <fieldset>
+                <legend><b>वास्तुदोष निवारण सेवा</b></legend>
+                <input type=checkbox id="vastu1" name=vastudosh value=" sk53  "/>
+                <label for="vastu1" >वास्तुदोष निवारण्यासाठी भिंतीवर पेंटने पाच टिपके द्यावेत
+                                अ ) ईशान्य दिशा : हिरवा रंग     ब) आग्नेय दिशा : लाल रंग
+                                क) नैऋत्य दिशा :  लाल  रंग     ड ) वायव्य दिशा : पांढरा रंग </label><br>
+             </fieldset>
+              <fieldset>
+                <legend><b>पितरांची सेवा </b></legend>
+                <input type=checkbox id="pitar1" name=pitraseva value=" sk54  "/>
+                <label for="pitar1" >त्र्यबंकेश्वरला  नारायण नागबळी करावी </label><br>
+                <input type=checkbox id="pitar2" name=pitraseva value=" sk55 "/>
+                <label for="pitar2" >मातृदोष  निवारण्यासाठी मंगळवारी दुपारी १२ :०० वाजता मंगलयंत्राची देवघरात स्थापना करावी तर मारोती यंत्र पुरुष्यांच्या  हातून घराच्या ईश्यानेला फूटभर जमिनीत खड्डा करून पुरावे  </label><br>
+             </fieldset>
+
+            <fieldset>
+                <legend><b>इतर सेवा</b></legend>
+                <input type=checkbox id="otherseva1" name=otherseva value="sk56"/>
+                <label for="otherseva1" >आठवड्यातून एखाद्या दिवशी गाईच्या तुपाचा किंवा तिळाच्या तेलाचा दिवा देवघरात लावावा . </label><br>
+                <input type=checkbox id="otherseva2" name=otherseva value="sk57"/>
+                <label for="otherseva2" >रोज सकाळी एक चमचा गोमुत्र अर्क घेणे</label><br>
+                <input type=checkbox id="otherseva3" name=otherseva value=" sk58 "/>
+                <label for="otherseva3" >कडुलिंबाच्या  पानाचा एक चमचा रस एक कप पाण्यात टाकून तीन दिवस घ्यावा  </label><br>
+                <input type=checkbox id="otherseva4" name=otherseva value=" sk59 "/>
+                <label for="otherseva4" >कुलदेवीची टाक/ मुर्तीवरील हळद दुधातुन घेणे </label><br>
+                <input type=checkbox id="otherseva5" name=otherseva value=" sk60 "/>
+                <label for="otherseva5" > एक चमचा मध घेऊन त्यावर प्रत्येकी अकरा वेळा
+                           ।। श्री स्वामी समर्थ ।। व  ।। शिव चिदंबर ।।  मंत्र जप म्हणून ते खाऊन घ्यावेत </label><br>
+                <input type=checkbox id="otherseva6" name=otherseva value=" sk61  "/>
+                <label for="otherseva6" >कुंकुमार्चन विधीचे कुंकू आपल्या पतीचे ध्यान करून रोज कपाळाला लावावेत </label><br>
+                <input type=checkbox id="otherseva7" name=otherseva value=" sk62 "/>
+                <label for="otherseva7" >पक्षांना तांदुळ टाकणे/ पाणी टाकणे  </label><br>
+                <input type=checkbox id="otherseva8" name=otherseva value=" sk63"/>
+                <label for="otherseva8" >देवघरात जप युनीट लावणे</label><br>
+                <input type=checkbox id="otherseva9" name=otherseva value=" sk64 "/>
+                <label for="otherseva9" >देवघर देव्हारा मठाकडुन तपासुन घेणे </label><br>
+                <input type=checkbox id="otherseva10" name=otherseva value="sk65 ."/>
+                <label for="otherseva10" >कोणत्याही गोशाळेत  वर्षातून एकदा पैसे देण्याऐवजी यथाशक्ती चारा दयावा.</label><br>
+                <input type=checkbox id="otherseva11" name=otherseva value=" sk66 "/>
+                <label for="otherseva11" >अन्नदान  यथाशक्ती करावे : वर्षातून एकदा कमीत कमी पाच लहान मुलांना जेऊ घालावे .</label><br>
+                <input type=checkbox id="otherseva12" name=otherseva value=" sk67 "/>
+                <label for="otherseva12" >दही भात उतारा (शुक्रवारी दुपारी १२ नंतर). </label><br>
+                <input type=checkbox id="otherseva13" name=otherseva value="sk68"/>
+                <label for="otherseva13" >मोरपीस उतारा (शनिवार / अमावस्या)  </label><br>
+                <input type=checkbox id="otherseva14" name=otherseva value="sk69"/>
+                <label for="otherseva14" >नारळ  उतारा (शनिवार/अमावस्या) </label><br>
+                <input type=checkbox id="otherseva15" name=otherseva value=" sk70 "/>
+                <label for="otherseva15" >आसरांची सेवा (शुक्रवारी) फक्त महिलांनी </label><br>
+                <input type=checkbox id="otherseva16" name=otherseva value="sk71"/>
+                <label for="otherseva16" >पांढर्या मोहरीची‌ सेवा (शनिवार/अमावस्या) </label><br>
+                <input type=checkbox id="otherseva17" name=otherseva value=" sk72 "/>
+                <label for="otherseva17" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (१ शनिवारी) </label><br>
+                <input type=checkbox id="otherseva18" name=otherseva value=" sk72_1 "/>
+                <label for="otherseva18" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (३ शनिवारी) </label><br>
+                 <input type=checkbox id="otherseva19" name=otherseva value=" sk73  "/>
+                <label for="otherseva19" >एका शनिवारी शनिमंदिरात  पुरुषांच्या हातून टाकावेत  </label><br>
+                <input type=checkbox id="otherseva20" name=otherseva value="sk42"/>
+                <label for="otherseva20" >दर रविवारी सुर्याला जल देणे </label><br>
+
+           </fieldset>
+            <fieldset>
+                 <legend><b>विशेष सूचना व अधिकची  सेवा </b></legend>
+                 <textarea rows="4" cols="50" name="vishesh_suchana_seva"></textarea>  <br>
+            </fieldset>
+              <br><input type="submit" value=submit   />
+              &nbsp<input type="reset" />
+      </fieldset>
     </form>
 
 {% endblock %}
-
-  </body>
-
-</html>
