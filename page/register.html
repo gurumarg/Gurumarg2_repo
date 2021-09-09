@@ -12,29 +12,31 @@
     </ul>
     </nav>
   </div>
-   <div>
+    <div>
         {% for i in messages%}
-        <h3 style="padding-left: 80px">  {{i}}  </h3>
+      <p style=" color:red"> <b> {{i}} </b> </p>
         {% endfor %}
    </div>
+
+
   <p style="margin-left:100px"> 🌸   नोंदणी फॉर्म   🌸 </p>
 
   {% if function == 'verify_email' %}
 
-      <div style="width: 35% ;padding-left: 80px;padding-top: 20px;padding-bottom: 20px;border-style: double; margin-left:20px;margin-top:30px; ">
+      <div >
 
           <form action="{% url 'verify_ecode' %}" method="POST">
               {% csrf_token %}
-              <label for="ecode">&nbsp ई-मेल कोड  :</label><br>
+              <label for="ecode">&nbsp ई-मेल कोड  :</label><br><br>
               <input type=text id="ecode" name=ecode size="20" placeholder="enter code"  required/><br><br>
               <input type="submit" value="verify code" />
-              <a href="{% url 'register' %}" style ="background-color:rgb(150,150,150);margin:15px;color:white;padding:15px 25px;text-align:center; text-decoration:none;
+              <a href="{% url 'register' %}" style ="background-color:rgb(150,150,150);margin:10px;color:white;padding:6px 12px;text-align:center; text-decoration:none;
    display:inline-block;"><b> मागे जा   </b> </a>
           </form>
      </div>
   {% elif function == 'register_form' %}
 
-         <div style="width: 35% ; padding-left: 80px; padding-top: 20px; padding-bottom: 20px; border-style: double; margin-left:20px; margin-top:30px; ">
+         <div style="">
              <form action="{% url 'registration_check' %}" method="POST">
               {% csrf_token %}
                  <label for="upsarg" style="margin-right: 70px">उपसर्ग:</label><br>
@@ -94,11 +96,11 @@
 
 
   {% else %}
-      <div style="width: 35% ;padding-left: 80px;padding-top: 20px;padding-bottom: 20px;border-style: double; margin-left:20px;margin-top:30px; ">
+      <div >
 
            <form action="{% url 'send_email' %}" method="POST">
                {% csrf_token %}
-               <label for="email">&nbsp ई-मेल  :</label><br>
+               <label for="email">&nbsp ई-मेल  :</label><br><br>
                <input type=email id="email" name=email size="30" placeholder="email"  required/><br><br>
                <input type="submit" value="ई-मेल कोड मिळवा">  </input>
            </form>

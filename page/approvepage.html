@@ -59,13 +59,13 @@
                      </datalist>
                 </div>
                  <input type="hidden" name="user" value={{user_details.id}}><br>
-                 <button type="submit" name=b2 > सेव्ह  करा    </button>
+                 <button class="button" type="submit" name=b2 > सेव्ह  करा    </button>
             </form>
 
              <form action="{% url 'return_to_home' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button type="submit" name=b2 > मागे जा    </button>
+                <button class="button" type="submit" name=b2 > मागे जा    </button>
              </form>
 
 

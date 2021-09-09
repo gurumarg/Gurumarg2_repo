@@ -102,14 +102,14 @@ def save_prashan(request):
                       p1 = dict[slct1] + ','+ text1
                       flag1 = 'done'
                 else:
-                       messages.info(request,'प्रश्न १:अधिक माहिती द्या ')
+                       messages.error(request,'प्रश्न १:अधिक माहिती द्या ')
 
         if slct1 == 'g4' or slct1 == 'g10' or slct1 == 'g14' or slct1 == 'g15' or slct1 == 'g16':
                 p1 = dict[slct1]
                 flag1 = 'done'
 
     else:
-            messages.info(request,'प्रश्न १:आपल्या प्रश्नाचे स्वरुप पुढीलपैकी निवडावे')
+            messages.error(request,'प्रश्न १:आपल्या प्रश्नाचे स्वरुप पुढीलपैकी निवडावे')
 
     if slct3 == '':
        p2 = None
@@ -120,7 +120,7 @@ def save_prashan(request):
                p2 = dict[slct3] + '/ ' + slct4
                flag2 = 'done'
              else:
-                 messages.warning(request, 'प्रश्न २: प्रश्नाच्या स्वरूपावरून पुढील निवड करावी ')
+                 messages.error(request, 'प्रश्न २: प्रश्नाच्या स्वरूपावरून पुढील निवड करावी ')
         elif slct3 in ['g4','g10','g14','g15','g16']:
                p2 = dict[slct3]
                flag2 = 'done'
@@ -129,7 +129,7 @@ def save_prashan(request):
                   p2 = dict[slct3] + '/'+ text2
                   flag2 = 'done'
                else:
-                   messages.info(request,'प्रश्न २: अधिक माहिती द्या ')
+                   messages.error(request,'प्रश्न २: अधिक माहिती द्या ')
     if (flag1 == 'done') and (flag2 == 'done'):
        qa = session_data(User_id_id = id,prashan1 = p1, prashan2 = p2)
        qa.save()

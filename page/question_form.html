@@ -8,27 +8,29 @@
         <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>
         {% endfor %}
   </div>
-  <div class="row">
-      <div class="column left" style="background-color:white;">
+  <div >
+
+  <div class="row" >
+      <div class="column left" style="background-color:#B4A8A5 ; height:40%">
          <form action = "{% url 'new_question' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
-              <button type="submit" name=b1>नवीन प्रश्न </button>
+              <button class="button" type="submit" name=b1>नवीन प्रश्न </button>
          </form>
          <form action = "{% url 'repeat_question' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1 value="b1">जुना प्रश्न पुन्हा करा</button>
+              <button class="button" type="submit" name=b1 value="b1">जुना प्रश्न पुन्हा करा</button>
          </form>
          <form action = "{% url 'repeat_question' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1 value="b2">आधीचे प्रश्न बघा </button>
+              <button class="button" type="submit" name=b1 value="b2">आधीचे प्रश्न बघा </button>
          </form>
          <form action="{% url 'return_to_home' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b2 > मागे जा    </button>
+              <button class="button" type="submit" name=b2 > मागे जा    </button>
          </form>
 
          <br>
@@ -229,13 +231,51 @@
 
                                     <hr/>
                              <input type="hidden" name="user" value={{user_details.id}}>
-                             <button type="submit" name=b2>सेव्ह करा   </button>
+                             <button class="button" type="submit" name=b2>सेव्ह करा   </button>
                     </form>
 
 
 
              </div>
       {% endif %}
+            {% if function2 == 'repeat question data' %}
+
+                   <form action="{% url 'submit_repeat_question' %}" method="post">
+                       {% csrf_token %}
+                        <div  class="divScroll" style="border-style: double">
+                        <div id="table-responsive6">
+
+                           <table >
+                               <Caption><b> प्रश्न यादी  </b> </caption>
+                               <thead>
+                                 <tr>
+                                    <th scope="col">Session ID</th>
+                                    <th scope="col">Date Filled</th>
+                                    <th scope="col">Prashan1</th>
+                                    <th scope="col">Prashan2</th>
+                                     <th scope="col">status</th>
+                                 </tr>
+                               </thead>
+                               <tbody>
+                                 {% for i in data %}
+                                   <tr>
+                                     <td>{{i.session_id}}</td>
+                                     <td>{{i.Date_filled}}</td>
+                                     <td>{{i.prashan1}}</td>
+                                     <td>{{i.prashan2}}</td>
+                                     <td>{{i.status}}</td>
+                                   </tr>
+
+                                 {% endfor %}
+                               </tbody>
+                           </table>
+                        </div>
+                        </div>
+                         <br><br>
+
+                   </form>
+      {% endif %}
+
       {% if function2 == 'repeat question' %}
 
                    <form action="{% url 'submit_repeat_question' %}" method="post">
@@ -276,56 +316,13 @@
 
                                     <input type="hidden" name="user" value={{user_details.id}}><br>
 
-                                    <button type="submit" name=b2 >सबमिट </button>
+                                    <button  class="button" type="submit" name=b2 >सबमिट </button>
                                 </div>
                              {% endif %}
                    </form>
       {% endif %}
-
-      {% if function2 == 'repeat question data' %}
-
-                   <form action="{% url 'submit_repeat_question' %}" method="post">
-                       {% csrf_token %}
-                        <div  class="divScroll" style="border-style: double">
-                        <div id="table-responsive6">
-
-                           <table >
-                               <Caption><b> प्रश्न यादी  </b> </caption>
-                               <thead>
-                                 <tr>
-                                    <th scope="col">Session ID</th>
-                                    <th scope="col">Date Filled</th>
-                                    <th scope="col">Prashan1</th>
-                                    <th scope="col">Prashan2</th>
-                                     <th scope="col">status</th>
-                                 </tr>
-                               </thead>
-                               <tbody>
-                                 {% for i in data %}
-                                   <tr>
-                                     <td>{{i.session_id}}</td>
-                                     <td>{{i.Date_filled}}</td>
-                                     <td>{{i.prashan1}}</td>
-                                     <td>{{i.prashan2}}</td>
-                                     <td>{{i.status}}</td>
-                                   </tr>
-
-                                 {% endfor %}
-                               </tbody>
-                           </table>
-                        </div>
-                        </div>
-                         <br><br>
-
-                   </form>
-      {% endif %}
-
-
-
-
-
-
       </div>
+  </div>
   </div>
 
 {% endblock %}

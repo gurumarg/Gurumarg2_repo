@@ -10,44 +10,45 @@
   </div>
 
    <div class="row">
-      <div class="column left" style="background-color:#f83f33;">
+      <div class="column left" style="background-color:#FF5733 ;">
+
          <form action = "{% url 'question_form' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
-              <button type="submit" name=b1>प्रश्न करा</button>
+              <button class="button" type="submit" name=b1>प्रश्न करा</button>
          </form>
          <form action = "{% url 'profile_manage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1>प्रोफाइल</button>
+              <button class="button" type="submit" name=b1>प्रोफाइल</button>
          </form>
          <form action = "{% url 'approve_kara' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1>अप्रूव्ह  करा   </button>
+              <button  class="button" type="submit" name=b1>अप्रूव्ह  करा   </button>
          </form>
           <form action = "{% url 'users_page' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1> यूजर्स    </button>
+              <button class="button" type="submit" name=b1> यूजर्स    </button>
          </form>
          <form action = "{% url 'select_pk_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
                <input type="hidden" name="x" value="schedule"/>
-              <button type="submit" name=b1>  शेड्युल करा   </button>
+              <button class="button" type="submit" name=b1>  शेड्युल करा   </button>
          </form>
          <form action = "{% url 'select_pk_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <input type="hidden" name="x" value="seva"/><br>
-              <button type="submit" name=b1> सेवा </button>
+              <button class="button" type="submit" name=b1> सेवा </button>
          </form>
          <form action = "{% url 'select_question_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <input type="hidden" name="x" value="viewseva"/><br>
-              <button type="submit" name=b1> सेवा पहा / अपडेट करा   </button>
+              <button class="button" type="submit" name=b1 > सेवा पहा / अपडेट करा   </button>
          </form>
 
 
@@ -104,7 +105,7 @@
                             <div>
                              <input type="hidden" name="user" value={{user_details.id}}><br>
 
-                             <button type="submit" name=b2 > सेव्ह  करा    </button>
+                             <button class="button" type="submit" name=b2 > सेव्ह  करा    </button>
 
                             </div>
 
@@ -156,7 +157,7 @@
          </div>
          <br><br>
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b2 > सिलेक्ट प्रश्नकर्ता    </button>
+              <button class="button" type="submit" name=b2 > सिलेक्ट प्रश्नकर्ता    </button>
          </form>
          {% endif %}
          {% if function2 == 'ds' %}

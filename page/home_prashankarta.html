@@ -1,7 +1,7 @@
 {% extends 'basehtml.html' %}
 {% load static %}
 {% block content %}
-    <h3>{{user_details.first_name}} आपले स्वागत आहे prashankarta page </h3>
+    <h3>{{user_details.first_name}} आपले स्वागत आहे </h3>
 
     <a href=" {% url 'logout' %} "><b> &nbsp &nbsp लॉगऑऊट </b> </a><br><br>
     <div>
@@ -10,21 +10,21 @@
         {% endfor %}
     </div>
    <div class="row">
-      <div class="column left" style="background-color:#ac47af;">
+      <div class="column left" style="background-color:#Fe4271;">
          <form action = "{% url 'question_form' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
-              <button type="submit" name=b1>प्रश्न करा</button>
+              <button class="button" type="submit" name=b1>प्रश्न करा</button>
          </form>
          <form action = "{% url 'profile_manage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1>प्रोफाइल</button>
+              <button class="button" type="submit" name=b1>प्रोफाइल</button>
          </form>
          <form action = "{% url 'select_question_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1> सेवा पहा / अपडेट करा  </button>
+              <button class="button" type="submit" name=b1> सेवा पहा / अपडेट करा  </button>
          </form>
          <br>
       </div>

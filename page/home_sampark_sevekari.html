@@ -10,42 +10,42 @@
    </div>
 
    <div class="row">
-      <div class="column left" style="background-color:#44bdfb;">
+      <div class="column left" style="background-color:#F7a607;">
          <form action = "{% url 'question_form' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
-              <button type="submit" name=b1>प्रश्न करा</button>
+              <button class="button" type="submit" name=b1>प्रश्न करा</button>
          </form>
          <form action = "{% url 'profile_manage' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1>प्रोफाइल</button>
+              <button class="button" type="submit" name=b1>प्रोफाइल</button>
          </form>
          <form action = "{% url 'approve_kara' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1>अप्रूव्ह  करा   </button>
+              <button class="button" type="submit" name=b1>अप्रूव्ह  करा   </button>
           </form>
           <form action = "{% url 'select_question_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button type="submit" name=b1> सेवा पहा /अपडेट करा   </button>
+              <button class="button" type="submit" name=b1> सेवा पहा /अपडेट करा   </button>
          </form>
          <form action = "{% url 'listof_SS_prashankarta' %}" method="post">
           {% csrf_token %}
           <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button type="submit" name=b1 value="prashnakarta" >प्रश्नकर्ता </button>
+          <button class="button" type="submit" name=b1 value="prashnakarta" >प्रश्नकर्ता </button>
          </form>
          <form action="{% url 'listof_SS_rejected' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button type="submit" name=b1 value="rejected" > रिजेक्टटेड </button>
+                <button class="button" type="submit" name=b1 value="rejected" > रिजेक्टटेड </button>
          </form>
          <form action = "{% url 'listof_SS_prashankarta' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <input type="hidden" name="x" value="viewseva"/><br>
-              <button type="submit" name=b1 value="prashnakarta_seva"> प्रश्नकर्त्यांची सेवा  </button>
+              <button class="button" type="submit" name=b1 value="prashnakarta_seva"> प्रश्नकर्त्यांची सेवा  </button>
          </form>
          <br>
       </div>
@@ -96,7 +96,7 @@
                             <div>
                              <input type="hidden" name="user" value={{user_details.id}}><br>
 
-                             <button type="submit" name=b1 value="prashnkarta_select" > सिलेक्ट   </button>
+                             <button class="button" type="submit" name=b1 value="prashnkarta_select" > सिलेक्ट   </button>
 
                             </div>
 
@@ -140,7 +140,7 @@
                   <p>** <b>वरील पैकी प्रश्न सिलेक्ट करून , सिलेक्ट प्रश्न बटन वर क्लिक करा </b> **</p>
                   <div>
                        <input type="hidden" name="user" value={{user_details.id}}><br>
-                       <button type="submit" name=b2 > सिलेक्ट प्रश्न </button>
+                       <button class="button" type="submit" name=b2 > सिलेक्ट प्रश्न </button>
                   </div>
                </form>
            {% endif %}
@@ -155,7 +155,7 @@
                    <div>
                       <input type="hidden" name="user" value={{user_details.id}}>
                       <input type="hidden" name="seva_id" value={{sd.seva_id}}>
-                      <button type="submit" name=b2 > सेव्ह  करा    </button><br>
+                      <button class="button" type="submit" name=b2 > सेव्ह  करा    </button><br>
                    </div>
 
                  <br> प्रश्नकर्त्यास सेवा समजून सांगितली असल्यास खालील स्टेटस बदलून सेव्ह बटण वर क्लिक करा <br>
@@ -230,7 +230,7 @@
                   <div>
                        <input type="hidden" name="session_id" value={{session_id}}><br>
                        <input type="hidden" name="user" value={{user_details.id}}><br>
-                       <button type="submit" name=b2 > सिलेक्ट सेवा </button>
+                       <button class="button" type="submit" name=b2 > सिलेक्ट सेवा </button>
                   </div>
            </form>
     {% endif %}

@@ -18,7 +18,9 @@
                  <label><b> कोड </b> </label>{{user_details.code1}}&nbsp
                  <label><b> मोबाईल क्रमांक :</b></label>{{user_details.mobile1}}<br><br>
                  <label><b> ज्यांच्याकडून माहिती मिळाली त्यांचे नाव :</b></label>{{user_details.reffered_by}}<br><br>
-                 <label><b> संपर्क सेवेकरी कोड :</b></label>{{sscode.sscode}}<br><br>
+                  <label><b> संपर्क सेवेकरी कोड :</b></label>{{user_details.sscode}}<br><br>
+                 <label><b> तुमचा संपर्क सेवेकरी कोड :</b></label>{{sscode.sscode}}<br><br>
+
                  <label><b> कोड </b> </label><input placeholder="+91" list="ccode1" size="5" name="wmcode" value="{{user_details.code2}}" /> &nbsp
                    <datalist id="ccode1">
                      <option value="+91">
@@ -37,7 +39,7 @@
       <form action="{% url 'return_to_home' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button type="submit" name=b2 > मागे जा    </button>
+                <button class="button" type="submit" name=b2 > मागे जा    </button>
       </form>
 
   </div>

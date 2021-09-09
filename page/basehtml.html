@@ -12,7 +12,7 @@
             text-align:center;
             padding:15px;
           }
-       h5 {
+       .footer {
             position:static;
             left:0;
             bottom:0;
@@ -29,7 +29,7 @@
            }
        p  {
              color:#f70f07;
-             font-size:1.5vw;
+             ;
           }
        body  {
                background:#fed8b1
@@ -64,10 +64,10 @@
                 }
 
        .left {
-               width: 10%;
+               width: 30%;
               }
        .right {
-                width: 75%;
+                width: 70%;
                }
        /* Clear floats after the columns */
        .row:after {
@@ -132,16 +132,35 @@
 	                height:300px;
 	                width:800px;
 	              }
+.button {
+ background-color: #900C3F ; /* Green */
+  border: none;
+  width: 100%;
+  color: white;
+  padding: 10px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+
+}
 
 </style>
+
+
 </head>
 <body>
     <div class="Topheader" >
        <h1>गुरु मार्ग दर्शन</h1>
     </div>
+
+
    {% block content %}
 
    {% endblock %}
-    <h5 >।। श्री गुरु स्वामी समर्थ जय जय स्वामी समर्थ ।। </h5>
+  <div id ="footer" class="footer">
+    ।। श्री गुरु स्वामी समर्थ जय जय स्वामी समर्थ ।।
+  </div>
 </body>
+
 </html>

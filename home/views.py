@@ -159,7 +159,7 @@ def applogin(request):
         elif type == ('unverified') or ('verified'):
          return render(request, 'home_Prashankarta.html',{'user_details':user_details})
     else:
-        messages.info(request, 'मोबाईल  किंवा पासवर्ड चुकीचा आहे , पुन्हा लॉगिन करा' )
+        messages.error(request, 'मोबाईल  किंवा पासवर्ड चुकीचा आहे , पुन्हा लॉगिन करा' )
         return render(request,'loginpage.html')
 
 

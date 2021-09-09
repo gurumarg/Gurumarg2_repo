@@ -12,7 +12,7 @@
 
 
 
-    <form action="{% url 'save_seva' %}" method="post">
+    <form id="sevaform" action="{% url 'save_seva' %}" method="post"  >
               {% csrf_token %}
             <fieldset>
                 <input type="hidden" name="user" value={{user_details.id}}>
@@ -201,16 +201,16 @@
             </fieldset>
              <fieldset>
                 <legend><b>वास्तुदोष निवारण सेवा</b></legend>
-                <input type=checkbox id="vastu1" name=vastudosh value=" sk53  "/>
+                <input type=checkbox id="vastu1" name=vastudosh value="sk53"/>
                 <label for="vastu1" >वास्तुदोष निवारण्यासाठी भिंतीवर पेंटने पाच टिपके द्यावेत
                                 अ ) ईशान्य दिशा : हिरवा रंग     ब) आग्नेय दिशा : लाल रंग
                                 क) नैऋत्य दिशा :  लाल  रंग     ड ) वायव्य दिशा : पांढरा रंग </label><br>
              </fieldset>
               <fieldset>
                 <legend><b>पितरांची सेवा </b></legend>
-                <input type=checkbox id="pitar1" name=pitraseva value=" sk54  "/>
+                <input type=checkbox id="pitar1" name=pitraseva value="sk54"/>
                 <label for="pitar1" >त्र्यबंकेश्वरला  नारायण नागबळी करावी </label><br>
-                <input type=checkbox id="pitar2" name=pitraseva value=" sk55 "/>
+                <input type=checkbox id="pitar2" name=pitraseva value="sk55"/>
                 <label for="pitar2" >मातृदोष  निवारण्यासाठी मंगळवारी दुपारी १२ :०० वाजता मंगलयंत्राची देवघरात स्थापना करावी तर मारोती यंत्र पुरुष्यांच्या  हातून घराच्या ईश्यानेला फूटभर जमिनीत खड्डा करून पुरावे  </label><br>
              </fieldset>
 
@@ -220,40 +220,40 @@
                 <label for="otherseva1" >आठवड्यातून एखाद्या दिवशी गाईच्या तुपाचा किंवा तिळाच्या तेलाचा दिवा देवघरात लावावा . </label><br>
                 <input type=checkbox id="otherseva2" name=otherseva value="sk57"/>
                 <label for="otherseva2" >रोज सकाळी एक चमचा गोमुत्र अर्क घेणे</label><br>
-                <input type=checkbox id="otherseva3" name=otherseva value=" sk58 "/>
+                <input type=checkbox id="otherseva3" name=otherseva value="sk58"/>
                 <label for="otherseva3" >कडुलिंबाच्या  पानाचा एक चमचा रस एक कप पाण्यात टाकून तीन दिवस घ्यावा  </label><br>
-                <input type=checkbox id="otherseva4" name=otherseva value=" sk59 "/>
+                <input type=checkbox id="otherseva4" name=otherseva value="sk59"/>
                 <label for="otherseva4" >कुलदेवीची टाक/ मुर्तीवरील हळद दुधातुन घेणे </label><br>
-                <input type=checkbox id="otherseva5" name=otherseva value=" sk60 "/>
+                <input type=checkbox id="otherseva5" name=otherseva value="sk60"/>
                 <label for="otherseva5" > एक चमचा मध घेऊन त्यावर प्रत्येकी अकरा वेळा
                            ।। श्री स्वामी समर्थ ।। व  ।। शिव चिदंबर ।।  मंत्र जप म्हणून ते खाऊन घ्यावेत </label><br>
-                <input type=checkbox id="otherseva6" name=otherseva value=" sk61  "/>
+                <input type=checkbox id="otherseva6" name=otherseva value="sk61"/>
                 <label for="otherseva6" >कुंकुमार्चन विधीचे कुंकू आपल्या पतीचे ध्यान करून रोज कपाळाला लावावेत </label><br>
-                <input type=checkbox id="otherseva7" name=otherseva value=" sk62 "/>
+                <input type=checkbox id="otherseva7" name=otherseva value="sk62"/>
                 <label for="otherseva7" >पक्षांना तांदुळ टाकणे/ पाणी टाकणे  </label><br>
-                <input type=checkbox id="otherseva8" name=otherseva value=" sk63"/>
+                <input type=checkbox id="otherseva8" name=otherseva value="sk63"/>
                 <label for="otherseva8" >देवघरात जप युनीट लावणे</label><br>
-                <input type=checkbox id="otherseva9" name=otherseva value=" sk64 "/>
+                <input type=checkbox id="otherseva9" name=otherseva value="sk64"/>
                 <label for="otherseva9" >देवघर देव्हारा मठाकडुन तपासुन घेणे </label><br>
-                <input type=checkbox id="otherseva10" name=otherseva value="sk65 ."/>
+                <input type=checkbox id="otherseva10" name=otherseva value="sk65"/>
                 <label for="otherseva10" >कोणत्याही गोशाळेत  वर्षातून एकदा पैसे देण्याऐवजी यथाशक्ती चारा दयावा.</label><br>
-                <input type=checkbox id="otherseva11" name=otherseva value=" sk66 "/>
+                <input type=checkbox id="otherseva11" name=otherseva value="sk66"/>
                 <label for="otherseva11" >अन्नदान  यथाशक्ती करावे : वर्षातून एकदा कमीत कमी पाच लहान मुलांना जेऊ घालावे .</label><br>
-                <input type=checkbox id="otherseva12" name=otherseva value=" sk67 "/>
+                <input type=checkbox id="otherseva12" name=otherseva value="sk67"/>
                 <label for="otherseva12" >दही भात उतारा (शुक्रवारी दुपारी १२ नंतर). </label><br>
                 <input type=checkbox id="otherseva13" name=otherseva value="sk68"/>
                 <label for="otherseva13" >मोरपीस उतारा (शनिवार / अमावस्या)  </label><br>
                 <input type=checkbox id="otherseva14" name=otherseva value="sk69"/>
                 <label for="otherseva14" >नारळ  उतारा (शनिवार/अमावस्या) </label><br>
-                <input type=checkbox id="otherseva15" name=otherseva value=" sk70 "/>
+                <input type=checkbox id="otherseva15" name=otherseva value="sk70"/>
                 <label for="otherseva15" >आसरांची सेवा (शुक्रवारी) फक्त महिलांनी </label><br>
                 <input type=checkbox id="otherseva16" name=otherseva value="sk71"/>
                 <label for="otherseva16" >पांढर्या मोहरीची‌ सेवा (शनिवार/अमावस्या) </label><br>
-                <input type=checkbox id="otherseva17" name=otherseva value=" sk72 "/>
+                <input type=checkbox id="otherseva17" name=otherseva value="sk72"/>
                 <label for="otherseva17" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (१ शनिवारी) </label><br>
-                <input type=checkbox id="otherseva18" name=otherseva value=" sk72_1 "/>
+                <input type=checkbox id="otherseva18" name=otherseva value="sk72_1"/>
                 <label for="otherseva18" >मारोतीच्या मंदिरात दिव्यात तेल टाकणे (३ शनिवारी) </label><br>
-                 <input type=checkbox id="otherseva19" name=otherseva value=" sk73  "/>
+                 <input type=checkbox id="otherseva19" name=otherseva value="sk73"/>
                 <label for="otherseva19" >एका शनिवारी शनिमंदिरात  पुरुषांच्या हातून टाकावेत  </label><br>
                 <input type=checkbox id="otherseva20" name=otherseva value="sk42"/>
                 <label for="otherseva20" >दर रविवारी सुर्याला जल देणे </label><br>
@@ -263,9 +263,21 @@
                  <legend><b>विशेष सूचना व अधिकची  सेवा </b></legend>
                  <textarea rows="4" cols="50" name="vishesh_suchana_seva"></textarea>  <br>
             </fieldset>
-              <br><input type="submit" value=submit   />
+              <br><input type="submit"  />
+
               &nbsp<input type="reset" />
       </fieldset>
     </form>
+<script>
+clearform(formid)
+formid = formid
+formid.reset();
+</script>
+<script>
+if (window.history.replaceState ){
+window.history.replaceState(null,null,window.location.href);
+document.getElementById("sevaform").reset();
+}
+</script>
 
 {% endblock %}
