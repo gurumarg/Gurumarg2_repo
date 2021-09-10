@@ -14,5 +14,6 @@ urlpatterns = [
       path('registration_check',views.registration_check,name='registration_check'),
       path('applogin',views.applogin,name='applogin'),
       path('logout',views.userlogout,name='logout'),
+      path('returntohome',views.returntohome,name='returntohome'),
 
 ]

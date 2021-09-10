@@ -2,7 +2,14 @@
 {% load static %}
 {% block content %}
   <h3 style="padding-left: 20px;">{{user_details.first_name}} आपले स्वागत आहे  </h3>
-  <a href=" {% url 'logout' %} "><b> &nbsp &nbsp लॉगऑऊट </b> </a><br><br>
+     <div>
+            <form action = "{% url 'return_to_home' %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="user" value={{user_details.id}}>
+                      <button class="button1" type="submit" name=b1><b>होम पेज </b></button>
+                      <a href=" {% url 'logout' %} "><b> &nbsp &nbsp लॉगऑऊट </b> </a><br><br>
+            </form>
+    </div>
   <div>
         {% for i in messages%}
         <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>

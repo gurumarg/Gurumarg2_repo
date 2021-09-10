@@ -163,7 +163,10 @@ def applogin(request):
         return render(request,'loginpage.html')
 
 
-
+def returntohome(request):
+    username = request.user
+    print('username after clicking return to home',username)
+    return render(request,'home_Prashankarta.html' )
 
 # function userlogout will log out the user
 

@@ -22,5 +22,5 @@ urlpatterns = [
     path('question_form',include('common.urls')),
     path('users_page',include('admin.urls')),
     path('listof_SS_prashankarta',include('sampark_sevekari.urls')),
-
+    path('show_selectedseva',include('admin.urls')),
 ]

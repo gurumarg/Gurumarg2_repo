@@ -14,7 +14,7 @@ urlpatterns = [
      path('prashan_schedule', views.prashan_schedule, name='prashan_schedule'),
      path('load_sevaform',views.load_sevaform,name='load_sevaform'),
      path('save_seva',views.save_seva,name='save_seva'),
-
+     path('show_selectedseva',views.load_showseva,name='show_selectedseva.html'),
 
 
 ]

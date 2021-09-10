@@ -1,4 +1,5 @@
 from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 
@@ -15,6 +16,7 @@ def users_page(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     return render(request, 'users_page.html',{'user_details': user_details})
+
 
 # function ss_data will show list of current sampark sevekari
 
@@ -147,7 +149,9 @@ def load_sevaform(request):
 
 
 def save_seva(request):
-
+      id = request.POST['user']
+      user_details = get_user_model().objects.get(pk=id)
+      if request.method == 'POST':
             sthapna = request.POST.getlist('sthapna')
             maansanam = request.POST.getlist('maansanam')
             mantrajaap = request.POST.getlist('mantrajaap')
@@ -158,8 +162,7 @@ def save_seva(request):
             pitraseva = request.POST.getlist('pitraseva')
             otherseva = request.POST.getlist('otherseva')
             vishesh_suchana_seva = request.POST.getlist('vishesh_suchana_seva')
-            id = request.POST['user']
-            user_details = get_user_model().objects.get(pk=id)
+
             session_id = request.POST['session_id']
             pid = request.POST['pid']
             email = request.POST['email']
@@ -290,10 +293,18 @@ def save_seva(request):
                               [email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
 
                     function2 = 'ds'
-                    return render(request, 'Home_admin.html',
-                          {'user_details': user_details, 'display_seva': sevalist, 'pending_list':pending_seva, 'function2': function2})
+                    return render( request,'Home_admin.html',{'user_details': user_details, 'display_seva': sevalist, 'pending_list':pending_seva, 'function2': function2})
             else:
                 return render(request, 'Home_admin.html', {'user_details': user_details})
+      else:
+          return render(request, 'Home_admin.html', {'user_details': user_details})
+
+
+def load_showseva():
+
+    return redirect('show_selectedseva.html')
+
+
 
 def select_howtodo_seva(seva):
     seva = seva
