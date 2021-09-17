@@ -55,6 +55,9 @@
   {%if function2 == 'verify_email' %}
                 <form action="{% url 'verify_recode' %}" method="POST">
                     {% csrf_token %}
+                    <label for="email">&nbsp ई-मेल  :</label><br><br>
+                    <input type="text" name=email value={{dic.g_email1}} readonly > <br><br>
+                    <input type="hidden" name=recode_m value={{dic.recode_m}}>
                     <label for="ecode">&nbsp ई-मेल कोड  :</label><br>
                     <input type=text id="ecode" name=ecode size="20" placeholder="enter code"  required/><br><br>
                     <input type="hidden" name="user" value={{user_details.id}}><br>

@@ -9,8 +9,8 @@ from django.contrib.auth import get_user_model,logout,authenticate
 User = get_user_model()
 
 # Create your views here.
-code = '1234'
-g_email = ''
+#code = '1234'
+#g_email = ''
 
 # function homepage will load home page of the website
 
@@ -49,9 +49,11 @@ def register(request):
 # function send_email will send email and verification code on given email address by user
 
 def send_email(request):
-    global code, g_email
+    #global code, g_email
     g_email = request.POST['email']
-    code = str(random.randrange(1000, 9999))
+    code = random.randrange(1000, 9999)
+    code_m = code + 135
+    code = str(code)
     print(code)
     msg = 'नोंदणीसाठी तुमचा व्हेरीफिकेशन  कोड :'+ code +' हा राहील '
     send_mail('Email Verification', msg, 'samarthview@gmail.com',
@@ -60,14 +62,18 @@ def send_email(request):
     messages.info(request,
                   '📧 तुमच्या  ई-मेल वर  कोड पाठविण्यात आला आहे , १ मिनिट  थांबा ,\n  कोड नाही आला तर तुम्ही दिलेला ई-मेल बरोबर आहे , ते पहा 📧 ')
     function = 'verify_email'
-    return render(request, 'register.html',{'function':function})
+    dic = {'code_m':code_m,'g_email':g_email}
+    return render(request, 'register.html',{'function':function,'dic':dic})
 
 # function verify_ecode will verify ecode
 def verify_ecode(request):
-    global code,g_email
+    #global code,g_email
+    code = request.POST['code_m']
+    g_email = request.POST['email']
     ecode = request.POST['ecode']
-    print('ecode:', ecode)
-    print('code:', code)
+    code = int(code)
+    code = str(code - 135)
+
     if ecode == code:
         data = sampark_sevekari.objects.filter(status='active')
         messages.info(request, ' ✅ ई-मेल व्हेरीफिकेशन  यशस्वी ✅ ')
@@ -78,7 +84,10 @@ def verify_ecode(request):
     else:
         function = 'verify_email'
         messages.info(request, '❌ ई-मेल कोड चुकीचा आहे ,पुन्हा प्रयत्न करा ❌')
-        return render(request, 'register.html',{'function':function})
+        code = int(code)
+        code = code + 135
+        dic = {'code_m': code, 'g_email': g_email}
+        return render(request, 'register.html',{'function':function,'dic':dic})
 
 
 # function registration_check will verify user details and register the user

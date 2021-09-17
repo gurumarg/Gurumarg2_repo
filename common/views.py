@@ -6,8 +6,8 @@ from django.contrib import messages
 from .models import sampark_sevekari, session_data,seva_data
 import random
 from datetime import date
-recode = '1234'
-g_email1 = ''
+#recode = '1234'
+#g_email1 = ''
 
 
 
@@ -164,7 +164,8 @@ def profile_manage(request):
         return render(request, 'profilepage.html',{'user_details': user_details, 'sscode': sscode,'function1':function1})
 
 def profile_update(request):
-    global recode, g_email1
+    #global recode, g_email1
+    recode = '1234'
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     city = request.POST['city']
@@ -190,20 +191,27 @@ def profile_update(request):
             return render(request, 'home_prashankarta.html', {'user_details': user_details})
     else:
            user_details.save()
-           recode = str(random.randrange(1000, 9999))
+           recode = random.randrange(1000, 9999)
+           recode_m = recode + 135
+           recode = str(recode)
            print(recode)
            msg = 'नोंदणीसाठी तुमचा व्हेरीफिकेशन  कोड :' + recode + ' हा राहील '
            send_mail('Email Verification', msg, 'samarthview@gmail.com',[g_email1, 'gurumargdarshan14@gmail.com'], fail_silently=True)
 
            messages.info(request,'📧 तुमच्या  ई-मेल वर  कोड पाठविण्यात आला आहे , १ मिनिट  थांबा ,\n  कोड नाही आला तर तुम्ही दिलेला ई-मेल बरोबर आहे , ते पहा 📧 ')
            function2 = 'verify_email'
-           return render(request, 'profilepage.html', {'user_details': user_details, 'function2':function2})
+           dic = {'g_email1':g_email1,'recode_m':recode_m}
+           return render(request, 'profilepage.html', {'user_details': user_details, 'function2':function2,'dic':dic})
 
 
 def verify_recode(request):
+    g_email1 = request.POST['email']
+    recode = int(request.POST['recode_m'])
+    recode = str(recode - 135)
+
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
-    global recode,g_email1
+    #global recode,g_email1
     ecode = request.POST['ecode']
     if ecode == recode:
         user_details.email = g_email1
@@ -219,8 +227,11 @@ def verify_recode(request):
 
     else:
         messages.info(request, '❌ ई-मेल कोड चुकीचा आहे ,पुन्हा प्रयत्न करा ❌')
-        function1 = 'verify_email'
-        return render(request, 'profilepage.html', {'user_details': user_details, 'function1': function1})
+        function2 = 'verify_email'
+        recode = int(recode)
+        recode_m = recode + 135
+        dic = {'recode_m': recode_m, 'g_email1': g_email1}
+        return render(request, 'profilepage.html', {'user_details': user_details, 'function2': function2,'dic':dic})
 
 # approving new user by sampark sevekari
 
