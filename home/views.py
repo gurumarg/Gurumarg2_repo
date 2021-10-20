@@ -166,7 +166,7 @@ def applogin(request):
         elif type == 'main_admin':
             return render(request, 'home_admin.html',{'user_details':user_details})
         elif type == ('unverified') or ('verified'):
-         return render(request, 'home_Prashankarta.html',{'user_details':user_details})
+         return render(request, 'home_prashankarta.html',{'user_details':user_details})
     else:
         messages.error(request, 'मोबाईल  किंवा पासवर्ड चुकीचा आहे , पुन्हा लॉगिन करा' )
         return render(request,'loginpage.html')
@@ -175,7 +175,7 @@ def applogin(request):
 def returntohome(request):
     username = request.user
     print('username after clicking return to home',username)
-    return render(request,'home_Prashankarta.html' )
+    return render(request,'home_prashankarta.html' )
 
 # function userlogout will log out the user
 

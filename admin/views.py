@@ -86,7 +86,7 @@ def select_pk_seva(request):
         function2 = 'schedule_data'
     userlist = createlist(pk_table)
 
-    return render(request, 'Home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
+    return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
 
 def prashan_schedule(request):
     id = request.POST['user']
@@ -105,7 +105,7 @@ def prashan_schedule(request):
     pk_table = session_data.objects.filter(status='submitted')
     userlist = createlist(pk_table)
 
-    return render(request, 'Home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
+    return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
 
 
 def createlist(pk_table):
@@ -293,11 +293,11 @@ def save_seva(request):
                               [email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
 
                     function2 = 'ds'
-                    return render( request,'Home_admin.html',{'user_details': user_details, 'display_seva': sevalist, 'pending_list':pending_seva, 'function2': function2})
+                    return render( request,'home_admin.html',{'user_details': user_details, 'display_seva': sevalist, 'pending_list':pending_seva, 'function2': function2})
             else:
-                return render(request, 'Home_admin.html', {'user_details': user_details})
+                return render(request, 'home_admin.html', {'user_details': user_details})
       else:
-          return render(request, 'Home_admin.html', {'user_details': user_details})
+          return render(request, 'home_admin.html', {'user_details': user_details})
 
 
 def load_showseva():
