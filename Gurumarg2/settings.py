@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gurumarg',
         'USER': 'postgres',
-        'PASSWORD': 'Samarthpos@135',
+        'PASSWORD': 'SamarthGMD21',
         'HOST': 'localhost'
     }
 
@@ -133,7 +133,7 @@ EMAIL_HOST_USER = 'gurumargdarshan14@gmail.com'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS= True
-EMAIL_HOST_PASSWORD = "Samarth@123"
+EMAIL_HOST_PASSWORD = "Samarth@4141"
 AUTH_USER_MODEL = 'common.User'
 
 SESSION_COOKIE_AGE = 300
