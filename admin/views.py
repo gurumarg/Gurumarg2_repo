@@ -58,7 +58,7 @@ def listof_prashankarta(request):
 def listof_rejected(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
-    all_rejected = get_user_model().objects.filter(type='rejected')
+    all_rejected = get_user_model().objects.filter(type='Rejected')
     function5 = 'listof_rejected'
     return render(request,'users_page.html',{'user_details':user_details,'function5':function5,'data':all_rejected})
 

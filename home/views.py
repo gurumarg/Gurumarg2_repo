@@ -165,16 +165,19 @@ def applogin(request):
             return render(request, 'home_sampark_sevekari.html',{'user_details':user_details})
         elif type == 'main_admin':
             return render(request, 'home_admin.html',{'user_details':user_details})
+        elif type == 'Rejected':
+            messages.error(request, 'संपर्क सेवेकरी तुम्हाला ओळखत नसल्यामुळे तुमची विनंती अमान्य करण्यात आली आहे ')
+            return render(request, 'loginpage.html')
         elif type == ('unverified') or ('verified'):
-         return render(request, 'home_prashankarta.html',{'user_details':user_details})
+            return render(request, 'home_prashankarta.html',{'user_details':user_details})
+
     else:
         messages.error(request, 'मोबाईल  किंवा पासवर्ड चुकीचा आहे , पुन्हा लॉगिन करा' )
         return render(request,'loginpage.html')
 
 
 def returntohome(request):
-    username = request.user
-    print('username after clicking return to home',username)
+  #  username = request.user
     return render(request,'home_prashankarta.html' )
 
 # function userlogout will log out the user

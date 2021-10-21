@@ -42,12 +42,12 @@
          <form action = "{% url 'listof_prashankarta' %}" method="post">
           {% csrf_token %}
           <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button class="button" type="submit" name=b1>प्रश्नकर्ता </button>
+          <button class="button" type="submit" name=b1>सर्व प्रश्नकर्ते</button>
          </form>
          <form action="{% url 'listof_rejected' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button class="button" type="submit" name=b2 > रिजेक्टटेड </button>
+                <button class="button" type="submit" name=b2 > सर्व रिजेक्टटेड </button>
          </form>
          <form action="{% url 'listof_unverified' %}" method="post">
                 {% csrf_token %}
