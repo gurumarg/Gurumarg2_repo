@@ -49,10 +49,17 @@ def select_pp_question_seva(request):
     pk_table = session_data.objects.filter(User_id_id = pk_id)
     function2 = 'display questions'
     if user_details.type == 'sampark_sevekari':
-            return render(request,'home_sampark_sevekari.html',{'user_details':user_details,'pk_table':pk_table, 'function2':function2})
+            if pk_table:
+                 return render(request,'home_sampark_sevekari.html',{'user_details':user_details,'pk_table':pk_table, 'function2':function2})
+            else:
+                messages.info(request,"सिलेक्ट केलेल्या प्रश्नकर्त्याचे  प्रश्नच झालेले नाहीत ")
+                return render(request,'home_sampark_sevekari.html',{'user_details':user_details})
     elif user_details.type == 'main_admin':
-            return render(request,'users_page.html',{'user_details':user_details,'pk_table':pk_table, 'function2':function2})
-
+            if pk_table:
+                return render(request,'users_page.html',{'user_details':user_details,'pk_table':pk_table, 'function2':function2})
+            else:
+                messages.info(request, " सिलेक्ट केलेल्या प्रश्नकर्त्याचे  प्रश्नच झालेले नाहीत  ")
+                return render(request, 'users_page.html', {'user_details': user_details})
 def view_seva_ss(request):
     session_id = request.POST['select_session_id']
     id = request.POST['user']

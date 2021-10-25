@@ -20,3 +20,5 @@ class UserManager(BaseUserManager):
             raise ValueError('Must be superuser')
 
         return self.create_user(mobile1, password, **extra_fields)
+
+

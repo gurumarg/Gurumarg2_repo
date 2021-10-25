@@ -42,11 +42,16 @@ def repeat_question(request):
     user_details = get_user_model().objects.get(pk=id)
     button1= request.POST['b1']
     user_questions = session_data.objects.filter(User_id_id=id)
-    if button1 == 'b1':
-        function2 = 'repeat question'
+    if user_questions:
+        if button1 == 'b1':
+             function2 = 'repeat question'
+        else:
+              function2 = 'repeat question data'
+        return render(request, 'question_form.html', {'user_details': user_details, 'function2': function2,'data':user_questions})
     else:
-        function2 = 'repeat question data'
-    return render(request, 'question_form.html', {'user_details': user_details, 'function2': function2,'data':user_questions})
+        messages.info(request,"तुम्ही प्रश्न अजून केलेले नाहीत ")
+        return render(request,'question_form.html', {'user_details': user_details})
+
 
 def submit_repeat_question(request):
     id = request.POST['user']
@@ -240,9 +245,15 @@ def approve_kara(request):
     user_details = get_user_model().objects.get(pk=id)
     sscode = sampark_sevekari.objects.get(User_id_id=id)
     unvdata = get_user_model().objects.filter(sscode=sscode.sscode).filter(type='unverified')
-
-    return render(request, 'approvepage.html',{'user_details': user_details, 'unvdata': unvdata})
-
+    if unvdata:
+        return render(request, 'approvepage.html',{'user_details': user_details, 'unvdata': unvdata})
+    else:
+        if user_details.type == 'sampark_sevekari':
+            messages.info(request,'अप्रूव्ह करण्या करिता विनंती नाही आहे ')
+            return render(request,'home_sampark_sevekari.html',{'user_details': user_details})
+        elif user_details.type == 'main_admin':
+            messages.info(request, 'अप्रूव्ह करण्या करिता विनंती नाही आहे ')
+            return render(request, 'home_admin.html', {'user_details': user_details})
 
 
 def modify_user_type(request):

@@ -154,12 +154,12 @@ def registration_check(request):
 
 
 def applogin(request):
-    mobile1=request.POST['mobile1']
-    password=request.POST['password']
+    mobile1 = request.POST['mobile1']
+    password = request.POST['password']
     user = authenticate(username=mobile1,password=password)
     if user is not None:
         user_details = get_user_model().objects.get(mobile1=mobile1)
-        type= user_details.type
+        type = user_details.type
 
         if type == 'sampark_sevekari':
             return render(request, 'home_sampark_sevekari.html',{'user_details':user_details})
@@ -174,6 +174,66 @@ def applogin(request):
     else:
         messages.error(request, 'मोबाईल  किंवा पासवर्ड चुकीचा आहे , पुन्हा लॉगिन करा' )
         return render(request,'loginpage.html')
+
+
+def forgot_password(request):
+    fp_mobile = request.POST['fp_mobile']
+    try:
+        user_details = get_user_model().objects.get(mobile1=fp_mobile)
+    except:
+        messages.info(request, 'आपण दिलेला मोबाईल नंबर रजिस्टर नाही आहे ')
+        return render(request,'loginpage.html')
+
+    print('user_details:', user_details)
+    if user_details:
+        email_id = user_details.email
+        recode = random.randrange(1000, 9999)
+        recode_m = recode + 135
+        recode = str(recode)
+        print(recode)
+        msg = 'पासवर्ड रिसेट करिता तुमचा व्हेरीफिकेशन कोड :' + recode + ' हा राहील '
+        send_mail('Email Verification', msg, 'samarthview@gmail.com', [email_id, 'gurumargdarshan14@gmail.com'],
+                  fail_silently=True)
+
+        messages.info(request,'📧 तुमच्या  ई-मेल वर  कोड पाठविण्यात आला आहे  📧 ')
+        function1='code'
+        return render(request,'forgot_password.html',{'recode_m': recode_m,'function1':function1,'fp_mobile':fp_mobile})
+
+def fp_verify_code(request):
+    recode = int(request.POST['recode_m'])
+    recode = str(recode - 135)
+    ecode = request.POST['ecode']
+    fp_mobile = request.POST['fp_mobile']
+    if ecode == recode:
+        function2 = 'set password'
+        return render(request,'forgot_password.html',{'function2':function2,'fp_mobile':fp_mobile})
+    else:
+        recode = int(recode)
+        recode = str(recode + 135)
+        messages.info(request, 'तुमचा कोड चुकीचा आहे पुन्हा प्रयत्न करा ')
+        function1 = 'code'
+        return render(request, 'forgot_password.html',
+                      {'recode_m': recode, 'function1': function1, 'fp_mobile': fp_mobile})
+
+
+def fp_check_password(request):
+    fp_mobile = request.POST['fp_mobile']
+    password1 = request.POST['password1']
+    password2 = request.POST['password2']
+    if password2 == password1:
+        if len(password1) > 7:
+            user_details = get_user_model().objects.get(mobile1=fp_mobile)
+            user_details.set_password(password1)
+            user_details.save()
+            messages.info(request, 'तुमचा पासवर्ड सेट करण्यात आला आहे')
+            return render(request, 'loginpage.html')
+        else:
+            messages.info(request, 'पासवर्ड लेन्थ किमान ८ कॅरेक्टर पाहिजे ')
+    else :
+        messages.info(request, 'दोन्ही पासवर्ड सारखेच पाहिजेत पुन्हा पासवर्ड द्या')
+    function2 = 'set password'
+    return render(request, 'forgot_password.html', {'function2': function2, 'fp_mobile': fp_mobile})
+
 
 
 def returntohome(request):

@@ -16,5 +16,8 @@ urlpatterns = [
       path('applogin',views.applogin,name='applogin'),
       path('logout',views.userlogout,name='logout'),
       path('returntohome',views.returntohome,name='returntohome'),
+      path('forgot_password', views.forgot_password,name='forgot_password'),
+      path('fp_verify_code', views.fp_verify_code, name='fp_verify_code'),
+      path('fp_check_password',views.fp_check_password,name='fp_check_password'),
 
 ]

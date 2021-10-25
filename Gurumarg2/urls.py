@@ -59,6 +59,7 @@ urlpatterns = [
     path('verify_ecode',include('home.urls')),
     path('registration_check',include('home.urls')),
     path('applogin',include('home.urls')),
+    path('forgot_password',include('home.urls')),
     path('logout',include('home.urls')),
     path('returntohome',include('home.urls')),
     path('update_seva_ss', include('sampark_sevekari.urls')),
@@ -66,4 +67,8 @@ urlpatterns = [
     path('select_pp_question_seva', include('sampark_sevekari.urls')),
     path('view_seva_ss', include('sampark_sevekari.urls')),
     path('view_SS_selectedsevaid', include('sampark_sevekari.urls')),
+    path('fp_verify_code', include('home.urls')),
+    path('fp_check_password',include('home.urls')),
+
+
 ]

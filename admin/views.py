@@ -24,15 +24,23 @@ def ss_data(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     ss_table = get_user_model().objects.filter(type='sampark_sevekari')
-    function1 = 'sst'
-    return render(request, 'users_page.html', {'user_details':user_details,'ss_table': ss_table,'function1':function1})
+    if not ss_table:
+        messages.info(request,"सध्या संपर्क सेवेकरी म्हणून कुणालाही निवडलेले नाही ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+        function1 = 'sst'
+        return render(request, 'users_page.html', {'user_details':user_details,'ss_table': ss_table,'function1':function1})
 
 def add_ss(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     ss_table = get_user_model().objects.filter(type='verified')
-    function2 = 'ass'
-    return render(request, 'users_page.html', {'user_details':user_details,'ss_table': ss_table,'function2':function2})
+    if not ss_table:
+        messages.info(request," वेरिफाइड युजर नाही ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+         function2 = 'ass'
+         return render(request, 'users_page.html', {'user_details':user_details,'ss_table': ss_table,'function2':function2})
 
 
 def edit_ss_data(request):
@@ -45,29 +53,45 @@ def listof_main_admin(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     allmain_admins = get_user_model().objects.filter(type='main_admin')
-    function3 = 'listof_main_admins'
-    return render(request,'users_page.html',{'user_details':user_details,'function3':function3,'data':allmain_admins})
+    if not allmain_admins:
+        messages.info(request, " सध्या कोणीही मेंन ऍडमीन नाही  ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+        function3 = 'listof_main_admins'
+        return render(request,'users_page.html',{'user_details':user_details,'function3':function3,'data':allmain_admins})
 
 def listof_prashankarta(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     all_prashankarta = get_user_model().objects.filter(type='verified')
-    function4 = 'listof_prashankarta'
-    return render(request,'users_page.html',{'user_details':user_details,'function4':function4,'data':all_prashankarta})
+    if not all_prashankarta:
+        messages.info(request, " सध्या प्रश्नकर्ता नाही ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+        function4 = 'listof_prashankarta'
+        return render(request,'users_page.html',{'user_details':user_details,'function4':function4,'data':all_prashankarta})
 
 def listof_rejected(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     all_rejected = get_user_model().objects.filter(type='Rejected')
-    function5 = 'listof_rejected'
-    return render(request,'users_page.html',{'user_details':user_details,'function5':function5,'data':all_rejected})
+    if not all_rejected:
+        messages.info(request, " सध्या कोणीही रेंजेक्टड प्रश्नकर्ता नाही ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+        function5 = 'listof_rejected'
+        return render(request,'users_page.html',{'user_details':user_details,'function5':function5,'data':all_rejected})
 
 def listof_unverified(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     all_unverified = get_user_model().objects.filter(type='unverified')
-    function6 = 'listof_unverified'
-    return render(request,'users_page.html',{'user_details':user_details,'function6':function6,'data':all_unverified})
+    if not all_unverified:
+        messages.info(request, " सध्या कोणीही अनवेरिफाइड प्रश्नकर्ता नाही ")
+        return render(request, 'users_page.html', {'user_details': user_details})
+    else:
+        function6 = 'listof_unverified'
+        return render(request,'users_page.html',{'user_details':user_details,'function6':function6,'data':all_unverified})
 
 def select_pk_seva(request):
     id = request.POST['user']
@@ -84,6 +108,7 @@ def select_pk_seva(request):
     else:
         pk_table = session_data.objects.filter(status='scheduled')
         function2 = 'schedule_data'
+
     userlist = createlist(pk_table)
 
     return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})

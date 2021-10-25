@@ -61,12 +61,12 @@
                   <label for="ccode" style="margin-right: 60px"> कोड </label>
 
                   <label for="mobile">मोबाईल क्रमांक  :</label><br>
-                  <input placeholder="+91" list="ccode" size="5" name="mcode" value="{{datavalue.mcode}}"/>
+                  <input placeholder="+91" list="ccode" size="5" name="mcode"  value="{{datavalue.mcode}}"/>
                   <datalist id="ccode">
                      <option value="+91">
                      <option value="+1">
                   </datalist>
-                  <input type=tel id="mobile" name=mobile size="20" placeholder="mobile" value="{{datavalue.mobile}}" required/><br><br>
+                  <input type=tel id="mobile" name=mobile size="20" placeholder="mobile" pattern="[0-9]{10}" value="{{datavalue.mobile}}" required/><br><br>
 
                   <label for="ccode1" style="margin-right: 60px">कोड </label>
                   <label for="wmobile"> व्हाट्सअँप मोबाईल क्रमांक :</label><br>
@@ -75,7 +75,7 @@
                      <option value="+91">
                      <option value="+1">
                   </datalist>
-                  <input type=tel id="wmobile" name=w_mobile size="20" placeholder="watsapp mobile" value="{{datavalue.w_mobile}}" /><br><br>
+                  <input type=tel id="wmobile" name=w_mobile size="20" pattern="[0-9]{10}" placeholder="watsapp mobile" value="{{datavalue.w_mobile}}" required/><br><br>
 
                   <label for="reffered_by" > ज्यांच्याकडून माहिती मिळाली त्यांचे नाव :</label><br>
                   <input type=text id="reffered_by" name=reffered_by size="20" placeholder=" पूर्ण नाव " value="{{datavalue.reffered_by}}" required/><br><br>
