@@ -37,8 +37,9 @@ class session_data(models.Model):
     prashan2 = models.CharField(max_length=200,null=True)
     status = models.CharField(max_length=30,default='submitted')
     Date_filled = models.CharField(max_length=150,default=str(date.today()))
-    scheduled_date = models.DateField(null=True)
-    scheduled_time = models.TimeField(null=True)
+    schedule_date = models.DateField(null=True)
+    schedule_time = models.CharField(max_length=15, null=True)
+
 
 
 class seva_data(models.Model):

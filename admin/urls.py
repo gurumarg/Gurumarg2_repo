@@ -15,6 +15,7 @@ urlpatterns = [
      path('load_sevaform',views.load_sevaform,name='load_sevaform'),
      path('save_seva',views.save_seva,name='save_seva'),
      path('show_selectedseva',views.load_showseva,name='show_selectedseva.html'),
+     path('show_timeslots',views.show_timeslots,name='show_timeslots'),
 
 
 ]

@@ -64,7 +64,8 @@
       <div class="column right" >
           {% if function2 == 'ud1' %}
 
-                <form action="{% url 'prashan_schedule' %}" method="post">
+                <!--<form action="{% url 'prashan_schedule' %}" method="post"> -->
+                    <form action="{% url 'show_timeslots' %}" method="post">
                         {% csrf_token %}
                       <div  class="divScroll" style="border-style: double">
                       <div id="table-responsive5">
@@ -111,12 +112,59 @@
                             <p>** <b>वरील प्रश्नकर्ते सिलेक्ट करून  सेव्ह करा  </b> **</p>
                             <div>
                              <input type="hidden" name="user" value={{user_details.id}}><br>
-
-                             <button class="button" type="submit" name=b2 > सेव्ह  करा    </button>
+                             <label for="schedule_date">कृपया दिनांक निवडा</label>
+                             <input id="schedule_date" name = "schedule_date" type="date" required><br>
+                             <!-- <button class="button" type="submit" name=b2 > सेव्ह  करा    </button> -->
+                             <br> <input type="submit">
 
                             </div>
 
                 </form>
+          {% endif %}
+          {% if function2 == 'timeslot' %}
+              <form action=" {% url 'prashan_schedule' %}" method="post">
+                        {% csrf_token %}
+                      <div  class="divScroll" style="border-style: double">
+                      <div id="table-responsive6">
+
+                       <table >
+                         <Caption><b> उपलब्ध वेळ यादी  </b> </caption>
+                         <thead>
+                            <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">Timeslot</th>
+                            <th scope="col">Status</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for x, y in timeslots.items %}
+                             <tr>
+                                 {% if y == 'booked' %}
+                                 <td></td>
+                                 {% else %}
+                                 <td><input type="radio" id="id15" name="select_timeslot" value={{x}} required></td>
+                                 {% endif %}
+                                <td>{{x}}</td>
+                                <td>{{y}}</td>
+                             </tr>
+
+                            {% endfor %}
+
+                         </tbody>
+                       </table>
+                      </div>
+                      </div>
+                     <br><br>
+
+                            <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+                             <input type="hidden" name="schedule_date" value={{schedule_date}}><br>
+                             <input type="hidden" name="select_questions" value={{session_id}}><br>
+                             <!-- <button class="button" type="submit" name=b2 > सेव्ह  करा    </button> -->
+                             <input type="submit">
+
+                            </div>
+              </form>
           {% endif %}
           {% if function2 == 'schedule_data' %}
 

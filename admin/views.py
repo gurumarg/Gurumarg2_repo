@@ -10,7 +10,33 @@ from django.contrib import messages
 User = get_user_model()
 
 # Create your views here.
+# show_timeslots will fetch time slots avaiable on date selected by admin
 
+def show_timeslots(request):
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    schedule_date = request.POST['schedule_date']
+    session_id = request.POST['select_questions']
+    booked_timeslots = session_data.objects.filter(schedule_date = schedule_date).values('schedule_time')
+
+    timeslots = {'7:00AM': 'open' , '7:15AM': 'open', '7:30AM': 'open', '8:00AM': 'open', '8:30AM':'open'}
+    list_bookedslots = list(booked_timeslots)
+    if list_bookedslots:
+        for x in list_bookedslots:
+          y = x['schedule_time']
+          timeslots[y] = 'booked'
+        status = 'booked'
+        for i in timeslots:
+            print('timeslot is',timeslots[i])
+            if timeslots[i] == 'open':
+                status = 'available'
+                break
+        if status == 'booked':
+            messages.info(request,'सर्व स्लॉट्स बुक आहेत , कृपया नवीन तारीख निवडावी ')
+            return render(request,'home_admin.html',{'user_details': user_details})
+
+    return render(request,'home_admin.html',{'timeslots':timeslots,'user_details': user_details,
+                                             'function2':'timeslot','session_id':session_id,'schedule_date':schedule_date})
 
 def users_page(request):
     id = request.POST['user']
@@ -116,9 +142,13 @@ def select_pk_seva(request):
     else:
         messages.info(request,'प्रश्नकर्ता नाही आहे ')
         return render(request,'home_admin.html', {'user_details': user_details})
+
+
 def prashan_schedule(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
+    schedule_date = request.POST['schedule_date']
+    select_timeslot = request.POST['select_timeslot']
     session_id = request.POST['select_questions']
     record = session_data.objects.get(pk=session_id)
     pkdata = get_user_model().objects.get(id=record.User_id_id)
@@ -127,7 +157,9 @@ def prashan_schedule(request):
     if pkdata.type == 'unverified':
         messages.info(request,' ❗ सिलेक्ट केलेला प्रश्नकर्ता वेरिफाइड नाही आहे ❗ ')
     else:
-        record.status='scheduled'
+        record.status = 'scheduled'
+        record.schedule_time = select_timeslot
+        record.schedule_date = schedule_date
         record.save()
         messages.info(request,'👍 सेशन आइडी'+'  ' + session_id + ' शेड्युल  यशस्वी 👍')
     pk_table = session_data.objects.filter(status='submitted')

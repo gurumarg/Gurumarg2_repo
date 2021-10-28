@@ -69,6 +69,7 @@ urlpatterns = [
     path('view_SS_selectedsevaid', include('sampark_sevekari.urls')),
     path('fp_verify_code', include('home.urls')),
     path('fp_check_password',include('home.urls')),
+    path('show_timeslots',include('admin.urls')),
 
 
 ]
