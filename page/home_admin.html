@@ -43,7 +43,7 @@
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
                <input type="hidden" name="x" value="schedule"/>
-              <button class="button" type="submit" name=b1>  शेड्युल करा   </button>
+              <button class="button" type="submit"  name=b1>  शेड्युल करा   </button>
          </form>
          <form action = "{% url 'select_pk_seva' %}" method="post">
               {% csrf_token %}

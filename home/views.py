@@ -92,7 +92,6 @@ def verify_ecode(request):
 
 # function registration_check will verify user details and register the user
 def registration_check(request):
-
     upsarg = request.POST['listname']
     first_name = request.POST['first_name']
     last_name = request.POST['last_name']
@@ -109,51 +108,57 @@ def registration_check(request):
     type = 'unverified'
 
     datavalue = {'upsarg': upsarg, 'first_name': first_name, 'last_name': last_name, 'city': city, 'mcode': code1,
-                 'mobile': mobile1,'email':email,'wmcode': code2, 'w_mobile': mobile2, 'reffered_by': reffered_by, 'sscode': sscode1}
-
-    if password2 == password1:
-        if mobile1.isnumeric():
-            if len(mobile1) == 10:
-                if User.objects.filter(mobile1=mobile1).exists():
-                    messages.info(request, 'मोबाइल नंबर रजिस्टर  आहे , कृपया लॉगीन करा ')
-                    return render(request, 'loginpage.html')
-                else:
-                    newuser = User.objects.create_user(upsarg=upsarg, first_name=first_name, last_name=last_name,
-                      code1=code1, mobile1=mobile1, code2=code2, mobile2=mobile2,
-                      email=email, city=city,
-                      reffered_by=reffered_by, type=type, sscode=sscode1,
-                       password=password1)
-                    newuser.save()
-                    messages.info(request, '✅ नोंदणी पूर्ण झाली आहे ✅ ')
-                    ss_record = sampark_sevekari.objects.get(sscode=sscode1)
-                    print('ss record:', ss_record)
-                    ss_id = ss_record.User_id_id
-                    ss_details = get_user_model().objects.get(id=ss_id)
-                    ss_email = ss_details.email
-                    msg = first_name + ' ' + last_name + ' ' + 'यांनी तुमच्या वतीने नोंदणी केली आहे . त्यांना ओळखत असल्यास व्हेरिफाय करा '
-                    send_mail('New user registered', msg, 'gurumargdarshan14@gmail.com',
-                              [ss_email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
-
-                    return render(request, 'loginpage.html')
-
-
-            else:
-                messages.info(request, '⚠️अपूर्ण मोबाईल नंबर ⚠️')
-                function = 'register_form'
-                return render(request, 'register.html', {'function': function, 'datavalue': datavalue})
-        else:
-            messages.info(request, '⚠️ मोबाईल  नंबर  संख्येत अपेक्षित आहे ⚠️')
-            function = 'register_form'
-            return render(request, 'register.html', {'function': function, 'datavalue': datavalue})
-    else:
-        messages.info(request, ' ❗ दोन्ही पासवर्ड सारखे पाहिजे ❗')
+                 'mobile': mobile1,'wmcode': code2, 'w_mobile': mobile2, 'reffered_by': reffered_by, 'sscode': sscode1}
+    sscode_exist = sampark_sevekari.objects.filter(sscode=sscode1)
+    if not sscode_exist:
+        messages.info(request,'कृपया संपर्क सेवेकरी कोड लिस्ट मधून सिलेक्ट करा ')
         function = 'register_form'
-        return render(request, 'register.html', {'function': function, 'datavalue': datavalue})
+        data = sampark_sevekari.objects.filter(status='active')
+        return render(request, 'register.html', {'function': function, 'datavalue': datavalue,'email':email,'data':data})
+    else:
+        if password2 == password1:
+            if mobile1.isnumeric():
+                if len(mobile1) == 10:
+                    if User.objects.filter(mobile1=mobile1).exists():
+                        messages.info(request, 'मोबाइल नंबर रजिस्टर  आहे , कृपया लॉगीन करा ')
+                        return render(request, 'loginpage.html')
+                    else:
+                        newuser = User.objects.create_user(upsarg=upsarg, first_name=first_name, last_name=last_name,
+                          code1=code1, mobile1=mobile1, code2=code2, mobile2=mobile2,
+                          email=email, city=city,
+                          reffered_by=reffered_by, type=type, sscode=sscode1,
+                           password=password1)
+                        newuser.save()
+                        messages.info(request, '✅ नोंदणी पूर्ण झाली आहे ✅ ')
+                        ss_record = sampark_sevekari.objects.get(sscode=sscode1)
+                        print('ss record:', ss_record)
+                        ss_id = ss_record.User_id_id
+                        ss_details = get_user_model().objects.get(id=ss_id)
+                        ss_email = ss_details.email
+                        msg = first_name + ' ' + last_name + ' ' + 'यांनी तुमच्या वतीने नोंदणी केली आहे . त्यांना ओळखत असल्यास व्हेरिफाय करा '
+                        send_mail('New user registered', msg, 'gurumargdarshan14@gmail.com',
+                                  [ss_email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
+                        return render(request, 'loginpage.html')
+                else:
+                    messages.info(request, '⚠️अपूर्ण मोबाईल नंबर ⚠️')
+                    function = 'register_form'
+                    data = sampark_sevekari.objects.filter(status='active')
+                    return render(request, 'register.html',{'function': function,'datavalue': datavalue,'email': email,'data': data})
+            else:
+                messages.info(request, '⚠️ मोबाईल  नंबर  संख्येत अपेक्षित आहे ⚠️')
+                function = 'register_form'
+                data = sampark_sevekari.objects.filter(status='active')
+                return render(request, 'register.html',{'function': function,'datavalue': datavalue, 'email': email, 'data': data})
+        else:
+                messages.info(request, ' ❗ दोन्ही पासवर्ड सारखे पाहिजे ❗')
+                function = 'register_form'
+                data = sampark_sevekari.objects.filter(status='active')
+                return render(request, 'register.html',{'function': function, 'datavalue': datavalue, 'email': email, 'data': data})
 
 # function applogin will authenticate the user and accordingly login into system
 
 
-def applogin(request):
+def   applogin(request):
     mobile1 = request.POST['mobile1']
     password = request.POST['password']
     user = authenticate(username=mobile1,password=password)

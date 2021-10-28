@@ -111,8 +111,11 @@ def select_pk_seva(request):
 
     userlist = createlist(pk_table)
 
-    return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
-
+    if pk_table:
+         return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
+    else:
+        messages.info(request,'प्रश्नकर्ता नाही आहे ')
+        return render(request,'home_admin.html', {'user_details': user_details})
 def prashan_schedule(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
