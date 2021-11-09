@@ -41,7 +41,14 @@ class session_data(models.Model):
     schedule_time = models.CharField(max_length=15, null=True)
 
 
+class st_data(models.Model):
+    objects = None
+    st_id = models.AutoField(primary_key=True)
+    st_date = models.DateField(null=True)
+    st_status = models.CharField(max_length=15, null=True)
+    st_comment = models.CharField(max_length=50,null=True)
 
+0
 class seva_data(models.Model):
     objects = None
     seva_id = models.AutoField(primary_key=True)
@@ -84,4 +91,6 @@ class seva_data(models.Model):
     seva_explained = models.BooleanField(default=False)
     guru_ans_p1 = models.CharField(max_length=15, default=None)
     guru_ans_p2 = models.CharField(max_length=15,default=None)
+
+
 

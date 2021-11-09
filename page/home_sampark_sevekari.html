@@ -54,6 +54,19 @@
               <input type="hidden" name="x" value="viewseva"/><br>
               <button class="button" type="submit" name=b1 value="prashnakarta_seva"> प्रश्नकर्त्यांची सेवा  </button>
          </form>
+         <form action = "{% url 'upcoming_sessions' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="start session"/><br>
+              <button class="button" type="submit" > आगामी प्रश्नोत्तरे   </button>
+         </form>
+         <form action = "{% url 'select_pk_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="live session"/><br>
+              <button class="button" type="submit" > लाईव्ह प्रश्नोत्तरे  </button>
+         </form>
+
          <br>
       </div>
       <div class="column right" >
@@ -241,6 +254,107 @@
                   </div>
            </form>
     {% endif %}
+    {% if function2 == 'schedule_data' %}
+
+          <form action="{% url 'select_pk_seva' %}" method="post">
+          	{% csrf_token %}
+          <div  class="divScroll" style="border-style: double">
+          <div id="table-responsive10">
+
+           <table >
+             <Caption><b> शेड्युल प्रश्नकर्ता यादी  </b> </caption>
+             <thead>
+	            <tr>
+                    <th scope="col">Prashankarta Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Timeslot</th>
+                    <th scope="col">Sampark Sevekari</th>
+                </tr>
+             </thead>
+             <tbody>
+               {% for i in userlist %}
+                 <tr>
+			         <td>{{i.full_name}}</td>
+                     <td>{{i.city}}</td>
+                     <td>{{i.status}}</td>
+                     <td>{{i.timeslot}}</td>
+                     <td>{{i.ss_name}}</td>
+                 </tr>
+
+                {% endfor %}
+             </tbody>
+           </table>
+         </div>
+         </div>
+         <br><br>
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <input type="hidden" name="x" value="view session"/><br>
+              <button class="button" type="submit" name=b2 > रिफ्रेश करा   </button>
+         </form>
+         {% endif %}
+
+         {% if function2 == 'upcoming sessions' %}
+
+          <form action="{% url 'change_status' %}" method="post">
+          	{% csrf_token %}
+          <div  class="divScroll" style="border-style: double">
+          <div id="table-responsive11">
+
+           <table >
+             <Caption><b> शेड्युल प्रश्नकर्ता यादी  </b> </caption>
+             <thead>
+	            <tr>
+                    <th scope="col">Select</th>
+                    <th scope="col">Session ID</th>
+                    <th scope="col">Prashankarta Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Schedule Date</th>
+                    <th scope="col">Timeslot</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Sampark Sevekari</th>
+                </tr>
+             </thead>
+             <tbody>
+               {% for i in userlist %}
+                 <tr>
+                     <td><input type="radio" id="id15" name="select_pk" value={{i.session_id}} required></td>
+                     <td>{{i.session_id}}</td>
+			         <td>{{i.full_name}}</td>
+                     <td>{{i.city}}</td>
+                     <td>{{i.schedule_date}}</td>
+                     <td>{{i.timeslot}}</td>
+                     <td>{{i.status}}</td>
+                     <td>{{i.ss_name}}</td>
+                 </tr>
+
+                {% endfor %}
+             </tbody>
+           </table>
+         </div>
+         </div>
+         <br><br>
+              <input type="hidden" name="user" value={{user_details.id}}><br><br>
+              <input type="submit">
+         </form>
+         {% endif %}
+          {% if function == 'status update' %}
+              <form action="{% url 'pk_change_status' %}" method="Post">
+                  {% csrf_token %}
+                  <label>सेशन्स आयडी : {{session_id}}  </label> <br>
+                  <label> स्टेटस निवडा </label> <br>
+                  <input placeholder="select status" list="pkstatus" size="10" name="pkstatus" required/><br><br>
+                  <datalist id="pkstatus">
+                    <option value = "not available">
+                    <option value = "call not connected">
+                    <option value = "cancel question ">
+                  </datalist>
+                  <input type="hidden" name="user" value={{user_details.id}}><br><br>
+                  <input type="hidden" name="session id" value={{session_id}}><br><br>
+                  <input type="submit">
+              </form>
+
+          {% endif %}
       </div>
    </div>
 

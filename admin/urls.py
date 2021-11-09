@@ -16,6 +16,12 @@ urlpatterns = [
      path('save_seva',views.save_seva,name='save_seva'),
      path('show_selectedseva',views.load_showseva,name='show_selectedseva.html'),
      path('show_timeslots',views.show_timeslots,name='show_timeslots'),
+     path('pk_status',views.pk_status,name='pk_status'),
+     path('stop_session',views.stop_session,name='stop_session'),
+     path('stop_session_page',views.stop_session_page,name='stop_session_page'),
+     path('pause_session_page',views.pause_session_page,name='pause_session_page'),
+     path('pause_session',views.pause_session,name='pause_session'),
+     path('upcoming_sessions',views.upcoming_sessions,name='upcoming_sessions'),
 
 
 ]

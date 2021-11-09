@@ -32,9 +32,54 @@
               <input type="hidden" name="user" value={{user_details.id}}><br>
               <button class="button" type="submit" name=b1> सेवा पहा / अपडेट करा  </button>
          </form>
+          <form action = "{% url 'select_pk_seva' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="pk session"/><br>
+              <button class="button" type="submit" > लाईव्ह प्रश्नोत्तरे  </button>
+         </form>
          <br>
       </div>
       <div class="column right" >
+          {% if function2 == 'schedule_data' %}
+
+          <form action="{% url 'select_pk_seva' %}" method="post">
+          	{% csrf_token %}
+          <div  class="divScroll" style="border-style: double">
+          <div id="table-responsive10">
+
+           <table >
+             <Caption><b> शेड्युल प्रश्नकर्ता यादी  </b> </caption>
+             <thead>
+	            <tr>
+                    <th scope="col">Prashankarta Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Timeslot</th>
+                    <th scope="col">Sampark Sevekari</th>
+                </tr>
+             </thead>
+             <tbody>
+               {% for i in userlist %}
+                 <tr>
+			         <td>{{i.full_name}}</td>
+                     <td>{{i.city}}</td>
+                     <td>{{i.status}}</td>
+                     <td>{{i.timeslot}}</td>
+                     <td>{{i.ss_name}}</td>
+                 </tr>
+
+                {% endfor %}
+             </tbody>
+           </table>
+         </div>
+         </div>
+         <br><br>
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <input type="hidden" name="x" value="pk session"/><br>
+              <button class="button" type="submit" name=b2 > रिफ्रेश करा   </button>
+         </form>
+         {% endif %}
 
       </div>
    </div>

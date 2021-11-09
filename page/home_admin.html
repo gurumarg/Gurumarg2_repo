@@ -19,16 +19,25 @@
    <div class="row">
       <div class="column left" style="background-color:#FF5733 ;">
 
-         <form action = "{% url 'question_form' %}" method="post">
+          <form action = "{% url 'profile_manage' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <button class="button" type="submit" name=b1>प्रोफाइल</button>
+         </form><br>
+
+          <form action = "{% url 'question_form' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <button class="button" type="submit" name=b1>प्रश्न करा</button>
          </form>
-         <form action = "{% url 'profile_manage' %}" method="post">
+
+          <form action = "{% url 'select_question_seva' %}" method="post">
               {% csrf_token %}
-              <input type="hidden" name="user" value={{user_details.id}}><br>
-              <button class="button" type="submit" name=b1>प्रोफाइल</button>
+              <input type="hidden" name="user" value={{user_details.id}}>
+              <input type="hidden" name="x" value="viewseva"/><br>
+              <button class="button" type="submit" name=b1 > तुमची सेवा पहा / अपडेट करा   </button>
          </form>
+
          <form action = "{% url 'approve_kara' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}><br>
@@ -51,14 +60,22 @@
               <input type="hidden" name="x" value="seva"/><br>
               <button class="button" type="submit" name=b1> सेवा </button>
          </form>
-         <form action = "{% url 'select_question_seva' %}" method="post">
+          <form action = "{% url 'select_pk_seva' %}" method="post">
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
-              <input type="hidden" name="x" value="viewseva"/><br>
-              <button class="button" type="submit" name=b1 > सेवा पहा / अपडेट करा   </button>
+              <input type="hidden" name="x" value="start session"/><br>
+              <button class="button" type="submit" name=b1> स्टार्ट सेशन   </button>
          </form>
-
-
+          <form action = "{% url 'pause_session_page' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}} required><br>
+              <button class="button" type="submit" name=b1> पॉज सेशन </button>
+         </form>
+          <form action = "{% url 'stop_session_page' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="user" value={{user_details.id}}><br>
+              <button class="button" type="submit" name=b1> स्टॉप सेशन </button>
+         </form>
          <br>
       </div>
       <div class="column right" >
@@ -84,6 +101,8 @@
                             <th scope="col">Prashan2</th>
                             <th scope="col">Mobile1</th>
                             <th scope="col">Mobile2</th>
+                            <th scope="col">Previous Sch Date</th>
+                            <th scope="col">Status</th>
                             </tr>
                          </thead>
                          <tbody>
@@ -99,6 +118,8 @@
                                 <td>{{i.prashan2}}</td>
                                 <td>{{i.mobile1}}</td>
                                 <td>{{i.mobile2}}</td>
+                                 <td>{{i.schedule_date}}</td>
+                                <td>{{i.status}}</td>
 
                                </tr>
 
@@ -120,6 +141,32 @@
                             </div>
 
                 </form>
+          {% endif %}
+          {% if function2 == 'pause_session' %}
+            <form action = "{% url 'pause_session' %}" method="post">
+                {% csrf_token %}
+                <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+                             <label for="schedule_date">पॉज चे कारण निवडा</label><br><br>
+                             <input type="text" maxlength="50" placeholder="reason for break" name="pause_reason">
+                             <br><br> <input type="submit">
+                </div>
+
+            </form>
+
+          {% endif %}
+          {% if function2 == 'stop_session' %}
+            <form action = "{% url 'stop_session' %}" method="post">
+                {% csrf_token %}
+                <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+                             <label for="schedule_date">तारीख निवडा</label><br><br>
+                             <input type="date" name="stop_date" required><br>
+                             <br> <input type="submit">
+                </div>
+
+            </form>
+
           {% endif %}
           {% if function2 == 'timeslot' %}
               <form action=" {% url 'prashan_schedule' %}" method="post">
@@ -179,6 +226,7 @@
 	            <tr>
 				<th scope="col">Select</th>
 	            <th scope="col">ID</th>
+                <th scope="col">Timeslot</th>
                 <th scope="col">Session ID</th>
 	            <th scope="col">Date Filled</th>
                 <th scope="col">Full Name</th>
@@ -187,13 +235,18 @@
 	            <th scope="col">Prashan2</th>
                 <th scope="col">Mobile1</th>
                 <th scope="col">Mobile2</th>
+                <th scope="col">Status</th>
 	            </tr>
              </thead>
              <tbody>
                {% for i in userlist %}
-                 <tr>
+                 <tr> {% if not i.status == 'completed' %}
                     <td><input type="radio" id="id4" name="select_name" value={{i.session_id}} required></td>
+                     {% else %}
+                     <td></td>
+                     {% endif %}
 			        <td>{{i.user_id}}</td>
+                    <td>{{i.timeslot}}</td>
                     <td>{{i.session_id}}</td>
                     <td>{{i.Date_filled}}</td>
 	                <td>{{i.full_name}}</td>
@@ -202,6 +255,7 @@
                     <td>{{i.prashan2}}</td>
                     <td>{{i.mobile1}}</td>
 	                <td>{{i.mobile2}}</td>
+                    <td>{{i.status}}</td>
 
                    </tr>
 
@@ -225,7 +279,7 @@
          {% endif %}
 
       </div>
-   </div>
+   </div><br><br><br><br>
 
 
 {% endblock %}

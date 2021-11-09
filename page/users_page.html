@@ -42,17 +42,22 @@
          <form action = "{% url 'listof_prashankarta' %}" method="post">
           {% csrf_token %}
           <input type="hidden" name="user" value={{user_details.id}}><br>
-          <button class="button" type="submit" name=b1>सर्व प्रश्नकर्ते</button>
+          <button class="button" type="submit" name=b3 value="sarv_pk">सर्व प्रश्नकर्ते</button>
          </form>
          <form action="{% url 'listof_rejected' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button class="button" type="submit" name=b2 > सर्व रिजेक्टटेड </button>
+                <button class="button" type="submit" name=b2 > सर्व रीजेक्टेड </button>
          </form>
          <form action="{% url 'listof_unverified' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button class="button" type="submit" name=b2 > अनवेरिफाइड  </button>
+                <button class="button" type="submit" name=b2 > सर्व अनवेरिफाइड  </button>
+         </form>
+         <form action = "{% url 'listof_prashankarta' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="user" value={{user_details.id}}><br>
+          <button  class="button" type="submit" name=b3 value="sarv_pk_seva"> सर्व प्रश्नकर्त्यांची सेवा   </button>
          </form>
          <form action = "{% url 'listof_SS_prashankarta' %}" method="post">
           {% csrf_token %}
@@ -63,7 +68,7 @@
               {% csrf_token %}
               <input type="hidden" name="user" value={{user_details.id}}>
               <input type="hidden" name="x" value="viewseva"/><br>
-              <button class="button" type="submit" name=b1 value="prashnakarta_seva"> प्रश्नकर्त्यांची सेवा  </button>
+              <button class="button" type="submit" name=b1 value="prashnakarta_seva"> तुमच्या प्रश्नकर्त्यांची सेवा  </button>
          </form>
 
          <br>
@@ -211,13 +216,13 @@
             </form>
         {% endif %}
          {% if function4 == 'listof_prashankarta' %}
-            <form action="" method="post">
+            <form action="{% url 'select_pp_question_seva' %}" method="post">
 	            {% csrf_token %}
                <div  class="divScroll" style="border-style: double">
                <div id="table-responsive4">
 
                  <table >
-                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                    <Caption><b> सर्व प्रश्नकर्ता लिस्ट </b> </caption>
                    <thead>
 	                 <tr>
 			        	<th scope="col">Select</th>
@@ -247,6 +252,17 @@
                    </table>
                  </div>
                </div>
+                {% if buttonclicked == 'sarv_pk_seva' %}
+
+                         <p>** <b>वरील प्रश्नकर्ते सिलेक्ट करून सिलेक्ट बटणवर क्लिक करा  </b> **</p>
+                            <div>
+                             <input type="hidden" name="user" value={{user_details.id}}><br>
+
+                             <button type="submit" name=b1 value="prashnkarta_select" > सिलेक्ट   </button>
+
+                            </div>
+
+                   {% endif %}
             </form>
         {% endif %}
         {% if function5 == 'listof_rejected' %}
@@ -256,7 +272,7 @@
                <div id="table-responsive5">
 
                  <table >
-                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                    <Caption><b> सर्व रीजेक्टेड प्रश्नकर्ता लिस्ट </b> </caption>
                    <thead>
 	                 <tr>
 			        	<th scope="col">Select</th>
@@ -295,7 +311,7 @@
                <div id="table-responsive6">
 
                  <table >
-                    <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                    <Caption><b> सर्व अनवेरिफाइड प्रश्नकर्ता लिस्ट </b> </caption>
                    <thead>
 	                 <tr>
 			        	<th scope="col">Select</th>
@@ -334,7 +350,7 @@
                    <div id="table-responsive8">
 
                      <table >
-                        <Caption><b> प्रश्नकर्ता लिस्ट </b> </caption>
+                        <Caption><b> तुमचे प्रश्नकर्ता लिस्ट </b> </caption>
                        <thead>
                          <tr>
                             <th scope="col">Select</th>

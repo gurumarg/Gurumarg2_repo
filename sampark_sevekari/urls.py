@@ -8,5 +8,7 @@ urlpatterns = [
      path('view_seva_ss',views.view_seva_ss,name= 'view_seva_ss'),
      path('view_SS_selectedsevaid',views.view_SS_selectedsevaid,name='view_SS_selectedsevaid'),
      path('update_seva_ss',views.update_seva_ss,name='update_seva_ss'),
+     path('pk_change_status',views.pk_change_status,name='pk_change_status'),
+     path('change_status',views.change_status,name='change_status'),
 
 ]

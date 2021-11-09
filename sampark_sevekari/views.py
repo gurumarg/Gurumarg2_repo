@@ -22,6 +22,7 @@ def listof_SS_prashankarta(request):
         x = 'prashnakarta_seva'
     elif button_clicked == 'tumche_pk':
         x = 'tumche_pk'
+
     else:
         x = ''
     if user_details.type == 'sampark_sevekari':
@@ -120,6 +121,27 @@ def update_seva_ss(request):
         return render(request, 'home_sampark_sevekari.html', {'user_details': user_details})
     elif type == 'main_admin':
         return render(request, 'users_page.html', {'user_details': user_details})
+
+def change_status(request):
+    session_id = request.POST['select_pk']
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    function = 'status update'
+    return render(request,'home_sampark_sevekari.html',
+                  {'user_details': user_details, 'function':function, 'session_id':session_id } )
+
+def pk_change_status(request):
+    session_id = request.POST['session id']
+    pk_status = request.POST['pkstatus']
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    record = session_data.objects.get(session_id=session_id)
+    record.status = pk_status
+    record.save()
+    msg = "सेशन्स आयडी " + session_id + " अपडेटेड यशसवी"
+    messages.info(request,msg)
+    return render(request, 'home_sampark_sevekari.html', {'user_details': user_details})
+
 
 
 

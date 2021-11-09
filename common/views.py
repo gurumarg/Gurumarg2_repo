@@ -101,7 +101,7 @@ def save_prashan(request):
                 else:
                      messages.info(request, 'प्रश्न १:प्रश्नाच्या स्वरूपावरून पुढील निवड करावी 2nd half is missing')
 
-        if slct1 == 'g2' or slct1 == 'g17':
+        if slct1 == 'g2' or slct1 == 'g17' or slct1 == 'g5':
 
                 if len(text1) > 1:
                       p1 = dict[slct1] + ','+ text1
@@ -129,7 +129,7 @@ def save_prashan(request):
         elif slct3 in ['g4','g10','g14','g15','g16']:
                p2 = dict[slct3]
                flag2 = 'done'
-        elif slct3 in ['g2', 'g17']:
+        elif slct3 in ['g2', 'g5','g17']:
                if len(text2) > 1:
                   p2 = dict[slct3] + '/'+ text2
                   flag2 = 'done'
@@ -258,8 +258,6 @@ def approve_kara(request):
 
 def modify_user_type(request):
     pid = request.POST['select_name']
-    print('pid : ',pid,type(pid))
-
     utype = request.POST['type']
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
@@ -281,7 +279,8 @@ def modify_user_type(request):
         record.type = "main_admin"
         record.save()
     elif utype == 'sampark_sevekari':
-        add_sampark_sevekari(pid)
+        msg1=add_sampark_sevekari(pid)
+        messages.info(request, msg1)
 
     utype = user_details.type
     if utype == 'sampark_sevekari':
@@ -299,16 +298,17 @@ def add_sampark_sevekari(pid):
     for i in allsevekari:
         print('type of i.user_id_id:',type(i.User_id_id))
         if i.User_id_id == int(userid):
-
             print("Sampark sevekari exist")
             ss_old = sampark_sevekari.objects.get(User_id_id = userid)
             ss_old.status = 'active'
             ss_old.save()
             record.type = "sampark_sevekari"
             record.save()
+            name = record.first_name + ' ' + record.last_name
+            msg1 = name + ' ' + 'यांना संपर्क सेवेकरी म्हणून अ‍ॅड करण्यात आले आहे '
             msg = 'तुमचा सम्पर्क सेवेकरी कोड हा आहे:' + ss_old.sscode
             send_mail('Selected As Sampark Sevekari', msg, 'samarthview@gmail.com', [record.email], fail_silently=True)
-            return
+            return msg1
         if  i.sscode == new_sscode:
                check = 'present'
     if check == 'not_present':

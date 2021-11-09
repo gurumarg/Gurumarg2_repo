@@ -274,7 +274,27 @@
 
               &nbsp<input type="reset" />
       </fieldset>
+    </form><br>
+    <form action="{% url 'pk_status' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend> प्रश्नकर्ता  स्टेटस निवडा</legend>
+            <input type="hidden" name="user" value={{user_details.id}}>
+            <input type="hidden" name="session_id" value={{dic1.session_id}}>
+            <label for="pk_status" style="margin-right: 70px">प्रश्न नाही झले तर खालील कारण निवडावे  </label><br>
+            <input list="pk_status" size="10" name="pk_status"  required /><br><br>
+                  <datalist id="pk_status">
+                        <option value="not picking call">
+                        <option value="not connecting">
+                        <option value="not available">
+                        <option value="range issue">
+                        <option value="rejected">
+                  </datalist> <br>
+
+            <input type="submit"  />
+        </fieldset>
     </form>
+
 <script>
 clearform(formid)
 formid = formid
@@ -285,6 +305,6 @@ if (window.history.replaceState ){
 window.history.replaceState(null,null,window.location.href);
 document.getElementById("sevaform").reset();
 }
-</script>
+</script><br>
 
 {% endblock %}

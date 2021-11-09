@@ -3,9 +3,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 
-from common.models import session_data,seva_data
+from common.models import session_data, seva_data, st_data, sampark_sevekari
 from common.views import modify_user_type
 from django.contrib import messages
+from datetime import date
 
 User = get_user_model()
 
@@ -19,7 +20,21 @@ def show_timeslots(request):
     session_id = request.POST['select_questions']
     booked_timeslots = session_data.objects.filter(schedule_date = schedule_date).values('schedule_time')
 
-    timeslots = {'7:00AM': 'open' , '7:15AM': 'open', '7:30AM': 'open', '8:00AM': 'open', '8:30AM':'open'}
+    timeslots = {'7:00AM': 'open', '7:15AM': 'open', '7:30AM': 'open', '8:00AM': 'open', '8:30AM':'open',
+                 '8:45AM': 'open', '9:00AM': 'open', '9:15AM': 'open', '9:30AM': 'open', '9:45AM':'open',
+                 '10:00AM': 'open', '10:15AM': 'open', '10:30AM': 'open', '10:45AM':'open',
+                 '11:00AM': 'open', '11:15AM': 'open', '11:30AM': 'open', '11:45AM':'open',
+                 '12:00PM': 'open', '12:15PM': 'open', '12:30PM': 'open', '12:45PM': 'open',
+                 '01:00PM': 'open', '01:15PM': 'open', '01:30PM': 'open', '01:45PM': 'open',
+                 '02:00PM': 'open', '02:15PM': 'open', '02:30PM': 'open', '02:45PM': 'open',
+                 '03:00PM': 'open', '03:15PM': 'open', '03:30PM': 'open', '03:45PM': 'open',
+                 '04:00PM': 'open', '04:15PM': 'open', '04:30PM': 'open', '04:45PM': 'open',
+                 '05:00PM': 'open', '05:15PM': 'open', '05:30PM': 'open', '05:45PM': 'open',
+                 '06:00PM': 'open', '06:15PM': 'open', '06:30PM': 'open', '06:45PM': 'open',
+                 '07:00PM': 'open', '07:15PM': 'open', '07:30PM': 'open', '07:45PM': 'open',
+                 '08:00PM': 'open', '08:15PM': 'open', '08:30PM': 'open', '08:45PM': 'open',
+                 '09:00PM': 'open', '09:15PM': 'open', '09:30PM': 'open', '09:45PM': 'open',
+                 }
     list_bookedslots = list(booked_timeslots)
     if list_bookedslots:
         for x in list_bookedslots:
@@ -27,8 +42,7 @@ def show_timeslots(request):
           timeslots[y] = 'booked'
         status = 'booked'
         for i in timeslots:
-            print('timeslot is',timeslots[i])
-            if timeslots[i] == 'open':
+             if timeslots[i] == 'open':
                 status = 'available'
                 break
         if status == 'booked':
@@ -87,22 +101,24 @@ def listof_main_admin(request):
         return render(request,'users_page.html',{'user_details':user_details,'function3':function3,'data':allmain_admins})
 
 def listof_prashankarta(request):
+    buttonclicked = request.POST['b3']
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
-    all_prashankarta = get_user_model().objects.filter(type='verified')
+    all_prashankarta = get_user_model().objects.exclude(type='Rejected').exclude(type='unverified')
     if not all_prashankarta:
         messages.info(request, " सध्या प्रश्नकर्ता नाही ")
         return render(request, 'users_page.html', {'user_details': user_details})
     else:
         function4 = 'listof_prashankarta'
-        return render(request,'users_page.html',{'user_details':user_details,'function4':function4,'data':all_prashankarta})
+        return render(request,'users_page.html',{'user_details':user_details,'function4':function4,
+                                                 'data':all_prashankarta,'buttonclicked':buttonclicked})
 
 def listof_rejected(request):
     id = request.POST['user']
     user_details = get_user_model().objects.get(pk=id)
     all_rejected = get_user_model().objects.filter(type='Rejected')
     if not all_rejected:
-        messages.info(request, " सध्या कोणीही रेंजेक्टड प्रश्नकर्ता नाही ")
+        messages.info(request, " सध्या कोणीही रीजेक्टेड प्रश्नकर्ता नाही ")
         return render(request, 'users_page.html', {'user_details': user_details})
     else:
         function5 = 'listof_rejected'
@@ -126,22 +142,122 @@ def select_pk_seva(request):
 
     userlist=[]
     if x == 'schedule':
-        pk_table = session_data.objects.filter(status='submitted')
+        pk_table = session_data.objects.exclude(status='completed').exclude(status='rejected').exclude(status='scheduled')
         function2 = 'ud1'
     elif x== 'viewseva':
         pk_table = session_data.objects.filter(status='completed')
         function2 = 'udview'
+    elif x == 'start session':
+        today = date.today()
+        pk_table = session_data.objects.filter(schedule_date=today)
+        if pk_table:
+            try:
+                st_update = st_data.objects.get(st_date=today)
+                st_update.st_status = 'start'
+                st_update.save()
+            except:
+                new_session = st_data(st_date=today,st_status='start')
+                new_session.save()
+            function2 = 'schedule_data'
+        else:
+            messages.info(request,'आज प्रश्नोत्तरे नाही आहे ')
+            return render(request,'home_admin.html',{'user_details': user_details})
+    elif x == 'live session':
+        today = date.today()
+        pk_table = session_data.objects.filter(schedule_date=today)
+        if pk_table:
+            try:
+                st_update = st_data.objects.get(st_date=today)
+                st_update.st_status = 'start'
+                st_update.save()
+            except:
+                new_session = st_data(st_date=today,st_status='start')
+                new_session.save()
+            function2 = 'schedule_data'
+        else:
+            messages.info(request,'आज प्रश्नोत्तरे नाही आहे ')
+            return render(request,'home_sampark_sevekari.html',{'user_details': user_details})
+
+    elif x == 'view session':
+        today = date.today()
+        pk_table = session_data.objects.filter(schedule_date=today)
+        if pk_table:
+            st_update = st_data.objects.get(st_date=today)
+            if st_update.st_status == 'start':
+                function2 = 'schedule_data'
+            elif st_update.st_status == 'break':
+                 reason = st_update.st_comment
+                 msg = "प्रश्नोत्तरे थांबवली आहे,थोड्या वेळाने पुन्हा चालू होईल"+ " "+ "\n" + reason
+                 messages.info(request,msg)
+                 function2 = 'schedule_data'
+            else:
+                messages.info(request,'आजची प्रश्नोत्तरे संपले आहेत ')
+                return render(request,'home_sampark_sevekari.html',{'user_details': user_details})
+        else:
+            messages.info(request,'आज प्रश्नोत्तरे नाही आहे ')
+            return render(request, 'home_sampark_sevekari.html', {'user_details': user_details})
+
+    elif x == 'pk session':
+        today = date.today()
+        pk_table = session_data.objects.filter(schedule_date=today).filter(User_id_id=id)
+        if pk_table:
+            pk_table = session_data.objects.filter(schedule_date=today)
+            st_update = st_data.objects.get(st_date=today)
+            if st_update.st_status == 'start':
+                function2 = 'schedule_data'
+            elif st_update.st_status == 'break':
+                reason = st_update.st_comment
+                msg = "प्रश्नोत्तरे थांबवली आहे,थोड्या वेळाने पुन्हा चालू होईल" + " " + "\n" + reason
+                messages.info(request, msg)
+                function2 = 'schedule_data'
+            else:
+                messages.info(request, 'आजची प्रश्नोत्तरे संपले आहेत ')
+                return render(request, 'home_prashankarta.html', {'user_details': user_details})
+        else:
+            messages.info(request, 'तुमचा प्रश्न आजच्या लिस्ट मध्ये नाही  ')
+            return render(request, 'home_prashankarta.html', {'user_details': user_details})
+
     else:
-        pk_table = session_data.objects.filter(status='scheduled')
+        pk_table = session_data.objects.exclude(status='completed').exclude(status='rejected').exclude(status = 'submitted')
         function2 = 'schedule_data'
 
     userlist = createlist(pk_table)
 
     if pk_table:
-         return render(request, 'home_admin.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
+         if user_details.type == 'sampark_sevekari':
+            return render(request, 'home_sampark_sevekari.html', {'user_details': user_details,'userlist': userlist ,'function2':function2})
+         elif user_details.type == 'main_admin':
+            return render(request, 'home_admin.html',
+                           {'user_details': user_details, 'userlist': userlist, 'function2': function2})
+         elif user_details.type == 'verified':
+            return render(request, 'home_prashankarta.html',
+                           {'user_details': user_details, 'userlist': userlist, 'function2': function2})
+
     else:
         messages.info(request,'प्रश्नकर्ता नाही आहे ')
-        return render(request,'home_admin.html', {'user_details': user_details})
+        if user_details.type == 'sampark_sevekari':
+            return render(request,'home_sampark_sevekari.html', {'user_details': user_details})
+        elif user_details.type == 'main_admin':
+            return render(request, 'home_admin.html', {'user_details': user_details})
+
+
+def upcoming_sessions(request):
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    upcoming_dates = st_data.objects.filter(st_status='schedule').values('st_date')
+    pk_table = []
+    for i in upcoming_dates:
+        date = i['st_date']
+        pk_table1 = session_data.objects.filter(schedule_date=date)
+        pk_table.append(pk_table1)
+    userlist = createlist1(pk_table)
+    if pk_table:
+        function2 = 'upcoming sessions'
+        if user_details.type == 'sampark_sevekari':
+            return render(request, 'home_sampark_sevekari.html',
+                          {'user_details': user_details, 'userlist': userlist, 'function2': function2})
+    else:
+        messages.info(request,'सध्या प्रश्नोत्तरे सेशन्स नाहीत')
 
 
 def prashan_schedule(request):
@@ -161,6 +277,11 @@ def prashan_schedule(request):
         record.schedule_time = select_timeslot
         record.schedule_date = schedule_date
         record.save()
+        st_record = st_data.objects.filter(st_date=schedule_date)
+        if not st_record:
+            new_record = st_data(st_date=schedule_date,st_status='schedule')
+            new_record.save()
+
         messages.info(request,'👍 सेशन आइडी'+'  ' + session_id + ' शेड्युल  यशस्वी 👍')
     pk_table = session_data.objects.filter(status='submitted')
     userlist = createlist(pk_table)
@@ -172,23 +293,152 @@ def createlist(pk_table):
     pk_table = pk_table
     userlist = []
     for i in pk_table:
-        id=i.User_id
-        session_id=i.session_id
-        prashan1=i.prashan1
-        prashan2 = i.prashan2
-        Date_filled = i.Date_filled
-        userdata = get_user_model().objects.get(mobile1=id)
-        full_name = (userdata.first_name)+ ' ' + (userdata.last_name)
-        mobile1=userdata.mobile1
-        mobile2=userdata.mobile2
-        user_id=userdata.id
-        city=userdata.city
+            id=i.User_id
+            session_id=i.session_id
+            prashan1=i.prashan1
+            prashan2 = i.prashan2
+            Date_filled = i.Date_filled
+            status = i.status
+            timeslot = i.schedule_time
+            schedule_date = i.schedule_date
+            userdata = get_user_model().objects.get(mobile1=id)
+            full_name = (userdata.first_name)+ ' ' + (userdata.last_name)
+            mobile1=userdata.mobile1
+            mobile2=userdata.mobile2
+            user_id=userdata.id
+            city=userdata.city
+            ss_code = userdata.sscode
+            ss_record = sampark_sevekari.objects.filter(sscode=ss_code).values('User_id_id')
+            print("ss_record:",ss_record)
+            print('i have reached here')
+            ss_user_id = ss_record[0]['User_id_id']
+            print('value of ss_user_id : ',ss_user_id,type(ss_user_id))
+            ss_data = get_user_model().objects.filter(pk=ss_user_id).values('first_name','last_name')
+            print('ss_data:',ss_data)
+            ss_name = ss_data[0]['first_name'] + ' ' + ss_data[0]['last_name']
+            print("ss name :", ss_name)
 
-        dic1={'user_id':user_id,'session_id':session_id,'prashan1':prashan1,'prashan2':prashan2,
-               'Date_filled':Date_filled,'city':city,'full_name':full_name,'mobile1':mobile1,'mobile2':mobile2}
 
-        userlist.append(dic1)
+            dic1={'user_id':user_id,'session_id':session_id,'prashan1':prashan1,'prashan2':prashan2,
+                   'Date_filled':Date_filled,'city':city,'full_name':full_name,'mobile1':mobile1,
+                  'mobile2':mobile2,'status':status,'timeslot':timeslot,'schedule_date':schedule_date,'ss_name':ss_name}
+
+            userlist.append(dic1)
     return userlist
+
+
+
+def createlist1(pk_table):
+    pk_table = pk_table
+    userlist = []
+    for j in pk_table:
+        for i in j:
+            id=i.User_id
+            session_id=i.session_id
+            prashan1=i.prashan1
+            prashan2 = i.prashan2
+            Date_filled = i.Date_filled
+            status = i.status
+            timeslot = i.schedule_time
+            schedule_date = i.schedule_date
+            userdata = get_user_model().objects.get(mobile1=id)
+            full_name = (userdata.first_name)+ ' ' + (userdata.last_name)
+            mobile1=userdata.mobile1
+            mobile2=userdata.mobile2
+            user_id=userdata.id
+            city=userdata.city
+            ss_code = userdata.sscode
+            ss_record = sampark_sevekari.objects.filter(sscode=ss_code).values('User_id_id')
+            print("ss_record:",ss_record)
+            print('i have reached here')
+            ss_user_id = ss_record[0]['User_id_id']
+            print('value of ss_user_id : ',ss_user_id,type(ss_user_id))
+            ss_data = get_user_model().objects.filter(pk=ss_user_id).values('first_name','last_name')
+            print('ss_data:',ss_data)
+            ss_name = ss_data[0]['first_name'] + ' ' + ss_data[0]['last_name']
+            print("ss name :", ss_name)
+
+
+            dic1={'user_id':user_id,'session_id':session_id,'prashan1':prashan1,'prashan2':prashan2,
+                   'Date_filled':Date_filled,'city':city,'full_name':full_name,'mobile1':mobile1,
+                  'mobile2':mobile2,'status':status,'timeslot':timeslot,'schedule_date':schedule_date,'ss_name':ss_name}
+
+            userlist.append(dic1)
+    return userlist
+
+def stop_session_page(request):
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    function2 = 'stop_session'
+    return render(request,'home_admin.html',{'user_details':user_details,'function2':function2})
+
+def pause_session_page(request):
+    #pause_reason = request.POST['']
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    function2 = 'pause_session'
+    return render(request,'home_admin.html',{'user_details':user_details,'function2':function2})
+
+
+def stop_session(request):
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    stop_date = request.POST['stop_date']
+    try:
+        st_update = st_data.objects.get(st_date=stop_date)
+        st_update.st_status = 'stop'
+        st_update.save()
+    except:
+        messages.info(request,'निवडलेल्या तारखेला सेशन नाही')
+        return render(request, 'home_admin.html', {'user_details': user_details})
+
+    pk_table = session_data.objects.filter(schedule_date=stop_date)
+    for i in pk_table.iterator():
+        if i.status == 'scheduled':
+            i.status = 'pending'
+            i.save()
+    messages.info(request,'आजची प्रश्नोत्तरे संपले आहेत')
+    return render(request, 'home_admin.html',{'user_details':user_details})
+
+def pause_session(request):
+    pause_reason = request.POST['pause_reason']
+    today = date.today()
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    try:
+        st_update = st_data.objects.get(st_date=today)
+        st_update.st_status = 'break'
+        st_update.st_comment = pause_reason
+        st_update.save()
+        messages.info(request, 'सेशन पॉज करण्यात आले आहे ')
+        return render(request, 'home_admin.html', {'user_details': user_details})
+    except:
+        messages.info(request,'निवडलेल्या तारखेला सेशन नाही')
+        return render(request, 'home_admin.html', {'user_details': user_details})
+
+
+
+def pk_status(request):
+    session_id = request.POST['session_id']
+    pk_status = request.POST['pk_status']
+    id = request.POST['user']
+    user_details = get_user_model().objects.get(pk=id)
+    userdata = session_data.objects.get(pk=session_id)
+    userdata.status = pk_status
+    userdata.save()
+    messages.info(request,' प्रश्नकर्ता  स्टेटस अपडेटेड')
+    today = date.today()
+    print("today date is:", today)
+    pk_table = session_data.objects.filter(schedule_date=today)
+    function2 = 'schedule_data'
+    userlist = createlist(pk_table)
+
+    if pk_table:
+        return render(request, 'home_admin.html',
+                      {'user_details': user_details, 'userlist': userlist, 'function2': function2})
+    else:
+        messages.info(request,'प्रश्नकर्ता नाही आहे ')
+        return render(request,'home_admin.html', {'user_details': user_details})
 
 
 def load_sevaform(request):
@@ -199,6 +449,8 @@ def load_sevaform(request):
     prashan1 = userdata.prashan1
     prashan2 = userdata.prashan2
     pid = userdata.User_id_id
+    userdata.status = 'in progress'
+    userdata.save()
     udata = get_user_model().objects.get(pk=pid)
     full_name = udata.first_name + ' ' + udata.last_name
     email = udata.email
@@ -222,7 +474,6 @@ def save_seva(request):
             pitraseva = request.POST.getlist('pitraseva')
             otherseva = request.POST.getlist('otherseva')
             vishesh_suchana_seva = request.POST.getlist('vishesh_suchana_seva')
-
             session_id = request.POST['session_id']
             pid = request.POST['pid']
             email = request.POST['email']

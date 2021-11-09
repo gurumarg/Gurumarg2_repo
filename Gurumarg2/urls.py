@@ -33,6 +33,7 @@ urlpatterns = [
     path('listof_unverified', include('admin.urls')),
     path('select_pk_seva', include('admin.urls')),
     path('prashan_schedule', include('admin.urls')),
+    path('pk_status',include('admin.urls')),
     path('load_sevaform', include('admin.urls')),
     path('save_seva', include('admin.urls')),
     path('show_selectedseva', include('admin.urls')),
@@ -70,6 +71,13 @@ urlpatterns = [
     path('fp_verify_code', include('home.urls')),
     path('fp_check_password',include('home.urls')),
     path('show_timeslots',include('admin.urls')),
+    path('stop_session',include('admin.urls')),
+    path('stop_session_page',include('admin.urls')),
+    path('pause_session_page',include('admin.urls')),
+    path('pause_session',include('admin.urls')),
+    path('upcoming_sessions',include('admin.urls')),
+    path('change_status',include('sampark_sevekari.urls')),
+    path('pk_change_status',include('sampark_sevekari.urls')),
 
 
 ]
