@@ -25,7 +25,7 @@ SECRET_KEY = '_z)%mf^rzjx60ugl9dhsuaw!dw*p4wbofq-e-^%i+sarjzl8x8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gurumargdarshan.org']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,11 +77,10 @@ WSGI_APPLICATION = 'Gurumarg2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Gurumarg',
+        'NAME': 'gurumarg',
         'USER': 'postgres',
-        'PASSWORD': 'SamarthGMD21',
-        'HOST': 'guru-db.c7o9tphuy91e.ap-south-1.rds.amazonaws.com',
-        'PORT':'5432'
+        'PASSWORD': 'Samarthpos@135',
+        'HOST': 'localhost'
     }
 
 }
