@@ -26,13 +26,13 @@
                  <label><b> मोबाईल क्रमांक :</b></label>{{user_details.mobile1}}<br><br>
                  <label><b> ज्यांच्याकडून माहिती मिळाली त्यांचे नाव :</b></label>{{user_details.reffered_by}}<br><br>
                   <label><b> संपर्क सेवेकरी कोड :</b></label>{{user_details.sscode}}<br><br>
-                 <label><b> तुमचा संपर्क सेवेकरी कोड :</b></label>{{sscode.sscode}}<br><br>
+                 <label><b> स्वतःचा संपर्क सेवेकरी कोड :</b></label>{{sscode.sscode}}<br><br>
 
-                 <label><b> कोड </b> </label><input placeholder="+91" list="ccode1" size="5" name="wmcode" value="{{user_details.code2}}" /> &nbsp
+                 <label><b> कंट्री कोड </b> </label><input placeholder="+91" list="ccode1" size="5" name="wmcode" value="{{user_details.code2}}" /> &nbsp
                    <datalist id="ccode1">
                      <option value="+91">
                      <option value="+1">
-                   </datalist>
+                   </datalist> <br><br>
                  <label><b> व्हाट्सअँप मोबाईल क्रमांक :</b></label><input type=tel id="wmobile" name=w_mobile size="20" placeholder="watsapp mobile" value="{{user_details.mobile2}}" /><br><br>
                  <label><b> गाव / शहर :</b></label><input type=text id="city" name=city size="20" placeholder="village/city" value="{{user_details.city}}" required/><br><br>
                  <label><b>  ई-मेल :</b></label><input type=email id="email" name=email size="30" placeholder="email" value="{{user_details.email}}"  required/><br><br>
@@ -46,8 +46,8 @@
       <form action="{% url 'return_to_home' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="user" value={{user_details.id}}><br>
-                <button class="button" type="submit" name=b2 > मागे जा    </button>
-      </form>
+                <button class="button" type="submit" name=b2 > मागे जा    </button> <br>
+      </form> <br>
 
   </div>
   {% endif %}

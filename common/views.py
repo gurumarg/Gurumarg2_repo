@@ -64,7 +64,7 @@ def submit_repeat_question(request):
         record.Date_filled = str(record.Date_filled) + ' / '+ str(date.today())
         record.status = 'submitted'
         record.save()
-        messages.info(request,' ✅ आपण पुन्हा केलेले प्रश्न स्वीकारण्यात आले आहेत.  ✅ ')
+        messages.info(request,' ✅ तुमचे जुने प्रश्न पुन्हा स्वीकारण्यात आले आहेत.  ✅ ')
     return render(request,'question_form.html', {'user_details': user_details})
 
 
