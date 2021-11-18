@@ -180,7 +180,7 @@ def profile_update(request):
     user_details.city = city
     user_details.code2 = code2
     if mobile2 != user_details.mobile2:
-        if not (len(mobile2)==0):
+        #if not (len(mobile2)==0):
             if not ((len(mobile2) == 10) and (mobile2.isnumeric())):
                 messages.info(request, '⚠ अपूर्ण मोबाईल नंबर किंवा  मोबाईल  नंबर  संख्येत अपेक्षित आहे , पुन्हा प्रोफाइल वर क्लिक करून अपडेट करा  ⚠️')
                 return render(request, 'profilepage.html', {'user_details': user_details})
@@ -200,7 +200,9 @@ def profile_update(request):
            recode_m = recode + 135
            recode = str(recode)
            print(recode)
-           msg = 'नोंदणीसाठी तुमचा व्हेरीफिकेशन  कोड :' + recode + ' हा राहील '
+           ty = """आपले आभारी\n 🙏 गुरुमार्गदर्शन टीम 🙏
+                """
+           msg = '🌼 श्री स्वामी समर्थ 🌼 \n\n' + 'नोंदणीसाठी तुमचा व्हेरीफिकेशन  कोड :' + recode + ' हा राहील\n' + ty
            send_mail('Email Verification', msg, 'samarthview@gmail.com',[g_email1, 'gurumargdarshan14@gmail.com'], fail_silently=True)
 
            messages.info(request,'📧 तुमच्या  ई-मेल वर  कोड पाठविण्यात आला आहे , १ मिनिट  थांबा ,\n  कोड नाही आला तर तुम्ही दिलेला ई-मेल बरोबर आहे , ते पहा 📧 ')
@@ -305,8 +307,10 @@ def add_sampark_sevekari(pid):
             record.type = "sampark_sevekari"
             record.save()
             name = record.first_name + ' ' + record.last_name
+            ty  = """आपले आभारी\n 🙏 गुरुमार्गदर्शन टीम 🙏
+                  """
             msg1 = name + ' ' + 'यांना संपर्क सेवेकरी म्हणून अ‍ॅड करण्यात आले आहे '
-            msg = 'तुमचा सम्पर्क सेवेकरी कोड हा आहे:' + ss_old.sscode
+            msg = '🌼 श्री स्वामी समर्थ 🌼 \n\n' + 'तुमचा सम्पर्क सेवेकरी कोड हा आहे:' + ss_old.sscode +'\n '+ ty
             send_mail('Selected As Sampark Sevekari', msg, 'samarthview@gmail.com', [record.email], fail_silently=True)
             return msg1
         if  i.sscode == new_sscode:
@@ -314,7 +318,9 @@ def add_sampark_sevekari(pid):
     if check == 'not_present':
         ss = sampark_sevekari(User_id_id=userid, sscode=new_sscode)
         ss.save()
-        msg = 'तुमचा सम्पर्क सेवेकरी कोड हा आहे:' + new_sscode
+        ty = """आपले आभारी\n 🙏 गुरुमार्गदर्शन टीम 🙏
+             """
+        msg = '🌼 श्री स्वामी समर्थ 🌼 \n\n' + 'तुमचा सम्पर्क सेवेकरी कोड हा आहे:' + new_sscode + '\n'+ ty
         record.type = "sampark_sevekari"
         record.save()
         send_mail('Selected As Sampark Sevekari', msg, 'samarthview@gmail.com', [record.email], fail_silently=True)

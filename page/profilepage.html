@@ -12,7 +12,7 @@
     </div>
   <div>
         {% for i in messages%}
-        <h3 style="padding-left: 80px; color:green">  {{i}}  </h3>
+        <h4 style="padding-left: 2px; color:green">  {{i}}  </h4>
         {% endfor %}
   </div>
   {%if function1 == 'profilepage' %}
@@ -62,7 +62,7 @@
                     <input type=text id="ecode" name=ecode size="20" placeholder="enter code"  required/><br><br>
                     <input type="hidden" name="user" value={{user_details.id}}><br>
                     <input type="submit" value="verify code" />
-                </form>
+                </form> <br>
 
   {%endif %}
 

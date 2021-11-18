@@ -1,3 +1,5 @@
+import string
+
 from django.shortcuts import render
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -55,7 +57,9 @@ def send_email(request):
     code_m = code + 135
     code = str(code)
     print(code)
-    msg = 'नोंदणीसाठी तुमचा व्हेरीफिकेशन  कोड :'+ code +' हा राहील '
+    ty = """आपले आभारी\n 🙏 गुरुमार्गदर्शन टीम 🙏 """
+
+    msg = '🌼 श्री स्वामी समर्थ 🌼 \n\n' + 'नोंदणीसाठी तुमचा व्हेरीफिकेशन कोड :'+ code +' हा राहील \n'+ty
     send_mail('Email Verification', msg, 'samarthview@gmail.com',
               [g_email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
 
@@ -117,8 +121,8 @@ def registration_check(request):
         return render(request, 'register.html', {'function': function, 'datavalue': datavalue,'email':email,'data':data})
     else:
         if password2 == password1:
-            if mobile1.isnumeric():
-                if len(mobile1) == 10:
+            if mobile1.isnumeric() and mobile2.isnumeric():
+                if len(mobile1) == 10 and len(mobile2) == 10 :
                     if User.objects.filter(mobile1=mobile1).exists():
                         messages.info(request, 'मोबाइल नंबर रजिस्टर  आहे , कृपया लॉगीन करा ')
                         return render(request, 'loginpage.html')
@@ -135,7 +139,12 @@ def registration_check(request):
                         ss_id = ss_record.User_id_id
                         ss_details = get_user_model().objects.get(id=ss_id)
                         ss_email = ss_details.email
-                        msg = first_name + ' ' + last_name + ' ' + 'यांनी तुमच्या वतीने नोंदणी केली आहे . त्यांना ओळखत असल्यास व्हेरिफाय करा '
+                        fullname = first_name + ' ' + last_name
+                        sss = '🌼 श्री स्वामी समर्थ 🌼 \n'
+                        ty = """आपले आभारी 
+                                🙏 गुरुमार्गदर्शन टीम 🙏 """
+                        content = ' यांनी तुमच्या वतीने नोंदणी केली आहे.त्यांना ओळखत असल्यास व्हेरिफाय करा. '
+                        msg = sss + fullname + content + ty
                         send_mail('New user registered', msg, 'gurumargdarshan14@gmail.com',
                                   [ss_email, 'gurumargdarshan14@gmail.com'], fail_silently=True)
                         return render(request, 'loginpage.html')
@@ -196,7 +205,9 @@ def forgot_password(request):
         recode_m = recode + 135
         recode = str(recode)
         print(recode)
-        msg = 'पासवर्ड रिसेट करिता तुमचा व्हेरीफिकेशन कोड :' + recode + ' हा राहील '
+        ty = """आपले आभारी 
+                🙏 गुरुमार्गदर्शन टीम 🙏 """
+        msg = '🌼 श्री स्वामी समर्थ 🌼 \n\n' + 'पासवर्ड रिसेट करिता तुमचा व्हेरीफिकेशन कोड :' + recode + ' हा राहील \n' + ty
         send_mail('Email Verification', msg, 'samarthview@gmail.com', [email_id, 'gurumargdarshan14@gmail.com'],
                   fail_silently=True)
 
